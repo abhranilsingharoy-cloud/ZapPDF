@@ -1,66 +1,133 @@
-# ZapPDF ⚡
+<div align="center">
+  <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="80" height="80">
+  <h1 align="center">ZapPDF</h1>
+  
+  <p align="center">
+    <strong>A blazing fast, privacy-first, 100% client-side PDF compression tool.</strong>
+    <br />
+    <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Request Feature</a>
+  </p>
+</div>
 
-> Fast. Private. Free. Client-side PDF compression right in your browser.
+<div align="center">
+  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
+  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-323330?logo=javascript&logoColor=F7DF1E" alt="JavaScript">
+  <img src="https://img.shields.io/badge/PDF--lib-JS-blue" alt="pdf-lib">
+</div>
 
-![ZapPDF Screenshot placeholder](https://via.placeholder.com/800x450/0F0F0F/F5C518?text=ZapPDF+Screenshot)
+---
 
-## Overview
+## 📖 Table of Contents
 
-ZapPDF is a modern, privacy-first web application designed to reduce PDF file sizes securely. Unlike traditional PDF compressors that require you to upload sensitive documents to a third-party server, ZapPDF performs all compression completely locally in your browser using modern WebAssembly and JavaScript APIs. 
+- [About the Project](#-about-the-project)
+- [Key Features](#-key-features)
+- [Architecture & Security](#-architecture--security)
+- [Getting Started](#-getting-started)
+- [Usage Guide](#-usage-guide)
+- [Roadmap](#-roadmap)
+- [Contributing](#-contributing)
+- [License](#-license)
 
-## Features
+## 🌟 About the Project
 
-- **⚡ Lightning Fast:** No upload/download delays. Compression starts instantly.
-- **🔒 Fully Private:** Your files never leave your device.
-- **🎯 Target File Size:** Set an exact target size and let the app find the best quality setting.
-- **📦 Batch Processing:** Compress up to 5 PDFs simultaneously and download as a ZIP.
-- **⚙️ Advanced Controls:** Fine-tune DPI, quality, metadata, and subset fonts for total control.
-- **🌍 Works Everywhere:** Any modern browser, any OS. No installation required.
+**ZapPDF** was born out of a simple necessity: *Compressing PDF files without sacrificing privacy.* 
 
-## Tech Stack
+Most online PDF compressors require users to upload their sensitive documents (invoices, legal contracts, personal IDs) to a remote server. This poses a significant security risk. ZapPDF revolutionizes this by leveraging modern Web APIs, WebAssembly, and `pdf-lib` to perform all file processing **locally within your browser**.
 
-ZapPDF is built with a focus on simplicity, performance, and zero backend dependencies:
+Your files never leave your machine. No servers. No uploads. No limits.
 
-- **Frontend:** Vanilla HTML5, CSS3, and JavaScript (ES6+). No heavy frameworks.
-- **PDF Processing:** [pdf-lib](https://pdf-lib.js.org/) for robust PDF manipulation.
-- **Image/PDF Parsing:** [PDF.js](https://mozilla.github.io/pdf.js/) for rendering.
-- **Zipping:** [JSZip](https://stuk.github.io/jszip/) for batch downloading.
-- **File Saving:** [FileSaver.js](https://github.com/eligrey/FileSaver.js/) for client-side blob saving.
+## ✨ Key Features
 
-## Getting Started (Local Development)
+- 🔒 **Absolute Privacy:** 100% client-side processing. Once you close the tab, your data vanishes.
+- ⚡ **Zero Latency:** Because there are no uploads or downloads to a server, compression begins instantly.
+- 🎯 **Smart Target Sizing:** Specify an exact target file size (e.g., 200KB) and the algorithm will attempt to hit it.
+- 📦 **Batch Operations:** Drag, drop, and compress up to 5 PDFs simultaneously, then download them bundled in a ZIP.
+- 🛠️ **Granular Controls:** Strip metadata, flatten form fields, adjust image DPI, convert to grayscale, and remove embedded thumbnails.
+- 🎨 **Premium UI/UX:** A stunning "Golden Solar" dark-mode UI with glassmorphism effects, fluid animations, and responsive design.
 
-Because ZapPDF is entirely static, running it locally is incredibly simple.
+## 🏗️ Architecture & Security
 
-1. Clone or download the repository.
-2. Open the project folder.
-3. Serve the directory using any local web server (e.g., using VS Code Live Server, or Python's `http.server`):
-   ```bash
+ZapPDF utilizes a Web Worker architecture to prevent the main UI thread from blocking during heavy PDF manipulation tasks. 
+
+```mermaid
+graph TD
+    A[User Interface HTML/CSS] -->|File Selection| B(Main Thread JS)
+    B -->|PostMessage: ArrayBuffer + Settings| C{Web Worker}
+    C -->|pdf-lib load & manipulate| D[In-Memory PDF processing]
+    D -->|Object Streams & Optimization| E[Compressed Bytes]
+    E -->|PostMessage: Result| B
+    B -->|Blob URL| F[FileSaver.js / JSZip]
+    F -->|Download| G(User Device)
+```
+
+**Security Guarantees:**
+- **No API Calls:** The network tab remains entirely quiet during processing.
+- **Stateless:** The application relies only on standard browser memory which is cleared upon tab closure.
+
+## 🚀 Getting Started
+
+To get a local copy up and running, follow these simple steps.
+
+### Prerequisites
+
+ZapPDF is a static frontend application. You simply need a local web server to serve the files (to bypass CORS/Worker restrictions that occur when opening `index.html` via the `file://` protocol).
+
+*   Node.js (for `npx serve`) or Python (for `http.server`)
+
+### Installation
+
+1. **Clone the repository**
+   ```sh
+   git clone https://github.com/abhranilsingharoy-cloud/ZapPDF.git
+   ```
+2. **Navigate to the directory**
+   ```sh
+   cd ZapPDF
+   ```
+3. **Start a local development server**
+   
+   Using Node/npm:
+   ```sh
    npx serve .
-   # or
+   ```
+   Or using Python 3:
+   ```sh
    python -m http.server 8000
    ```
-4. Navigate to `http://localhost:8000` in your browser.
-*(Note: Some features like Web Workers may require the files to be served via HTTP rather than just opening `index.html` directly from the filesystem, due to browser security restrictions).*
+4. **Open your browser**
+   Navigate to `http://localhost:3000` (or `8000` depending on the server).
 
-## Project Structure
+## 💡 Usage Guide
 
-```
-zappdf/
-├── index.html          # Main compression tool
-├── about.html          # About & Mission page
-├── faq.html            # Frequently Asked Questions
-├── privacy.html        # Privacy Policy
-├── assets/
-│   ├── css/            # Modular CSS files (Main, Hero, Tool, Responsive, etc.)
-│   ├── js/             # Modular JS files (UI, Upload, Compress, Worker, Main)
-│   └── icons/          # SVG UI icons
-└── README.md
-```
+1. **Upload:** Drag and drop your PDF files into the designated drop zone.
+2. **Configure:** Select a preset compression level (Low, Medium, High, Extreme) or toggle the advanced settings accordion to fine-tune metadata and DPI settings.
+3. **Compress:** Click the "Compress" button. Watch the progress bar as the Web Worker processes your files in the background.
+4. **Download:** Download files individually or click "Download All as ZIP" for batch downloads.
 
-## Contributing
+## 🗺️ Roadmap
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+- [x] Initial Release (UI/UX, core compression, batch processing)
+- [ ] Implement OCR capabilities (via Tesseract.js)
+- [ ] Add PDF merging and splitting utilities
+- [ ] Add localization / multi-language support
 
-## License
+## 🤝 Contributing
 
-This project is licensed under the MIT License.
+Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+## 📄 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+---
+<p align="center">Made with ❤️ for Privacy and Performance.</p>
