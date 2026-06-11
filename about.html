@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About ZapPDF - Fast & Private Browser-Based PDF Compression</title>
+    <meta name="description" content="Learn more about ZapPDF, the fast and private client-side PDF compressor.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                <span>ZapPDF</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#features">Features</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html" class="active">About</a>
+            </div>
+            <div class="nav-cta">
+                <a href="index.html#tool" class="btn btn-primary btn-sm">Compress Now</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-nav-overlay">
+            <div class="mobile-nav-links">
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#features">Features</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+                <a href="index.html#tool" class="btn btn-primary">Compress Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="sections" style="min-height: 80vh; padding-top: 120px;">
+        <div class="container">
+            <h1 class="section-heading" style="text-align: left; margin-bottom: 24px;">Built for Everyone Who Works with PDFs</h1>
+            <div class="heading-accent" style="margin-left: 0; margin-bottom: 48px;"></div>
+            
+            <div class="about-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: center;">
+                <div>
+                    <h2 style="margin-bottom: 16px; font-size: 24px;">Our Mission</h2>
+                    <p style="margin-bottom: 24px; color: var(--color-text-muted);">
+                        ZapPDF was built with a single goal: to provide a fast, secure, and entirely free way to compress PDF files without compromising privacy. 
+                        Most PDF tools online require you to upload your sensitive documents to their servers, where they might be stored or analyzed. 
+                        We do things differently.
+                    </p>
+                    <p style="margin-bottom: 32px; color: var(--color-text-muted);">
+                        By leveraging modern web technologies, ZapPDF performs all compression locally inside your browser. Your files never leave your device.
+                    </p>
+                    
+                    <h2 style="margin-bottom: 16px; font-size: 24px;">The Tech Stack</h2>
+                    <div style="display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 32px;">
+                        <span class="trust-chip" style="background: var(--color-surface-2);">pdf-lib</span>
+                        <span class="trust-chip" style="background: var(--color-surface-2);">PDF.js</span>
+                        <span class="trust-chip" style="background: var(--color-surface-2);">JSZip</span>
+                    </div>
+
+                    <a href="https://github.com" target="_blank" class="btn btn-outline">View on GitHub</a>
+                </div>
+                <div style="background: var(--color-glass); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 48px; text-align: center; box-shadow: var(--glow-sm);">
+                    <img src="assets/icons/shield.svg" alt="Privacy Shield" style="width: 120px; height: 120px; margin-bottom: 24px;">
+                    <h3 style="margin-bottom: 16px;">100% Client-Side Processing</h3>
+                    <p style="color: var(--color-text-muted); font-size: 14px;">Powered by WebAssembly and modern JS APIs to bring desktop-class processing to the browser.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo">
+                    <img src="assets/icons/logo.svg" alt="ZapPDF" width="24" height="24">
+                    <span>ZapPDF</span>
+                </a>
+                <p>Fast. Private. Free.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="GitHub">GH</a>
+                    <a href="#" aria-label="Twitter">X</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Tools</h4>
+                <a href="index.html">Compress PDF</a>
+                <a href="#">Merge PDF</a>
+                <a href="#">Split PDF</a>
+                <a href="#">PDF to JPG</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="about.html">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ZapPDF — No files stored. Ever.</p>
+        </div>
+    </footer>
+    <script src="assets/js/ui.js"></script>
+</body>
+</html>

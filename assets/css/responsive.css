@@ -1,0 +1,107 @@
+/* Responsive */
+
+/* Tablet & Mobile (under 1024px) */
+@media (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .footer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile (under 768px) */
+@media (max-width: 768px) {
+  .nav-links, .nav-cta {
+    display: none;
+  }
+  
+  .mobile-menu-btn {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 32px;
+  }
+
+  .hero p {
+    font-size: 16px;
+  }
+  
+  .steps-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .step-connector {
+    display: none;
+  }
+  
+  .step-card {
+    display: flex;
+    text-align: left;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .step-circle {
+    margin: 0;
+    flex-shrink: 0;
+  }
+  
+  .step-icon {
+    display: none;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .advanced-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .batch-download-bar {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
+  }
+  
+  .result-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  
+  .result-stats {
+    flex-wrap: wrap;
+  }
+  
+  .about-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* Small Mobile (under 480px) */
+@media (max-width: 480px) {
+  .level-tabs {
+    flex-wrap: wrap;
+  }
+  
+  .level-tab {
+    flex: 0 0 50%;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}

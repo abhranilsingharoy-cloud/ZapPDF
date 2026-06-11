@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapPDF - Fast & Private Browser-Based PDF Compression</title>
+    <meta name="description" content="Reduce your PDF file size in seconds right inside your browser. Private, fast, and completely free.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/tool.css">
+    <link rel="stylesheet" href="assets/css/results.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+
+    <!-- SECTION 1: Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                <span>ZapPDF</span>
+            </a>
+            <div class="nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#tool" class="btn btn-primary btn-sm">Compress Now</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-nav-overlay">
+            <div class="mobile-nav-links">
+                <a href="#how-it-works">How It Works</a>
+                <a href="#features">Features</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+                <a href="#tool" class="btn btn-primary">Compress Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- SECTION 2: Hero -->
+    <section id="hero" class="hero">
+        <div class="particle-container" id="particles"></div>
+        <div class="hero-content">
+            <div class="badge-chip">⚡ 100% Free & Browser-Based</div>
+            <h1><span class="gradient-text">Compress PDFs.</span><br>No Uploads. No Limits.</h1>
+            <p>Reduce your PDF file size in seconds — right inside your browser. Private, fast, and completely free.</p>
+            
+            <div class="trust-badges">
+                <span class="trust-chip">🔒 Files Never Leave Your Device</span>
+                <span class="trust-chip">⚡ Compresses in Seconds</span>
+                <span class="trust-chip">📦 Up to 5 Files at Once</span>
+            </div>
+            
+            <div class="hero-actions">
+                <a href="#tool" class="btn btn-primary btn-lg">Start Compressing →</a>
+                <a href="#how-it-works" class="btn btn-outline btn-lg">See How It Works</a>
+            </div>
+            
+            <div class="social-proof">
+                <span class="stars">★★★★★</span>
+                <span>Trusted by 50,000+ users worldwide</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: Main Tool -->
+    <section id="tool" class="tool-section">
+        <div class="tool-container">
+            
+            <!-- Upload Zone -->
+            <div id="upload-zone" class="upload-zone">
+                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <h2>Drag & Drop PDFs Here</h2>
+                <p>or <span class="upload-link">click to browse files</span></p>
+                <p class="accepted-text">Supports: PDF • Max 5 files</p>
+                <input type="file" id="file-input" accept=".pdf" multiple class="visually-hidden">
+            </div>
+
+            <!-- Compact Header (Hidden until files selected) -->
+            <div id="upload-compact" class="upload-compact hidden">
+                <span id="file-count-text">0 file(s) selected</span>
+                <button id="btn-change-files" class="btn-text">Change / Clear</button>
+            </div>
+
+            <!-- File List (Hidden until files selected) -->
+            <div id="file-list" class="file-list hidden">
+                <!-- Cards injected by JS -->
+            </div>
+
+            <!-- Compression Controls (Hidden until files selected) -->
+            <div id="compression-controls" class="compression-controls hidden">
+                
+                <!-- Panel 1: Compression Level -->
+                <div class="control-panel panel-level">
+                    <label class="panel-label">Compression Level <span class="info-tooltip" title="Select how aggressively to compress. Higher compression means lower quality.">ℹ</span></label>
+                    <div class="level-tabs" id="level-tabs">
+                        <button class="level-tab" data-level="low">Low</button>
+                        <button class="level-tab active" data-level="medium">Medium</button>
+                        <button class="level-tab" data-level="high">High</button>
+                        <button class="level-tab" data-level="extreme">Extreme</button>
+                    </div>
+                    <input type="range" id="level-slider" min="1" max="4" step="1" value="2" class="level-slider">
+                    <p class="estimated-size" id="estimated-size-text">Original: -- MB → Estimated: -- MB</p>
+                </div>
+
+                <!-- Panel 2: Target Size -->
+                <div class="control-panel panel-target">
+                    <div class="toggle-row">
+                        <label class="panel-label" for="target-size-toggle">Compress to exact target size</label>
+                        <label class="switch">
+                            <input type="checkbox" id="target-size-toggle">
+                            <span class="slider round"></span>
+                        </label>
+                    </div>
+                    <div id="target-size-inputs" class="target-inputs hidden">
+                        <input type="number" id="target-size-value" placeholder="e.g. 200" min="1">
+                        <select id="target-size-unit">
+                            <option value="KB">KB</option>
+                            <option value="MB">MB</option>
+                        </select>
+                        <p class="hint-text">We'll find the best quality setting to match your target</p>
+                    </div>
+                </div>
+
+                <!-- Panel 3: Advanced Options -->
+                <div class="control-panel panel-advanced">
+                    <button class="accordion-trigger" id="advanced-options-trigger" aria-expanded="false" aria-controls="advanced-options-content">
+                        Advanced Options <span class="chevron">▾</span>
+                    </button>
+                    <div id="advanced-options-content" class="accordion-content">
+                        <div class="advanced-grid">
+                            <label class="checkbox-label" title="Remove PDF metadata like author, creation date, etc.">
+                                <input type="checkbox" id="opt-metadata" checked> Remove metadata
+                            </label>
+                            <label class="checkbox-label" title="Flatten form fields so they can't be edited">
+                                <input type="checkbox" id="opt-forms"> Flatten form fields
+                            </label>
+                            <label class="checkbox-label" title="Convert all colors to grayscale">
+                                <input type="checkbox" id="opt-grayscale"> Convert to grayscale
+                            </label>
+                            <label class="checkbox-label" title="Remove embedded page thumbnails">
+                                <input type="checkbox" id="opt-thumbnails"> Remove thumbnails
+                            </label>
+                            <label class="checkbox-label" title="Remove unused font characters">
+                                <input type="checkbox" id="opt-fonts"> Subset embedded fonts
+                            </label>
+                            <label class="checkbox-label" title="Remove comments and annotations">
+                                <input type="checkbox" id="opt-annotations"> Strip annotations
+                            </label>
+                        </div>
+                        <div class="dpi-selector">
+                            <label>Image DPI:</label>
+                            <div class="dpi-pills">
+                                <label><input type="radio" name="dpi" value="72"><span>72</span></label>
+                                <label><input type="radio" name="dpi" value="96"><span>96</span></label>
+                                <label><input type="radio" name="dpi" value="150" checked><span>150</span></label>
+                                <label><input type="radio" name="dpi" value="300"><span>300</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compress Button -->
+                <button id="btn-compress" class="btn btn-primary btn-compress">
+                    <img src="assets/icons/lightning.svg" alt="" width="20" height="20">
+                    <span id="btn-compress-text">Compress PDF</span>
+                </button>
+                <div id="progress-bar-container" class="progress-container hidden">
+                    <div id="progress-bar" class="progress-bar"></div>
+                </div>
+                
+            </div>
+            
+            <!-- SECTION 4: Results Panel (Hidden initially) -->
+            <div id="results-panel" class="results-panel hidden">
+                <div id="results-list" class="results-list">
+                    <!-- Result cards injected here -->
+                </div>
+                <div id="batch-download-bar" class="batch-download-bar hidden">
+                    <div class="batch-stats" id="batch-stats-text">0 files compressed, total saved: 0 MB</div>
+                    <button id="btn-download-zip" class="btn btn-primary">
+                        <img src="assets/icons/download.svg" alt="" width="20" height="20"> Download All as ZIP
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SECTION 5: How It Works -->
+    <section id="how-it-works" class="sections">
+        <div class="container">
+            <h2 class="section-heading">How It Works</h2>
+            <div class="heading-accent"></div>
+            
+            <div class="steps-container scroll-reveal">
+                <div class="step-card">
+                    <div class="step-circle">1</div>
+                    <img src="assets/icons/upload.svg" class="step-icon" alt="">
+                    <h3>Upload</h3>
+                    <p>Drag & drop or click to select up to 5 PDF files from your device</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card">
+                    <div class="step-circle">2</div>
+                    <img src="assets/icons/compress.svg" class="step-icon" alt="">
+                    <h3>Configure</h3>
+                    <p>Choose your compression level or set a custom target file size</p>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-card">
+                    <div class="step-circle">3</div>
+                    <img src="assets/icons/download.svg" class="step-icon" alt="">
+                    <h3>Download</h3>
+                    <p>Instantly download your compressed PDF — no email, no account</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: Features -->
+    <section id="features" class="sections">
+        <div class="container">
+            <h2 class="section-heading">Why ZapPDF?</h2>
+            <p class="section-subheading">Built for speed, privacy, and precision.</p>
+            
+            <div class="features-grid scroll-reveal">
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Client-side processing means no upload delays — compression starts immediately.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🔒</div>
+                    <h3>Fully Private</h3>
+                    <p>Your files never touch a server. Everything runs inside your browser only.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🎯</div>
+                    <h3>Target File Size</h3>
+                    <p>Need under 200KB? Set an exact target and we'll hit it automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">📦</div>
+                    <h3>Batch Processing</h3>
+                    <p>Upload up to 5 PDFs at once and compress them all in a single click.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">⚙️</div>
+                    <h3>Advanced Controls</h3>
+                    <p>Fine-tune DPI, quality, metadata, grayscale, and more for total control.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🌍</div>
+                    <h3>Works Everywhere</h3>
+                    <p>Any browser, any OS, any device. No installation or account required.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: FAQ (Preview on Index) -->
+    <section id="faq" class="sections">
+        <div class="container">
+            <h2 class="section-heading">Frequently Asked Questions</h2>
+            
+            <div class="faq-accordion scroll-reveal">
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
+                        Is my PDF data private and secure? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-1" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            All processing happens in your browser using JavaScript. No file is ever sent to any server. Once you close the tab, everything is gone.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
+                        What is the maximum file size I can compress? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-2" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Since compression runs in your browser, practical limit is around 100MB per file depending on your device's available memory.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
+                        Will compression reduce my PDF's visual quality? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-3" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            At Low and Medium settings, quality loss is barely noticeable. High and Extreme modes reduce image DPI and quality more aggressively. You can preview before downloading.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-4">
+                        Can I compress multiple PDFs at the same time? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-4" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. You can upload and compress up to 5 PDFs simultaneously. Download them individually or all at once as a ZIP file.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-more" style="text-align: center; margin-top: 32px;">
+                <a href="faq.html" class="btn btn-outline">View All FAQs</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo">
+                    <img src="assets/icons/logo.svg" alt="ZapPDF" width="24" height="24">
+                    <span>ZapPDF</span>
+                </a>
+                <p>Fast. Private. Free.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="GitHub">GH</a>
+                    <a href="#" aria-label="Twitter">X</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Tools</h4>
+                <a href="index.html">Compress PDF</a>
+                <a href="#">Merge PDF</a>
+                <a href="#">Split PDF</a>
+                <a href="#">PDF to JPG</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="about.html">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ZapPDF — No files stored. Ever.</p>
+        </div>
+    </footer>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+
+    <!-- Local Scripts -->
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/upload.js"></script>
+    <script src="assets/js/compress.js"></script>
+    <script src="assets/js/download.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions - ZapPDF</title>
+    <meta name="description" content="Get answers to common questions about ZapPDF, PDF compression, and privacy.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                <span>ZapPDF</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#features">Features</a>
+                <a href="faq.html" class="active">FAQ</a>
+                <a href="about.html">About</a>
+            </div>
+            <div class="nav-cta">
+                <a href="index.html#tool" class="btn btn-primary btn-sm">Compress Now</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        <div class="mobile-nav-overlay">
+            <div class="mobile-nav-links">
+                <a href="index.html#how-it-works">How It Works</a>
+                <a href="index.html#features">Features</a>
+                <a href="faq.html">FAQ</a>
+                <a href="about.html">About</a>
+                <a href="index.html#tool" class="btn btn-primary">Compress Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="sections" style="min-height: 80vh; padding-top: 120px;">
+        <div class="container" style="max-width: 800px;">
+            <h1 class="section-heading" style="text-align: left;">Frequently Asked Questions</h1>
+            <div class="heading-accent" style="margin-left: 0; margin-bottom: 48px;"></div>
+            
+            <div class="faq-accordion">
+                <h3 style="margin: 32px 0 16px 0; color: var(--color-primary);">Privacy & Security</h3>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-p1">
+                        Is my PDF data private and secure? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-p1" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. All processing happens locally in your browser using JavaScript. No file is ever sent to any server. Once you close the tab, everything is gone.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-p2">
+                        Do you store any of my files? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-p2" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            No. We do not have servers for file storage. Your files never leave your device, meaning we physically cannot store them.
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 48px 0 16px 0; color: var(--color-primary);">Compression Quality</h3>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-c1">
+                        Will compression reduce my PDF's visual quality? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-c1" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            At Low and Medium settings, quality loss is barely noticeable. High and Extreme modes reduce image DPI and quality more aggressively. You can preview before downloading.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-c2">
+                        How does "target size" compression work? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-c2" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            You enter a target size (e.g., 200KB). ZapPDF runs multiple compression passes, adjusting image quality settings until the output matches your target as closely as possible.
+                        </div>
+                    </div>
+                </div>
+
+                <h3 style="margin: 48px 0 16px 0; color: var(--color-primary);">File Handling & Technical</h3>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-f1">
+                        What is the maximum file size I can compress? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-f1" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Since compression runs in your browser, the practical limit is around 100MB per file depending on your device's available memory.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-f2">
+                        Can I compress multiple PDFs at the same time? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-f2" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. You can upload and compress up to 5 PDFs simultaneously. Download them individually or all at once as a ZIP file.
+                        </div>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-f3">
+                        Does it work on iPhone and Android? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-f3" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Yes. ZapPDF is fully responsive and works on any modern mobile browser including Safari, Chrome, and Firefox on mobile devices.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false" aria-controls="faq-f4">
+                        Is ZapPDF really free? Any hidden limits? <span class="faq-chevron">▶</span>
+                    </button>
+                    <div id="faq-f4" class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Completely free. No watermarks, no account, no file count limits, no time restrictions. Use it as much as you want.
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <a href="index.html" class="logo">
+                    <img src="assets/icons/logo.svg" alt="ZapPDF" width="24" height="24">
+                    <span>ZapPDF</span>
+                </a>
+                <p>Fast. Private. Free.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="GitHub">GH</a>
+                    <a href="#" aria-label="Twitter">X</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Tools</h4>
+                <a href="index.html">Compress PDF</a>
+                <a href="#">Merge PDF</a>
+                <a href="#">Split PDF</a>
+                <a href="#">PDF to JPG</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="about.html">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="#">Terms of Use</a>
+                <a href="#">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 ZapPDF — No files stored. Ever.</p>
+        </div>
+    </footer>
+    <script src="assets/js/ui.js"></script>
+</body>
+</html>

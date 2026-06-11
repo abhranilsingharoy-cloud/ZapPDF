@@ -1,0 +1,127 @@
+/* Results Panel */
+.results-panel {
+  margin-top: 40px;
+}
+
+.results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.result-card {
+  background: var(--color-glass);
+  border: 1px solid var(--color-border);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  animation: slide-up-fade 0.4s forwards;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.result-filename {
+  font-weight: 600;
+  font-size: 18px;
+  word-break: break-all;
+}
+
+.badge-success {
+  background: rgba(34, 197, 94, 0.15);
+  color: var(--color-success);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.result-stats {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-size: 15px;
+}
+
+.stat-before {
+  color: var(--color-text-muted);
+}
+
+.stat-arrow {
+  color: var(--color-text-muted);
+}
+
+.stat-after {
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.stat-badge {
+  background: var(--color-success);
+  color: #0F0F0F;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.result-progress-bg {
+  height: 6px;
+  background: var(--color-surface-2);
+  border-radius: 3px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.result-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+  border-radius: 3px;
+}
+
+.result-actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-ghost {
+  background: none;
+  border: 1px solid transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.btn-ghost:hover {
+  background: var(--color-surface-2);
+  color: var(--color-text);
+}
+
+/* Batch Download Bar */
+.batch-download-bar {
+  position: sticky;
+  bottom: 24px;
+  background: rgba(34, 34, 34, 0.85);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border);
+  padding: 16px 24px;
+  border-radius: var(--radius-md);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 32px;
+  z-index: 90;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.batch-stats {
+  font-weight: 500;
+}
