@@ -130,4 +130,4 @@ Contributions are what make the open-source community such an amazing place to l
 Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
-<p align="center">Made with ❤️ for Privacy and Performance.</p>
+<p align="center">Designed and Developed by Abhranil Singha Roy.</p>
