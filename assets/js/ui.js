@@ -16,7 +16,7 @@ window.ZapUI = {
     const ctx = canvas.getContext('2d');
     let width, height;
     const particles = [];
-    const numParticles = window.innerWidth > 768 ? 60 : 25;
+    const numParticles = window.innerWidth > 768 ? 150 : 60;
     
     const resize = () => {
       width = container.clientWidth;
