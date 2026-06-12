@@ -114,29 +114,23 @@
                         <button class="level-tab active" data-level="medium">Medium</button>
                         <button class="level-tab" data-level="high">High</button>
                         <button class="level-tab" data-level="extreme">Extreme</button>
+                        <button class="level-tab" data-level="custom">Custom</button>
                     </div>
-                    <input type="range" id="level-slider" min="1" max="4" step="1" value="2" class="level-slider">
+                    <input type="range" id="level-slider" min="1" max="5" step="1" value="2" class="level-slider">
+                    
+                    <div id="custom-size-input-wrapper" class="target-inputs hidden" style="margin-top: 16px;">
+                        <input type="number" id="custom-target-size" placeholder="e.g. 1.5" min="0.1" step="0.1">
+                        <select id="custom-target-unit">
+                            <option value="MB">MB</option>
+                            <option value="KB">KB</option>
+                        </select>
+                        <p class="hint-text" style="margin-top:8px;">We'll rasterize images to accurately hit this size target.</p>
+                    </div>
+
                     <p class="estimated-size" id="estimated-size-text">Original: -- MB → Estimated: -- MB</p>
                 </div>
 
-                <!-- Panel 2: Target Size -->
-                <div class="control-panel panel-target">
-                    <div class="toggle-row">
-                        <label class="panel-label" for="target-size-toggle">Compress to exact target size</label>
-                        <label class="switch">
-                            <input type="checkbox" id="target-size-toggle">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                    <div id="target-size-inputs" class="target-inputs hidden">
-                        <input type="number" id="target-size-value" placeholder="e.g. 200" min="1">
-                        <select id="target-size-unit">
-                            <option value="KB">KB</option>
-                            <option value="MB">MB</option>
-                        </select>
-                        <p class="hint-text">We'll find the best quality setting to match your target</p>
-                    </div>
-                </div>
+
 
                 <!-- Panel 3: Advanced Options -->
                 <div class="control-panel panel-advanced">

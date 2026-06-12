@@ -5,7 +5,6 @@ window.ZapUI = {
     this.initAccordion();
     this.initScrollAnimations();
     this.initLevelSlider();
-    this.initTargetToggle();
   },
 
   initNavMobile() {
@@ -87,6 +86,7 @@ window.ZapUI = {
   initLevelSlider() {
     const tabs = document.querySelectorAll('.level-tab');
     const slider = document.getElementById('level-slider');
+    const customWrapper = document.getElementById('custom-size-input-wrapper');
     
     if (tabs.length && slider) {
       tabs.forEach((tab, index) => {
@@ -107,21 +107,12 @@ window.ZapUI = {
       function updateActiveTab(activeEl) {
         tabs.forEach(t => t.classList.remove('active'));
         activeEl.classList.add('active');
-      }
-    }
-  },
-
-  initTargetToggle() {
-    const toggle = document.getElementById('target-size-toggle');
-    const inputs = document.getElementById('target-size-inputs');
-    if (toggle && inputs) {
-      toggle.addEventListener('change', (e) => {
-        if (e.target.checked) {
-          inputs.classList.remove('hidden');
+        if (activeEl.dataset.level === 'custom') {
+            if(customWrapper) customWrapper.classList.remove('hidden');
         } else {
-          inputs.classList.add('hidden');
+            if(customWrapper) customWrapper.classList.add('hidden');
         }
-      });
+      }
     }
   },
 

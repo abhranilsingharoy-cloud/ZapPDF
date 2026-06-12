@@ -82,6 +82,12 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Custom size inputs
+  const cSize = document.getElementById('custom-target-size');
+  const cUnit = document.getElementById('custom-target-unit');
+  if(cSize) cSize.addEventListener('input', () => updateEstimatedSize());
+  if(cUnit) cUnit.addEventListener('change', () => updateEstimatedSize());
+
   // Compression Action
   if (els.btnCompress) {
       els.btnCompress.addEventListener('click', async () => {
@@ -94,10 +100,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const formCb = document.getElementById('opt-forms');
         if(formCb) state.settings.flattenForms = formCb.checked;
         
-        const targetToggle = document.getElementById('target-size-toggle');
-        if (targetToggle && targetToggle.checked) {
-          const val = parseFloat(document.getElementById('target-size-value').value);
-          const unit = document.getElementById('target-size-unit').value;
+        if (state.settings.level === 'custom' && cSize && cSize.value) {
+          const val = parseFloat(cSize.value);
+          const unit = cUnit ? cUnit.value : 'MB';
           if (val) {
             state.settings.targetSize = unit === 'MB' ? val * 1024 * 1024 : val * 1024;
           }
@@ -265,8 +270,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function updateEstimatedSize() {
     if (state.files.length === 0) return;
+    
+    let targetBytes = null;
+    if (state.settings.level === 'custom' && cSize && cSize.value) {
+        const val = parseFloat(cSize.value);
+        const unit = cUnit ? cUnit.value : 'MB';
+        if (val) targetBytes = unit === 'MB' ? val * 1024 * 1024 : val * 1024;
+    }
+
     const totalOriginal = state.files.reduce((sum, f) => sum + f.originalSize, 0);
-    const estNew = ZapCompress.estimateSize(totalOriginal, state.settings.level, state.settings.dpi);
+    const estNew = targetBytes ? targetBytes * state.files.length : ZapCompress.estimateSize(totalOriginal, state.settings.level, state.settings.dpi);
+    
     if(els.estimatedSizeText) {
         els.estimatedSizeText.textContent = `Original: ${ZapUI.formatBytes(totalOriginal)} → Estimated: ~${ZapUI.formatBytes(estNew)}`;
     }
@@ -278,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (fileCard) {
         const sizeDiv = fileCard.querySelector('.file-size');
         if (sizeDiv) {
-          const fileEst = ZapCompress.estimateSize(f.originalSize, state.settings.level, state.settings.dpi);
+          const fileEst = targetBytes ? targetBytes : ZapCompress.estimateSize(f.originalSize, state.settings.level, state.settings.dpi);
           sizeDiv.textContent = `${ZapUI.formatBytes(f.originalSize)} → ~${ZapUI.formatBytes(fileEst)}`;
         }
       }

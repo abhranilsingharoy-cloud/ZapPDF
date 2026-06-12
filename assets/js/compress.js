@@ -22,6 +22,11 @@ window.ZapCompress = {
   },
 
   async compressFile(fileObj, settings) {
+    if (settings.level === 'custom') {
+      await this.compressCustomTarget(fileObj, settings);
+      return;
+    }
+
     if (!this.worker) {
       ZapUI.showToast('Compression engine not initialized', 'error');
       return;
@@ -37,6 +42,70 @@ window.ZapCompress = {
         settings: settings
       }
     }, [arrayBuffer]); // Transferable
+  },
+
+  async compressCustomTarget(fileObj, settings) {
+    try {
+      window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 5 } }));
+      
+      const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+      if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+      }
+
+      const arrayBuffer = await fileObj.file.arrayBuffer();
+      const loadingTask = pdfjsLib.getDocument({ data: arrayBuffer });
+      const pdf = await loadingTask.promise;
+      const numPages = pdf.numPages;
+
+      let targetSize = settings.targetSize || (1 * 1024 * 1024);
+      let scale = 1.5;
+      if (settings.dpi === 72) scale = 0.75;
+      else if (settings.dpi === 96) scale = 1.0;
+      else if (settings.dpi === 300) scale = 3.0;
+
+      // Heuristic quality determination
+      let quality = Math.max(0.1, Math.min(0.9, targetSize / fileObj.originalSize));
+
+      const pdfDoc = await PDFLib.PDFDocument.create();
+      
+      for (let i = 1; i <= numPages; i++) {
+        const page = await pdf.getPage(i);
+        const viewport = page.getViewport({ scale: scale });
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+
+        const renderContext = { canvasContext: ctx, viewport: viewport };
+        await page.render(renderContext).promise;
+
+        const imgDataUrl = canvas.toDataURL('image/jpeg', quality);
+        const imgBytes = await fetch(imgDataUrl).then(res => res.arrayBuffer());
+        
+        const pdfImage = await pdfDoc.embedJpg(imgBytes);
+        const pdfPage = pdfDoc.addPage([viewport.width, viewport.height]);
+        pdfPage.drawImage(pdfImage, {
+          x: 0,
+          y: 0,
+          width: viewport.width,
+          height: viewport.height,
+        });
+        
+        const progress = 5 + Math.round((i / numPages) * 85);
+        window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: progress } }));
+      }
+      
+      const pdfBytes = await pdfDoc.save({ useObjectStreams: true });
+      window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 100 } }));
+      
+      window.dispatchEvent(new CustomEvent('zap:compressDone', { 
+        detail: { fileId: fileObj.id, compressedBytes: pdfBytes } 
+      }));
+
+    } catch (e) {
+      window.dispatchEvent(new CustomEvent('zap:compressError', { detail: { fileId: fileObj.id, message: e.message } }));
+    }
   },
   
   estimateSize(originalSize, level, dpi = 150) {
