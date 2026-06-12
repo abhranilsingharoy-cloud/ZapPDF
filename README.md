@@ -3,7 +3,7 @@
   <h1 align="center">ZapPDF</h1>
   
   <p align="center">
-    <strong>A blazing fast, privacy-first, 100% client-side PDF compression tool.</strong>
+    <strong>A blazing fast, privacy-first, 100% client-side PDF & Image universal compression tool.</strong>
     <br />
     <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
     ·
@@ -34,19 +34,21 @@
 
 ## 🌟 About the Project
 
-**ZapPDF** was born out of a simple necessity: *Compressing PDF files without sacrificing privacy.* 
+**ZapPDF** was born out of a simple necessity: *Compressing PDF and Image files without sacrificing privacy.* 
 
-Most online PDF compressors require users to upload their sensitive documents (invoices, legal contracts, personal IDs) to a remote server. This poses a significant security risk. ZapPDF revolutionizes this by leveraging modern Web APIs, WebAssembly, and `pdf-lib` to perform all file processing **locally within your browser**.
+Most online compressors require users to upload their sensitive documents (invoices, legal contracts, personal IDs) to a remote server. This poses a significant security risk. ZapPDF revolutionizes this by leveraging modern Web APIs, WebAssembly, and powerful client-side libraries to perform all file processing **locally within your browser**.
 
-Your files never leave your machine. No servers. No uploads. No limits.
+It now natively supports PDF, JPG, PNG, SVG, TIFF, and PSD formats! Your files never leave your machine. No servers. No uploads. No limits.
 
 ## ✨ Key Features
 
 - 🔒 **Absolute Privacy:** 100% client-side processing. Once you close the tab, your data vanishes.
+- 🖼️ **Universal Format Support:** Natively compress PDFs, JPG, PNG, SVG, TIFF, and PSD directly in the browser.
 - ⚡ **Zero Latency:** Because there are no uploads or downloads to a server, compression begins instantly.
-- 🎯 **Smart Target Sizing:** Specify an exact target file size (e.g., 200KB) and the algorithm will attempt to hit it.
-- 📦 **Batch Operations:** Drag, drop, and compress up to 5 PDFs simultaneously, then download them bundled in a ZIP.
-- 🛠️ **Granular Controls:** Strip metadata, flatten form fields, adjust image DPI, convert to grayscale, and remove embedded thumbnails.
+- 🤖 **ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
+- 🎯 **Smart Target Sizing:** Specify an exact target file size (e.g., 200KB) and the algorithm will attempt to hit it using advanced rasterization.
+- 📦 **Batch Operations:** Drag, drop, and compress multiple files simultaneously, then download them bundled in a ZIP.
+- 🛠️ **Granular Controls:** Strip metadata, flatten form fields, and adjust image DPI.
 - 🎨 **Premium UI/UX:** A stunning "Golden Solar" dark-mode UI with glassmorphism effects, fluid animations, and responsive design.
 
 ## 🏗️ Architecture & Security
@@ -111,9 +113,11 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 ## 🗺️ Roadmap
 
 - [x] Initial Release (UI/UX, core compression, batch processing)
+- [x] Custom Target Size Rasterization
+- [x] Universal Image Format Support (JPG, PNG, SVG, TIFF, PSD)
+- [x] Gemini AI Chatbot Integration
 - [ ] Implement OCR capabilities (via Tesseract.js)
 - [ ] Add PDF merging and splitting utilities
-- [ ] Add localization / multi-language support
 
 ## 🤝 Contributing
 
