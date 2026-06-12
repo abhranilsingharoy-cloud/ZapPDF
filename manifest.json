@@ -1,0 +1,17 @@
+{
+  "name": "ZapPDF",
+  "short_name": "ZapPDF",
+  "description": "Fast, private, client-side PDF and Image compression.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0F0F0F",
+  "theme_color": "#f5c518",
+  "icons": [
+    {
+      "src": "assets/icons/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

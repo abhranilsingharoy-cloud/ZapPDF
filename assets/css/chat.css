@@ -174,8 +174,24 @@
 }
 
 @media (max-width: 480px) {
+  .chat-widget {
+    bottom: 16px;
+    right: 16px;
+  }
   .chat-window {
-    width: 300px;
-    right: -10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    max-height: 100vh;
+    border-radius: 0;
+    transform: translateY(100%);
+    z-index: 1000;
+  }
+  .chat-window.open {
+    transform: translateY(0);
   }
 }
