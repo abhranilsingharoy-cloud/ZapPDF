@@ -39,7 +39,7 @@ window.ZapCompress = {
     }, [arrayBuffer]); // Transferable
   },
   
-  estimateSize(originalSize, level) {
+  estimateSize(originalSize, level, dpi = 150) {
     // Rough estimation constants
     const multipliers = {
       'low': 0.8,
@@ -47,6 +47,16 @@ window.ZapCompress = {
       'high': 0.3,
       'extreme': 0.15
     };
-    return originalSize * (multipliers[level] || 0.5);
+    let base = multipliers[level] || 0.5;
+    
+    // Adjust based on DPI
+    if (dpi === 72) base *= 0.6;
+    else if (dpi === 96) base *= 0.8;
+    else if (dpi === 300) base *= 1.5;
+    
+    // Ensure we don't estimate an increase for standard compression
+    if (base > 0.95) base = 0.95;
+    
+    return originalSize * base;
   }
 };

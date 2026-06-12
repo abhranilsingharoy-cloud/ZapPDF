@@ -74,6 +74,14 @@ document.addEventListener('DOMContentLoaded', () => {
     updateEstimatedSize();
   });
 
+  // DPI changes
+  document.querySelectorAll('input[name="dpi"]').forEach(radio => {
+    radio.addEventListener('change', (e) => {
+      state.settings.dpi = parseInt(e.target.value);
+      updateEstimatedSize();
+    });
+  });
+
   // Compression Action
   if (els.btnCompress) {
       els.btnCompress.addEventListener('click', async () => {
@@ -258,9 +266,22 @@ document.addEventListener('DOMContentLoaded', () => {
   function updateEstimatedSize() {
     if (state.files.length === 0) return;
     const totalOriginal = state.files.reduce((sum, f) => sum + f.originalSize, 0);
-    const estNew = ZapCompress.estimateSize(totalOriginal, state.settings.level);
+    const estNew = ZapCompress.estimateSize(totalOriginal, state.settings.level, state.settings.dpi);
     if(els.estimatedSizeText) {
         els.estimatedSizeText.textContent = `Original: ${ZapUI.formatBytes(totalOriginal)} → Estimated: ~${ZapUI.formatBytes(estNew)}`;
     }
+
+    // Update individual file estimates
+    state.files.forEach((f, idx) => {
+      if (!els.fileList) return;
+      const fileCard = els.fileList.children[idx];
+      if (fileCard) {
+        const sizeDiv = fileCard.querySelector('.file-size');
+        if (sizeDiv) {
+          const fileEst = ZapCompress.estimateSize(f.originalSize, state.settings.level, state.settings.dpi);
+          sizeDiv.textContent = `${ZapUI.formatBytes(f.originalSize)} → ~${ZapUI.formatBytes(fileEst)}`;
+        }
+      }
+    });
   }
 });
