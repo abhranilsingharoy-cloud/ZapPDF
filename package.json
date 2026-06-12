@@ -1,0 +1,24 @@
+{
+  "name": "zappdf",
+  "version": "1.0.0",
+  "description": "<div align=\"center\">\r   <img src=\"assets/icons/logo.svg\" alt=\"ZapPDF Logo\" width=\"80\" height=\"80\">\r   <h1 align=\"center\">ZapPDF</h1>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhranilsingharoy-cloud/ZapPDF.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/abhranilsingharoy-cloud/ZapPDF/issues"
+  },
+  "homepage": "https://github.com/abhranilsingharoy-cloud/ZapPDF#readme",
+  "dependencies": {
+    "@google/genai": "^2.8.0"
+  }
+}
