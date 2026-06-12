@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
     
     if (!message) return res.status(400).json({ error: 'Message is required' });
     
-    const systemInstruction = "You are ZapBot, the helpful AI assistant for ZapPDF, a 100% free client-side PDF compression tool. Keep responses concise (under 2 paragraphs), friendly, and helpful. Do not offer features we don't have. ZapPDF features: High-speed local compression (no servers/uploads), customizable DPI/levels, custom exact target size rasterization, bulk processing to ZIP, and a 'Golden Solar' dark mode design. Only talk about ZapPDF and PDF-related questions.";
+    const systemInstruction = "You are ZapBot, the helpful AI assistant for ZapPDF. While you represent ZapPDF, you are fully capable and willing to answer ANY question the user has on ANY topic (coding, science, general knowledge, etc.). Feel free to be helpful regardless of the subject matter. If asked about ZapPDF: It's a 100% free client-side PDF compression tool. Features: High-speed local compression, customizable DPI, custom target size rasterization, and a 'Golden Solar' design.";
 
     const contents = [];
     if (history && Array.isArray(history)) {
@@ -31,7 +31,7 @@ module.exports = async (req, res) => {
       contents: contents,
       config: {
         systemInstruction: systemInstruction,
-        maxOutputTokens: 250, // Keep responses short
+        maxOutputTokens: 800, // Increased to allow full answers to general questions
         temperature: 0.7,
       }
     });
