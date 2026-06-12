@@ -3,7 +3,7 @@
   <h1 align="center">ZapPDF</h1>
   
   <p align="center">
-    <strong>A blazing fast, privacy-first, 100% client-side PDF & Image universal compression tool.</strong>
+    <strong>A blazing-fast, privacy-first universal file compressor. Natively compress PDFs, JPGs, RAW files, and more 100% locally in your browser using WebAssembly. No servers, no uploads.</strong>
     <br />
     <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
     ·
@@ -16,7 +16,12 @@
   <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5">
   <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" alt="CSS3">
   <img src="https://img.shields.io/badge/JavaScript-323330?logo=javascript&logoColor=F7DF1E" alt="JavaScript">
-  <img src="https://img.shields.io/badge/PDF--lib-JS-blue" alt="pdf-lib">
+  <img src="https://img.shields.io/badge/WebAssembly-654FF0?logo=webassembly&logoColor=white" alt="WebAssembly">
+  <img src="https://img.shields.io/badge/Gemini_AI-4285F4?logo=google&logoColor=white" alt="Gemini AI">
+</div>
+
+<div align="center">
+  <code>pdf-compression</code> • <code>image-compression</code> • <code>client-side</code> • <code>webassembly</code> • <code>privacy-first</code> • <code>imagemagick</code>
 </div>
 
 ---
