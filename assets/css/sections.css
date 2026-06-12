@@ -89,18 +89,34 @@
 }
 
 .feature-card {
-  background: var(--color-glass);
-  border: 1px solid var(--color-border);
-  backdrop-filter: blur(12px);
-  border-radius: var(--radius-md);
-  padding: 32px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    transition: all var(--transition-fast) cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.feature-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,171,0,0.05), transparent);
+    transform: skewX(-20deg);
+    transition: all 0.5s ease;
+}
+
+.feature-card:hover::before {
+    left: 200%;
 }
 
 .feature-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--color-primary);
-  box-shadow: var(--glow-sm);
+    transform: translateY(-8px) scale(1.02);
+    background: var(--color-surface-2);
+    border-color: rgba(255,171,0,0.3);
+    box-shadow: 0 12px 24px -10px rgba(255,171,0,0.15);
 }
 
 .feature-icon-wrapper {

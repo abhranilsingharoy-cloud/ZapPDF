@@ -141,6 +141,28 @@ document.addEventListener('DOMContentLoaded', () => {
     if (allDone) {
       state.phase = 'done';
       ZapUI.updateProgressBar(100);
+      
+      let sessionSaved = 0;
+      state.files.forEach(f => {
+          if(f.status === 'done' && f.compressedBytes && f.file.size > f.compressedBytes.length) {
+              sessionSaved += (f.file.size - f.compressedBytes.length);
+          }
+      });
+      if(sessionSaved > 0) {
+          let totalSaved = parseInt(localStorage.getItem('zap_saved_bytes') || '0');
+          totalSaved += sessionSaved;
+          localStorage.setItem('zap_saved_bytes', totalSaved);
+          
+          if (window.confetti) {
+              window.confetti({
+                  particleCount: 150,
+                  spread: 80,
+                  origin: { y: 0.6 },
+                  colors: ['#FFD700', '#FFA500', '#FF8C00']
+              });
+          }
+      }
+      
       setTimeout(render, 500); // slight delay for progress bar fill
     }
   });
@@ -205,9 +227,17 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'done':
         els.controls.classList.add('hidden');
         els.fileList.classList.add('hidden');
+        els.resultsPanel.classList.remove('hidden');
         
         renderResults();
-        els.resultsPanel.classList.remove('hidden');
+        
+        const statsContainer = document.getElementById('stats-container');
+        const totalSavedText = document.getElementById('total-saved-bytes');
+        const totalSaved = parseInt(localStorage.getItem('zap_saved_bytes') || '0');
+        if (totalSaved > 0 && statsContainer && totalSavedText) {
+            statsContainer.classList.remove('hidden');
+            totalSavedText.textContent = (totalSaved / (1024 * 1024)).toFixed(2) + ' MB';
+        }
         
         if (state.files.length > 1) {
           els.batchDownloadBar.classList.remove('hidden');

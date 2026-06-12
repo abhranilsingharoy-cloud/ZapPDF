@@ -5,6 +5,55 @@ window.ZapUI = {
     this.initAccordion();
     this.initScrollAnimations();
     this.initLevelSlider();
+    this.initParticles();
+  },
+
+  initParticles() {
+    const container = document.getElementById('particles');
+    if (!container) return;
+    const canvas = document.createElement('canvas');
+    container.appendChild(canvas);
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    const particles = [];
+    const numParticles = window.innerWidth > 768 ? 60 : 25;
+    
+    const resize = () => {
+      width = container.clientWidth;
+      height = container.clientHeight;
+      canvas.width = width;
+      canvas.height = height;
+    };
+    window.addEventListener('resize', resize);
+    resize();
+    
+    for (let i = 0; i < numParticles; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        r: Math.random() * 2 + 0.5,
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: (Math.random() - 0.5) * 0.5,
+        alpha: Math.random() * 0.5 + 0.1
+      });
+    }
+    
+    const draw = () => {
+      ctx.clearRect(0, 0, width, height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > width) p.vx *= -1;
+        if (p.y < 0 || p.y > height) p.vy *= -1;
+        
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 171, 0, ${p.alpha})`;
+        ctx.fill();
+      });
+      requestAnimationFrame(draw);
+    };
+    draw();
   },
 
   initNavMobile() {
