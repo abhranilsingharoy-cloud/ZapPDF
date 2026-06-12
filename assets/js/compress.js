@@ -1,4 +1,18 @@
 // compress.js - communication with worker
+let magickInitialized = false;
+async function initMagick() {
+  if (magickInitialized) return;
+  if (!window['@imagemagick/magick-wasm']) return;
+  const { initializeImageMagick } = window['@imagemagick/magick-wasm'];
+  try {
+    const wasmBytes = await fetch('assets/js/magick/magick.wasm').then(res => res.arrayBuffer());
+    await initializeImageMagick(new Uint8Array(wasmBytes));
+    magickInitialized = true;
+  } catch (e) {
+    console.error("Magick Initialization Error", e);
+  }
+}
+
 window.ZapCompress = {
   worker: null,
   
@@ -58,7 +72,23 @@ window.ZapCompress = {
             const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 1.0));
             targetFile = new File([blob], fileObj.file.name.replace(/\.[^/.]+$/, ".jpg"), { type: 'image/jpeg' });
         } else if (ext === 'raw' || ext === 'eps' || ext === 'cr2' || ext === 'nef') {
-             throw new Error(`${ext.toUpperCase()} compression requires desktop software. Please convert to TIFF or JPG first.`);
+             window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 10 } }));
+             if (!magickInitialized) await initMagick();
+             if (!magickInitialized) throw new Error("Compression engine failed to load required modules.");
+             
+             const { ImageMagick, MagickFormat } = window['@imagemagick/magick-wasm'];
+             const buffer = new Uint8Array(await fileObj.file.arrayBuffer());
+             
+             window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 30 } }));
+             
+             const blob = await new Promise((resolve) => {
+                 ImageMagick.read(buffer, (img) => {
+                     img.write(MagickFormat.Jpeg, (data) => {
+                         resolve(new Blob([data], { type: 'image/jpeg' }));
+                     });
+                 });
+             });
+             targetFile = new File([blob], fileObj.file.name.replace(/\.[^/.]+$/, ".jpg"), { type: 'image/jpeg' });
         }
 
         if (targetFile.type === 'image/jpeg' || targetFile.type === 'image/png') {
