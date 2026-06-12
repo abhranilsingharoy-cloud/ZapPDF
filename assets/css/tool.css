@@ -24,9 +24,17 @@
   padding: 32px;
 }
 
+.upload-zone:hover {
+  background: rgba(245, 197, 24, 0.09);
+  transform: scale(1.01);
+  box-shadow: var(--glow-sm);
+}
+
 .upload-zone.dragover {
-  background: rgba(245, 197, 24, 0.12);
+  background: rgba(245, 197, 24, 0.15);
   border-style: solid;
+  transform: scale(1.02);
+  box-shadow: var(--glow-md);
 }
 
 .upload-icon {
