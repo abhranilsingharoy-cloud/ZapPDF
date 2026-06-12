@@ -33,19 +33,45 @@ window.ZapCompress = {
         
         let compressedFile = fileObj.file;
         
-        // Use browser-image-compression for JPG/PNG
-        if (type === 'image/jpeg' || type === 'image/png') {
+        let targetFile = fileObj.file;
+        const ext = fileObj.file.name.split('.').pop().toLowerCase();
+
+        if (ext === 'psd' && window.agPsd) {
+            window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 20 } }));
+            const buffer = await fileObj.file.arrayBuffer();
+            const psd = window.agPsd.readPsd(buffer);
+            const blob = await new Promise(r => psd.canvas.toBlob(r, 'image/jpeg', 1.0));
+            targetFile = new File([blob], fileObj.file.name.replace(/\.[^/.]+$/, ".jpg"), { type: 'image/jpeg' });
+        } else if ((ext === 'tiff' || ext === 'tif') && window.UTIF) {
+            window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 20 } }));
+            const buffer = await fileObj.file.arrayBuffer();
+            const ifds = window.UTIF.decode(buffer);
+            window.UTIF.decodeImage(buffer, ifds[0]);
+            const rgba = window.UTIF.toRGBA8(ifds[0]);
+            const canvas = document.createElement('canvas');
+            canvas.width = ifds[0].width;
+            canvas.height = ifds[0].height;
+            const ctx = canvas.getContext('2d');
+            const imgData = ctx.createImageData(canvas.width, canvas.height);
+            imgData.data.set(rgba);
+            ctx.putImageData(imgData, 0, 0);
+            const blob = await new Promise(r => canvas.toBlob(r, 'image/jpeg', 1.0));
+            targetFile = new File([blob], fileObj.file.name.replace(/\.[^/.]+$/, ".jpg"), { type: 'image/jpeg' });
+        } else if (ext === 'raw' || ext === 'eps' || ext === 'cr2' || ext === 'nef') {
+             throw new Error(`${ext.toUpperCase()} compression requires desktop software. Please convert to TIFF or JPG first.`);
+        }
+
+        if (targetFile.type === 'image/jpeg' || targetFile.type === 'image/png') {
           const options = {
             maxSizeMB: settings.level === 'high' ? 0.5 : settings.level === 'medium' ? 1 : 2,
             maxWidthOrHeight: settings.dpi === 300 ? 1920 : settings.dpi === 96 ? 1280 : 800,
             useWebWorker: true
           };
           window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 50 } }));
-          compressedFile = await imageCompression(fileObj.file, options);
+          compressedFile = await imageCompression(targetFile, options);
         } else {
-           // For TIFF, RAW, PSD, EPS - bypass directly to keep UI functioning without 5MB WASM
            window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 50 } }));
-           await new Promise(r => setTimeout(r, 1000)); // Simulate processing
+           compressedFile = targetFile;
         }
 
         window.dispatchEvent(new CustomEvent('zap:compressProgress', { detail: { fileId: fileObj.id, percent: 100 } }));
