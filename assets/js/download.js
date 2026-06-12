@@ -1,8 +1,10 @@
 // download.js - FileSaver and JSZip wrapper
 window.ZapDownload = {
-  downloadSingle(bytes, originalName) {
-    const blob = new Blob([bytes], { type: 'application/pdf' });
-    const newName = originalName.replace('.pdf', '-compressed.pdf');
+  downloadSingle(bytes, originalName, ext = 'pdf') {
+    const mime = ext === 'pdf' ? 'application/pdf' : `image/${ext === 'jpg' ? 'jpeg' : ext}`;
+    const blob = new Blob([bytes], { type: mime });
+    const oldExt = originalName.split('.').pop();
+    const newName = originalName.replace(new RegExp(`\\.${oldExt}$`), `-compressed.${ext}`);
     saveAs(blob, newName);
   },
 
@@ -15,7 +17,8 @@ window.ZapDownload = {
     const zip = new JSZip();
     
     filesData.forEach(item => {
-      const newName = item.name.replace('.pdf', '-compressed.pdf');
+      const oldExt = item.name.split('.').pop();
+      const newName = item.name.replace(new RegExp(`\\.${oldExt}$`), `-compressed.${item.ext || 'pdf'}`);
       zip.file(newName, item.bytes);
     });
     

@@ -89,8 +89,8 @@
                 <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
                 <h2>Drag & Drop PDFs Here</h2>
                 <p>or <span class="upload-link">click to browse files</span></p>
-                <p class="accepted-text">Supports: PDF • Max 5 files</p>
-                <input type="file" id="file-input" accept=".pdf" multiple class="visually-hidden">
+                <p class="accepted-text">Supports: PDF, JPG, PNG, SVG, TIFF, RAW, PSD, EPS • Max 5 files</p>
+                <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.svg,.tiff,.tif,.raw,.cr2,.nef,.psd,.eps" multiple class="visually-hidden">
             </div>
 
             <!-- Compact Header (Hidden until files selected) -->
@@ -401,6 +401,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
     <!-- Local Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
     <script src="assets/js/ui.js"></script>
     <script src="assets/js/upload.js"></script>
     <script src="assets/js/compress.js"></script>

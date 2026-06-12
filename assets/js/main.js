@@ -128,10 +128,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   window.addEventListener('zap:compressDone', (e) => {
-    const { fileId, compressedBytes } = e.detail;
+    const { fileId, compressedBytes, ext } = e.detail;
     const fileObj = state.files.find(f => f.id === fileId);
     if (fileObj) {
       fileObj.compressedBytes = compressedBytes;
+      fileObj.ext = ext || 'pdf';
       fileObj.status = 'done';
     }
     
@@ -159,7 +160,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const doneFiles = state.files.filter(f => f.status === 'done');
         const filesData = doneFiles.map(f => ({
           name: f.file.name,
-          bytes: f.compressedBytes
+          bytes: f.compressedBytes,
+          ext: f.ext
         }));
         ZapDownload.downloadZip(filesData);
       });
@@ -259,12 +261,14 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Attach DL handlers
-    document.querySelectorAll('.btn-dl-single').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        const id = parseInt(e.currentTarget.dataset.id);
-        const f = state.files.find(file => file.id === id);
-        if (f) ZapDownload.downloadSingle(f.compressedBytes, f.file.name);
-      });
+    els.resultsList.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-download')) {
+          const id = parseInt(e.target.closest('.btn-download').dataset.id);
+          const fileObj = state.files.find(f => f.id === id);
+          if (fileObj && fileObj.compressedBytes) {
+            ZapDownload.downloadSingle(fileObj.compressedBytes, fileObj.file.name, fileObj.ext);
+          }
+        }
     });
   }
 

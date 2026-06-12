@@ -63,8 +63,11 @@ window.ZapUpload = {
 
     for (let i = 0; i < fileList.length; i++) {
       const file = fileList[i];
-      if (file.type !== 'application/pdf') {
-        ZapUI.showToast(`Skipped ${file.name} - Not a PDF`, 'error');
+      const validTypes = ['application/pdf', 'image/jpeg', 'image/png', 'image/tiff', 'image/x-raw', 'image/vnd.adobe.photoshop', 'application/postscript', 'image/svg+xml'];
+      const ext = file.name.split('.').pop().toLowerCase();
+      const validExts = ['pdf', 'jpg', 'jpeg', 'png', 'tiff', 'tif', 'raw', 'cr2', 'nef', 'psd', 'eps', 'svg'];
+      if (!validTypes.includes(file.type) && !validExts.includes(ext)) {
+        ZapUI.showToast(`Skipped ${file.name} - Unsupported format`, 'error');
         continue;
       }
       if (file.size > MAX_SIZE) {
