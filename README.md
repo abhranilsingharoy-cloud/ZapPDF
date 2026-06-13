@@ -48,13 +48,15 @@ It now natively supports PDF, JPG, PNG, SVG, TIFF, and PSD formats! Your files n
 ## ✨ Key Features
 
 - 🔒 **Absolute Privacy:** 100% client-side processing. Once you close the tab, your data vanishes.
-- 🖼️ **Universal Format Support:** Natively compress PDFs, JPG, PNG, SVG, TIFF, and PSD directly in the browser.
+- 🖼️ **Universal Format Support:** Natively compress PDFs, JPG, PNG, SVG, TIFF, PSD, RAW (CR2, NEF), and EPS directly in the browser using WebAssembly and `magick-wasm`.
+- 📱 **Progressive Web App (PWA):** Fully installable on iOS and Android as a native-feeling app without app store downloads.
 - ⚡ **Zero Latency:** Because there are no uploads or downloads to a server, compression begins instantly.
 - 🤖 **ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
 - 🎯 **Smart Target Sizing:** Specify an exact target file size (e.g., 200KB) and the algorithm will attempt to hit it using advanced rasterization.
 - 📦 **Batch Operations:** Drag, drop, and compress multiple files simultaneously, then download them bundled in a ZIP.
 - 🛠️ **Granular Controls:** Strip metadata, flatten form fields, and adjust image DPI.
-- 🎨 **Premium UI/UX:** A stunning "Golden Solar" dark-mode UI with glassmorphism effects, fluid animations, and responsive design.
+- 🎨 **Premium UI/UX:** A stunning "Golden Solar" dark-mode UI with glassmorphism effects, dynamic 3D floating background orbs, and confetti explosions upon successful compression!
+- 📊 **Global Impact Tracker:** A local-storage tracker that calculates your lifetime bandwidth saved using the tool.
 
 ## 🏗️ Architecture & Security
 
