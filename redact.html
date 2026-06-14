@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <title>ZapPDF - Redact PDF Data</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/tool.css">
+    <link rel="stylesheet" href="assets/css/results.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <style>
+        .canvas-container {
+            position: relative;
+            display: inline-block;
+            margin-top: 16px;
+            border: 1px solid var(--color-border);
+            border-radius: var(--radius-sm);
+            background: var(--color-surface);
+            overflow: hidden;
+        }
+        .canvas-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
+        }
+        .redact-controls {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+        .page-nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                <span>ZapPDF</span>
+            </a>
+            <div class="nav-links">
+                <div class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
+                    <div class="dropdown-menu">
+                        <a href="index.html">⚡ Compress</a>
+                        <a href="convert.html">🔄 Convert</a>
+                        <a href="merge.html">🔗 Merge</a>
+                        <a href="split.html">✂️ Split</a>
+                        <a href="organize.html">🔀 Organize</a>
+                        <a href="redact.html">⬛ Redact</a>
+                        <a href="number.html">🔢 Page Numbers</a>
+                        <a href="rotate.html">🔄 Rotate</a>
+                        <a href="ocr.html">👁️ OCR</a>
+                        <a href="protect.html">🔒 Protect</a>
+                        <a href="watermark.html">💧 Watermark</a>
+                    </div>
+                </div>
+                <a href="index.html">Compress</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#tool" class="btn btn-primary btn-sm">Redact Now</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero" class="hero">
+        <div class="particle-container" id="particles"></div>
+        <div class="hero-content">
+            <h1><span class="gradient-text">Redact PDF.</span><br>Erase sensitive data.</h1>
+            <p>Draw black boxes to permanently flatten and censor sensitive information.</p>
+            <div class="hero-actions">
+                <a href="#tool" class="btn btn-primary btn-lg">Select PDF →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Tool -->
+    <section id="tool" class="tool-section">
+        <div class="tool-container">
+            <div id="upload-zone" class="upload-zone">
+                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <h2>Drag & Drop PDF to Redact</h2>
+                <p>or <span class="upload-link">click to browse files</span></p>
+                <input type="file" id="file-input" accept=".pdf" hidden>
+                <div class="privacy-badge">
+                    <span>🔒</span> 100% Client-Side. Files never leave your device.
+                </div>
+            </div>
+
+            <div id="active-workspace" class="active-workspace" style="display: none;">
+                <div class="workspace-header">
+                    <h3>Redact Data</h3>
+                    <button id="undo-btn" class="btn btn-outline btn-sm">↺ Undo Last</button>
+                </div>
+
+                <div class="tool-controls" style="text-align: center;">
+                    <div class="redact-controls">
+                        <button id="prev-page" class="btn btn-outline btn-sm">← Prev</button>
+                        <span id="page-indicator" style="font-weight: bold;">Page 1 / 1</span>
+                        <button id="next-page" class="btn btn-outline btn-sm">Next →</button>
+                    </div>
+                    <p style="color: var(--color-text-muted); font-size: 14px;">Click and drag on the document below to draw redaction boxes.</p>
+                    
+                    <div class="canvas-container">
+                        <canvas id="pdf-render-canvas"></canvas>
+                        <canvas id="draw-layer" class="canvas-layer"></canvas>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <button id="process-btn" class="btn btn-primary btn-lg" style="width: 100%;">Flatten & Download</button>
+                </div>
+                
+                <div id="progress-container" style="display: none; margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span id="progress-text" style="font-size: 14px; font-weight: 500;">Processing...</span>
+                        <span id="progress-percent" style="font-size: 14px; font-weight: 600; color: var(--color-primary);">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                        <span>ZapPDF</span>
+                    </div>
+                    <p>The fastest, most private way to manipulate PDFs online. Built with modern WebAssembly.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <a href="index.html">Compress PDF</a>
+                    <a href="convert.html">Format Converter</a>
+                    <a href="merge.html">Merge PDF</a>
+                    <a href="split.html">Split PDF</a>
+                    <a href="organize.html">Organize PDF</a>
+                    <a href="redact.html">Redact PDF</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="cookies.html">Cookie Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ZapPDF. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/tools/redact.js"></script>
+</body>
+</html>

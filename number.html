@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <title>ZapPDF - Add Page Numbers to PDF</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/tool.css">
+    <link rel="stylesheet" href="assets/css/results.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                <span>ZapPDF</span>
+            </a>
+            <div class="nav-links">
+                <div class="nav-dropdown">
+                    <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
+                    <div class="dropdown-menu">
+                        <a href="index.html">⚡ Compress</a>
+                        <a href="convert.html">🔄 Convert</a>
+                        <a href="merge.html">🔗 Merge</a>
+                        <a href="split.html">✂️ Split</a>
+                        <a href="organize.html">🔀 Organize</a>
+                        <a href="redact.html">⬛ Redact</a>
+                        <a href="number.html">🔢 Page Numbers</a>
+                        <a href="rotate.html">🔄 Rotate</a>
+                        <a href="ocr.html">👁️ OCR</a>
+                        <a href="protect.html">🔒 Protect</a>
+                        <a href="watermark.html">💧 Watermark</a>
+                    </div>
+                </div>
+                <a href="index.html">Compress</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#tool" class="btn btn-primary btn-sm">Number Pages</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero" class="hero">
+        <div class="particle-container" id="particles"></div>
+        <div class="hero-content">
+            <h1><span class="gradient-text">Number PDF.</span><br>Organize your documents.</h1>
+            <p>Easily insert page numbers into your PDF with custom positioning and formatting.</p>
+            <div class="hero-actions">
+                <a href="#tool" class="btn btn-primary btn-lg">Select PDF →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Tool -->
+    <section id="tool" class="tool-section">
+        <div class="tool-container">
+            <div id="upload-zone" class="upload-zone">
+                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <h2>Drag & Drop PDF to Number Pages</h2>
+                <p>or <span class="upload-link">click to browse files</span></p>
+                <input type="file" id="file-input" accept=".pdf" hidden>
+                <div class="privacy-badge">
+                    <span>🔒</span> 100% Client-Side. Files never leave your device.
+                </div>
+            </div>
+
+            <div id="active-workspace" class="active-workspace" style="display: none;">
+                <div class="workspace-header">
+                    <h3>Page Numbers Settings</h3>
+                    <button id="add-more-btn" class="btn btn-outline btn-sm">Change File</button>
+                </div>
+
+                <div class="tool-controls">
+                    <div class="control-group">
+                        <label for="position">Position</label>
+                        <select id="position" class="form-control">
+                            <option value="bottom-center">Bottom Center</option>
+                            <option value="bottom-right">Bottom Right</option>
+                            <option value="bottom-left">Bottom Left</option>
+                            <option value="top-center">Top Center</option>
+                            <option value="top-right">Top Right</option>
+                            <option value="top-left">Top Left</option>
+                        </select>
+                    </div>
+                    
+                    <div class="control-group">
+                        <label for="format">Format</label>
+                        <select id="format" class="form-control">
+                            <option value="Page {n} of {t}">Page 1 of 10</option>
+                            <option value="{n}">1</option>
+                            <option value="- {n} -">- 1 -</option>
+                            <option value="Page {n}">Page 1</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="action-row">
+                    <button id="process-btn" class="btn btn-primary btn-lg" style="width: 100%;">Add Page Numbers & Download</button>
+                </div>
+                
+                <div id="progress-container" style="display: none; margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                        <span id="progress-text" style="font-size: 14px; font-weight: 500;">Processing...</span>
+                        <span id="progress-percent" style="font-size: 14px; font-weight: 600; color: var(--color-primary);">0%</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div id="progress-bar-fill" class="progress-bar-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="logo">
+                        <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                        <span>ZapPDF</span>
+                    </div>
+                    <p>The fastest, most private way to manipulate PDFs online. Built with modern WebAssembly.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Tools</h4>
+                    <a href="index.html">Compress PDF</a>
+                    <a href="convert.html">Format Converter</a>
+                    <a href="merge.html">Merge PDF</a>
+                    <a href="split.html">Split PDF</a>
+                    <a href="organize.html">Organize PDF</a>
+                    <a href="redact.html">Redact PDF</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="about.html">About</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Contact</a>
+                    <a href="#">Changelog</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Use</a>
+                    <a href="cookies.html">Cookie Policy</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 ZapPDF. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/tools/number.js"></script>
+</body>
+</html>
