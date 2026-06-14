@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/index.html</loc><priority>1.0</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/convert.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/merge.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/split.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/organize.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/redact.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/number.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/rotate.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/ocr.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/protect.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/watermark.html</loc><priority>0.8</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/about.html</loc><priority>0.5</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/faq.html</loc><priority>0.5</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/privacy.html</loc><priority>0.3</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/terms.html</loc><priority>0.3</priority></url>
-    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/cookies.html</loc><priority>0.3</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/convert.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/merge.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/split.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/organize.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/redact.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/number.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/rotate.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/ocr.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/protect.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/tools/watermark.html</loc><priority>0.8</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/pages/about.html</loc><priority>0.5</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/pages/faq.html</loc><priority>0.5</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/pages/privacy.html</loc><priority>0.3</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/pages/terms.html</loc><priority>0.3</priority></url>
+    <url><loc>https://abhranilsingharoy-cloud.github.io/ZapPDF/pages/cookies.html</loc><priority>0.3</priority></url>
 </urlset>

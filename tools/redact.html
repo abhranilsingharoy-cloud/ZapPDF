@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
-    <title>ZapPDF - Rotate PDF Pages</title>
+    <link rel="manifest" href="../manifest.json">
+    <title>ZapPDF - Redact PDF Data</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,79 +14,40 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/hero.css">
-    <link rel="stylesheet" href="assets/css/tool.css">
-    <link rel="stylesheet" href="assets/css/results.css">
-    <link rel="stylesheet" href="assets/css/sections.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/hero.css">
+    <link rel="stylesheet" href="../assets/css/tool.css">
+    <link rel="stylesheet" href="../assets/css/results.css">
+    <link rel="stylesheet" href="../assets/css/sections.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
     <style>
-        .page-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-            max-height: 400px;
-            overflow-y: auto;
-            padding: 16px;
-            background: var(--color-surface-2);
-            border-radius: var(--radius-md);
-            border: 1px solid var(--color-border);
-        }
-        .page-item {
+        .canvas-container {
             position: relative;
-            background: var(--color-surface);
+            display: inline-block;
+            margin-top: 16px;
             border: 1px solid var(--color-border);
             border-radius: var(--radius-sm);
-            padding: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            background: var(--color-surface);
+            overflow: hidden;
         }
-        .canvas-wrapper {
-            width: 100%;
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 8px;
+        .canvas-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            cursor: crosshair;
         }
-        .page-item canvas {
-            max-width: 100%;
-            max-height: 100%;
-            border-radius: 4px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease;
-        }
-        .page-label {
-            text-align: center;
-            font-size: 12px;
-            color: var(--color-text-muted);
-            margin-bottom: 8px;
-        }
-        .rotate-btn {
-            background: var(--color-primary);
-            color: white;
-            border: none;
-            border-radius: var(--radius-sm);
-            padding: 4px 12px;
-            font-size: 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            width: 100%;
-            justify-content: center;
-        }
-        .rotate-btn:hover {
-            background: var(--color-primary-dark);
-        }
-        .bulk-actions {
+        .redact-controls {
             display: flex;
             gap: 16px;
-            margin-bottom: 16px;
+            align-items: center;
             justify-content: center;
+            margin-bottom: 16px;
+        }
+        .page-nav {
+            display: flex;
+            gap: 8px;
+            align-items: center;
         }
     </style>
 </head>
@@ -94,32 +55,32 @@
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+            <a href="../index.html" class="logo">
+                <img src="../assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
                 <span>ZapPDF</span>
             </a>
             <div class="nav-links">
                 <div class="nav-dropdown">
                     <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
                     <div class="dropdown-menu">
-                        <a href="index.html">⚡ Compress</a>
-                        <a href="convert.html">🔄 Convert</a>
-                        <a href="merge.html">🔗 Merge</a>
-                        <a href="split.html">✂️ Split</a>
-                        <a href="organize.html">🔀 Organize</a>
-                        <a href="redact.html">⬛ Redact</a>
-                        <a href="number.html">🔢 Page Numbers</a>
-                        <a href="rotate.html">🔄 Rotate</a>
-                        <a href="ocr.html">👁️ OCR</a>
-                        <a href="protect.html">🔒 Protect</a>
-                        <a href="watermark.html">💧 Watermark</a>
+                        <a href="../index.html">⚡ Compress</a>
+                        <a href="../tools/convert.html">🔄 Convert</a>
+                        <a href="../tools/merge.html">🔗 Merge</a>
+                        <a href="../tools/split.html">✂️ Split</a>
+                        <a href="../tools/organize.html">🔀 Organize</a>
+                        <a href="../tools/redact.html">⬛ Redact</a>
+                        <a href="../tools/number.html">🔢 Page Numbers</a>
+                        <a href="../tools/rotate.html">🔄 Rotate</a>
+                        <a href="../tools/ocr.html">👁️ OCR</a>
+                        <a href="../tools/protect.html">🔒 Protect</a>
+                        <a href="../tools/watermark.html">💧 Watermark</a>
                     </div>
                 </div>
-                <a href="index.html">Compress</a>
-                <a href="faq.html">FAQ</a>
+                <a href="../index.html">Compress</a>
+                <a href="../pages/faq.html">FAQ</a>
             </div>
             <div class="nav-cta">
-                <a href="#tool" class="btn btn-primary btn-sm">Rotate Now</a>
+                <a href="#tool" class="btn btn-primary btn-sm">Redact Now</a>
             </div>
             <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -131,8 +92,8 @@
     <section id="hero" class="hero">
         <div class="particle-container" id="particles"></div>
         <div class="hero-content">
-            <h1><span class="gradient-text">Rotate PDF.</span><br>Fix upside-down pages.</h1>
-            <p>Rotate individual pages or all pages at once. Preview the changes instantly.</p>
+            <h1><span class="gradient-text">Redact PDF.</span><br>Erase sensitive data.</h1>
+            <p>Draw black boxes to permanently flatten and censor sensitive information.</p>
             <div class="hero-actions">
                 <a href="#tool" class="btn btn-primary btn-lg">Select PDF →</a>
             </div>
@@ -143,8 +104,8 @@
     <section id="tool" class="tool-section">
         <div class="tool-container">
             <div id="upload-zone" class="upload-zone">
-                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
-                <h2>Drag & Drop PDF to Rotate</h2>
+                <img src="../assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <h2>Drag & Drop PDF to Redact</h2>
                 <p>or <span class="upload-link">click to browse files</span></p>
                 <input type="file" id="file-input" accept=".pdf" hidden>
                 <div class="privacy-badge">
@@ -154,24 +115,26 @@
 
             <div id="active-workspace" class="active-workspace" style="display: none;">
                 <div class="workspace-header">
-                    <h3>Rotate Pages</h3>
-                    <button id="add-more-btn" class="btn btn-outline btn-sm">Change File</button>
+                    <h3>Redact Data</h3>
+                    <button id="undo-btn" class="btn btn-outline btn-sm">↺ Undo Last</button>
                 </div>
 
-                <div class="tool-controls">
-                    <div class="bulk-actions">
-                        <button id="rotate-all-left" class="btn btn-outline btn-sm">↺ Rotate All Left</button>
-                        <button id="rotate-all-right" class="btn btn-outline btn-sm">Rotate All Right ↻</button>
+                <div class="tool-controls" style="text-align: center;">
+                    <div class="redact-controls">
+                        <button id="prev-page" class="btn btn-outline btn-sm">← Prev</button>
+                        <span id="page-indicator" style="font-weight: bold;">Page 1 / 1</span>
+                        <button id="next-page" class="btn btn-outline btn-sm">Next →</button>
                     </div>
-                    <div class="control-group">
-                        <div id="page-grid" class="page-grid">
-                            <!-- Pages injected here -->
-                        </div>
+                    <p style="color: var(--color-text-muted); font-size: 14px;">Click and drag on the document below to draw redaction boxes.</p>
+                    
+                    <div class="canvas-container">
+                        <canvas id="pdf-render-canvas"></canvas>
+                        <canvas id="draw-layer" class="canvas-layer"></canvas>
                     </div>
                 </div>
 
                 <div class="action-row">
-                    <button id="process-btn" class="btn btn-primary btn-lg" style="width: 100%;">Save & Download PDF</button>
+                    <button id="process-btn" class="btn btn-primary btn-lg" style="width: 100%;">Flatten & Download</button>
                 </div>
                 
                 <div id="progress-container" style="display: none; margin-top: 24px;">
@@ -198,23 +161,23 @@
             <div class="steps-container scroll-reveal">
                 <div class="step-card">
                     <div class="step-circle">1</div>
-                    <img src="assets/icons/upload.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/upload.svg" class="step-icon" alt="">
                     <h3>Upload</h3>
-                    <p>Upload the PDF with incorrectly oriented pages</p>
+                    <p>Upload the PDF containing sensitive information</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">2</div>
-                    <img src="assets/icons/compress.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/compress.svg" class="step-icon" alt="">
                     <h3>Configure</h3>
-                    <p>Click the rotate button on individual thumbnails, or rotate all pages at once</p>
+                    <p>Draw black rectangles directly over the text you want to hide</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">3</div>
-                    <img src="assets/icons/download.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/download.svg" class="step-icon" alt="">
                     <h3>Process & Download</h3>
-                    <p>Save and download the corrected PDF</p>
+                    <p>We flatten the pages into high-res images to permanently destroy the data, then export</p>
                 </div>
             </div>
         </div>
@@ -223,7 +186,7 @@
     <!-- SECTION 6: Features -->
     <section id="features" class="sections">
         <div class="container">
-            <h2 class="section-heading">Why Use ZapPDF for Rotate PDF?</h2>
+            <h2 class="section-heading">Why Use ZapPDF for Redact PDF?</h2>
             <p class="section-subheading">Built for speed, privacy, and precision.</p>
             
             <div class="features-grid scroll-reveal">
@@ -238,9 +201,9 @@
                     <p>Your files never touch a server. Everything runs inside your browser only.</p>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">🔄</div>
+                    <div class="feature-icon-wrapper">⬛</div>
                     <h3>Purpose-Built Tool</h3>
-                    <p>Fix upside-down scanned pages. Rotate individual pages or the entire document.</p>
+                    <p>Permanently remove sensitive information, credit cards, or personal data from your documents.</p>
                 </div>
             </div>
         </div>
@@ -274,33 +237,33 @@
             <div class="faq-accordion scroll-reveal">
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false" aria-controls="faq-1">
-                        Can I rotate just one page? <span class="faq-chevron">▶</span>
+                        Is the text actually deleted or just covered up? <span class="faq-chevron">▶</span>
                     </button>
                     <div id="faq-1" class="faq-answer">
                         <div class="faq-answer-inner">
-                            Yes, every page has its own rotate button so you can fix only the ones that are upside down.
+                            It is permanently destroyed! We convert redacted pages into flat images, so nobody can copy-paste or extract the text from underneath the black box.
                         </div>
                     </div>
                 </div>
                 
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false" aria-controls="faq-2">
-                        Does rotating permanently change the PDF? <span class="faq-chevron">▶</span>
+                        Is it safe for highly confidential documents? <span class="faq-chevron">▶</span>
                     </button>
                     <div id="faq-2" class="faq-answer">
                         <div class="faq-answer-inner">
-                            Yes, when you save the document, the rotation is permanently applied to the file metadata.
+                            Yes, it is the safest method. Because ZapPDF is a client-side app, your confidential document never touches a cloud server.
                         </div>
                     </div>
                 </div>
 
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false" aria-controls="faq-3">
-                        Are there any watermarks added? <span class="faq-chevron">▶</span>
+                        Does it increase file size? <span class="faq-chevron">▶</span>
                     </button>
                     <div id="faq-3" class="faq-answer">
                         <div class="faq-answer-inner">
-                            No, ZapPDF never adds unexpected watermarks to your files. The rotation tool is completely clean and free.
+                            Redacted pages are converted to high-quality images, which may slightly increase the file size of those specific pages to ensure security.
                         </div>
                     </div>
                 </div>
@@ -314,32 +277,32 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo">
-                        <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                        <img src="../assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
                         <span>ZapPDF</span>
                     </div>
                     <p>The fastest, most private way to manipulate PDFs online. Built with modern WebAssembly.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Tools</h4>
-                    <a href="index.html">Compress PDF</a>
-                    <a href="convert.html">Format Converter</a>
-                    <a href="merge.html">Merge PDF</a>
-                    <a href="split.html">Split PDF</a>
-                    <a href="organize.html">Organize PDF</a>
-                    <a href="redact.html">Redact PDF</a>
+                    <a href="../index.html">Compress PDF</a>
+                    <a href="../tools/convert.html">Format Converter</a>
+                    <a href="../tools/merge.html">Merge PDF</a>
+                    <a href="../tools/split.html">Split PDF</a>
+                    <a href="../tools/organize.html">Organize PDF</a>
+                    <a href="../tools/redact.html">Redact PDF</a>
                 </div>
                 <div class="footer-col">
                     <h4>Company</h4>
-                    <a href="about.html">About</a>
+                    <a href="../pages/about.html">About</a>
                     <a href="#">Blog</a>
                     <a href="#">Contact</a>
                     <a href="#">Changelog</a>
                 </div>
                 <div class="footer-col">
                     <h4>Legal</h4>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Use</a>
-                    <a href="cookies.html">Cookie Policy</a>
+                    <a href="../pages/privacy.html">Privacy Policy</a>
+                    <a href="../pages/terms.html">Terms of Use</a>
+                    <a href="../pages/cookies.html">Cookie Policy</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -352,7 +315,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/tools/rotate.js"></script>
+    <script src="../assets/js/ui.js"></script>
+    <script src="../assets/js/tools/redact.js"></script>
 </body>
 </html>

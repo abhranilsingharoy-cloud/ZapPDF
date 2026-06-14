@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
+    <link rel="manifest" href="../manifest.json">
     <title>ZapPDF - Add Page Numbers to PDF</title>
     
     <!-- Google Fonts -->
@@ -14,41 +14,41 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/hero.css">
-    <link rel="stylesheet" href="assets/css/tool.css">
-    <link rel="stylesheet" href="assets/css/results.css">
-    <link rel="stylesheet" href="assets/css/sections.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/hero.css">
+    <link rel="stylesheet" href="../assets/css/tool.css">
+    <link rel="stylesheet" href="../assets/css/results.css">
+    <link rel="stylesheet" href="../assets/css/sections.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+            <a href="../index.html" class="logo">
+                <img src="../assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
                 <span>ZapPDF</span>
             </a>
             <div class="nav-links">
                 <div class="nav-dropdown">
                     <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
                     <div class="dropdown-menu">
-                        <a href="index.html">⚡ Compress</a>
-                        <a href="convert.html">🔄 Convert</a>
-                        <a href="merge.html">🔗 Merge</a>
-                        <a href="split.html">✂️ Split</a>
-                        <a href="organize.html">🔀 Organize</a>
-                        <a href="redact.html">⬛ Redact</a>
-                        <a href="number.html">🔢 Page Numbers</a>
-                        <a href="rotate.html">🔄 Rotate</a>
-                        <a href="ocr.html">👁️ OCR</a>
-                        <a href="protect.html">🔒 Protect</a>
-                        <a href="watermark.html">💧 Watermark</a>
+                        <a href="../index.html">⚡ Compress</a>
+                        <a href="../tools/convert.html">🔄 Convert</a>
+                        <a href="../tools/merge.html">🔗 Merge</a>
+                        <a href="../tools/split.html">✂️ Split</a>
+                        <a href="../tools/organize.html">🔀 Organize</a>
+                        <a href="../tools/redact.html">⬛ Redact</a>
+                        <a href="../tools/number.html">🔢 Page Numbers</a>
+                        <a href="../tools/rotate.html">🔄 Rotate</a>
+                        <a href="../tools/ocr.html">👁️ OCR</a>
+                        <a href="../tools/protect.html">🔒 Protect</a>
+                        <a href="../tools/watermark.html">💧 Watermark</a>
                     </div>
                 </div>
-                <a href="index.html">Compress</a>
-                <a href="faq.html">FAQ</a>
+                <a href="../index.html">Compress</a>
+                <a href="../pages/faq.html">FAQ</a>
             </div>
             <div class="nav-cta">
                 <a href="#tool" class="btn btn-primary btn-sm">Number Pages</a>
@@ -75,7 +75,7 @@
     <section id="tool" class="tool-section">
         <div class="tool-container">
             <div id="upload-zone" class="upload-zone">
-                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <img src="../assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
                 <h2>Drag & Drop PDF to Number Pages</h2>
                 <p>or <span class="upload-link">click to browse files</span></p>
                 <input type="file" id="file-input" accept=".pdf" hidden>
@@ -142,21 +142,21 @@
             <div class="steps-container scroll-reveal">
                 <div class="step-card">
                     <div class="step-circle">1</div>
-                    <img src="assets/icons/upload.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/upload.svg" class="step-icon" alt="">
                     <h3>Upload</h3>
                     <p>Select the PDF that needs page numbers</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">2</div>
-                    <img src="assets/icons/compress.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/compress.svg" class="step-icon" alt="">
                     <h3>Configure</h3>
                     <p>Choose the format (e.g., Page 1 of 5) and the position (e.g., bottom-center)</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">3</div>
-                    <img src="assets/icons/download.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/download.svg" class="step-icon" alt="">
                     <h3>Process & Download</h3>
                     <p>Click process to stamp all pages and download immediately</p>
                 </div>
@@ -258,32 +258,32 @@
             <div class="footer-grid">
                 <div class="footer-brand">
                     <div class="logo">
-                        <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                        <img src="../assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
                         <span>ZapPDF</span>
                     </div>
                     <p>The fastest, most private way to manipulate PDFs online. Built with modern WebAssembly.</p>
                 </div>
                 <div class="footer-col">
                     <h4>Tools</h4>
-                    <a href="index.html">Compress PDF</a>
-                    <a href="convert.html">Format Converter</a>
-                    <a href="merge.html">Merge PDF</a>
-                    <a href="split.html">Split PDF</a>
-                    <a href="organize.html">Organize PDF</a>
-                    <a href="redact.html">Redact PDF</a>
+                    <a href="../index.html">Compress PDF</a>
+                    <a href="../tools/convert.html">Format Converter</a>
+                    <a href="../tools/merge.html">Merge PDF</a>
+                    <a href="../tools/split.html">Split PDF</a>
+                    <a href="../tools/organize.html">Organize PDF</a>
+                    <a href="../tools/redact.html">Redact PDF</a>
                 </div>
                 <div class="footer-col">
                     <h4>Company</h4>
-                    <a href="about.html">About</a>
+                    <a href="../pages/about.html">About</a>
                     <a href="#">Blog</a>
                     <a href="#">Contact</a>
                     <a href="#">Changelog</a>
                 </div>
                 <div class="footer-col">
                     <h4>Legal</h4>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Use</a>
-                    <a href="cookies.html">Cookie Policy</a>
+                    <a href="../pages/privacy.html">Privacy Policy</a>
+                    <a href="../pages/terms.html">Terms of Use</a>
+                    <a href="../pages/cookies.html">Cookie Policy</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -294,7 +294,7 @@
 
     <!-- Scripts -->
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/tools/number.js"></script>
+    <script src="../assets/js/ui.js"></script>
+    <script src="../assets/js/tools/number.js"></script>
 </body>
 </html>

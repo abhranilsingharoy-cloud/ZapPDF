@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="manifest" href="manifest.json">
-    <title>ZapPDF - Merge PDFs</title>
+    <link rel="manifest" href="../manifest.json">
+    <title>ZapPDF - Split PDF</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,47 +14,48 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/hero.css">
-    <link rel="stylesheet" href="assets/css/tool.css">
-    <link rel="stylesheet" href="assets/css/results.css">
-    <link rel="stylesheet" href="assets/css/sections.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/chat.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/hero.css">
+    <link rel="stylesheet" href="../assets/css/tool.css">
+    <link rel="stylesheet" href="../assets/css/results.css">
+    <link rel="stylesheet" href="../assets/css/sections.css">
+    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link rel="stylesheet" href="../assets/css/chat.css">
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+            <a href="../index.html" class="logo">
+                <img src="../assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
                 <span>ZapPDF</span>
             </a>
             <div class="nav-links">
                 <div class="nav-dropdown">
                     <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
                     <div class="dropdown-menu">
-                        <a href="index.html">⚡ Compress</a>
-                        <a href="convert.html">🔄 Convert</a>
-                        <a href="merge.html">🔗 Merge</a>
-                        <a href="split.html">✂️ Split</a>
-                        <a href="organize.html">🔀 Organize</a>
-                        <a href="redact.html">⬛ Redact</a>
-                        <a href="number.html">🔢 Page Numbers</a>
-                        <a href="rotate.html">🔄 Rotate</a>
-                        <a href="ocr.html">👁️ OCR</a>
-                        <a href="protect.html">🔒 Protect</a>
-                        <a href="watermark.html">💧 Watermark</a>
+                        <a href="../index.html">⚡ Compress</a>
+                        <a href="../tools/convert.html">🔄 Convert</a>
+                        <a href="../tools/merge.html">🔗 Merge</a>
+                        <a href="../tools/split.html">✂️ Split</a>
+                        <a href="../tools/organize.html">🔀 Organize</a>
+                        <a href="../tools/redact.html">⬛ Redact</a>
+                        <a href="../tools/number.html">🔢 Page Numbers</a>
+                        <a href="../tools/rotate.html">🔄 Rotate</a>
+                        <a href="../tools/ocr.html">👁️ OCR</a>
+                        <a href="../tools/protect.html">🔒 Protect</a>
+                        <a href="../tools/watermark.html">💧 Watermark</a>
                     </div>
                 </div>
-                <a href="index.html">Compress</a>
-                <a href="convert.html">Convert</a>
-                <a href="merge.html" style="color: var(--color-primary);">Merge</a>
-                <a href="faq.html">FAQ</a>
+                <a href="../index.html">Compress</a>
+                <a href="../tools/convert.html">Convert</a>
+                <a href="../tools/merge.html">Merge</a>
+                <a href="../tools/split.html" style="color: var(--color-primary);">Split</a>
+                <a href="../pages/faq.html">FAQ</a>
             </div>
             <div class="nav-cta">
-                <a href="#tool" class="btn btn-primary btn-sm">Merge Now</a>
+                <a href="#tool" class="btn btn-primary btn-sm">Split Now</a>
             </div>
             <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -66,10 +67,10 @@
     <section id="hero" class="hero">
         <div class="particle-container" id="particles"></div>
         <div class="hero-content">
-            <h1><span class="gradient-text">Merge PDFs.</span><br>Combine files instantly.</h1>
-            <p>Select multiple PDFs and merge them into a single document. 100% private, client-side processing.</p>
+            <h1><span class="gradient-text">Split PDF.</span><br>Extract pages instantly.</h1>
+            <p>Separate one page or a whole set for easy conversion into independent PDF files.</p>
             <div class="hero-actions">
-                <a href="#tool" class="btn btn-primary btn-lg">Select PDFs →</a>
+                <a href="#tool" class="btn btn-primary btn-lg">Select PDF →</a>
             </div>
         </div>
     </section>
@@ -78,15 +79,15 @@
     <section id="tool" class="tool-section">
         <div class="tool-container">
             <div id="upload-zone" class="upload-zone">
-                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
-                <h2>Drag & Drop PDFs to Merge</h2>
+                <img src="../assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <h2>Drag & Drop PDF to Split</h2>
                 <p>or <span class="upload-link">click to browse files</span></p>
-                <p class="accepted-text">Supports: PDF only. Files are merged in the order they are selected.</p>
-                <input type="file" id="file-input" accept=".pdf" multiple class="visually-hidden">
+                <p class="accepted-text">Supports: PDF only. Select 1 file.</p>
+                <input type="file" id="file-input" accept=".pdf" class="visually-hidden">
             </div>
 
             <div id="upload-compact" class="upload-compact hidden">
-                <span id="file-count-text">0 file(s) selected</span>
+                <span id="file-count-text">1 file selected</span>
                 <button id="btn-change-files" class="btn-text">Change / Clear</button>
             </div>
 
@@ -94,17 +95,21 @@
 
             <div id="controls" class="controls-container hidden">
                 <div class="control-panel panel-convert">
-                    <h3>Merge Options</h3>
-                    <p class="hint-text" style="margin-top: 8px;">Files will be merged in the order shown above.</p>
+                    <h3>Extract Pages</h3>
+                    <div class="target-inputs" style="margin-top: 16px;">
+                        <label>Pages to extract (e.g. 1-5, 8, 11-13):</label>
+                        <input type="text" id="page-ranges" placeholder="e.g. 1-3, 5" style="width: 100%;">
+                    </div>
+                    <p class="hint-text" style="margin-top: 8px;" id="page-count-hint">Loading page count...</p>
                 </div>
                 
-                <button id="btn-merge" class="btn btn-primary btn-massive">
-                    <img src="assets/icons/lightning.svg" width="24" height="24"> <span id="btn-merge-text">Merge Files</span>
+                <button id="btn-split" class="btn btn-primary btn-massive">
+                    <img src="../assets/icons/lightning.svg" width="24" height="24"> <span id="btn-split-text">Split PDF</span>
                 </button>
                 
                 <div id="progress-container" class="progress-container hidden">
                     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-                    <p class="progress-text" id="progress-text">Merging... 0%</p>
+                    <p class="progress-text" id="progress-text">Splitting... 0%</p>
                 </div>
             </div>
 
@@ -123,61 +128,61 @@
             
             <div class="features-grid scroll-reveal">
                 <!-- Compress -->
-                <a href="index.html#tool" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../index.html#tool" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">⚡</div>
                     <h3>Compress Files</h3>
                     <p>Reduce PDF and Image sizes perfectly with advanced WebAssembly.</p>
                 </a>
                 <!-- Convert -->
-                <a href="convert.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/convert.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">🔄</div>
                     <h3>Format Converter</h3>
                     <p>Convert PDFs to Images, or convert RAW/PSD to JPG seamlessly.</p>
                 </a>
                 <!-- Merge -->
-                <a href="merge.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/merge.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">🔗</div>
                     <h3>Merge PDFs</h3>
                     <p>Combine multiple PDFs into a single document in seconds.</p>
                 </a>
                 <!-- Split -->
-                <a href="split.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/split.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">✂️</div>
                     <h3>Split PDF</h3>
                     <p>Extract specific pages or split a PDF into individual files.</p>
                 </a>
                 <!-- Organize -->
-                <a href="organize.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/organize.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">🔀</div>
                     <h3>Organize PDF</h3>
                     <p>Rearrange or delete pages with a visual drag-and-drop interface.</p>
                 </a>
                 <!-- Redact -->
-                <a href="redact.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/redact.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">⬛</div>
                     <h3>Redact PDF</h3>
                     <p>Permanently remove sensitive information by flattening pages.</p>
                 </a>
                 <!-- Page Numbers -->
-                <a href="number.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/number.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">🔢</div>
                     <h3>Page Numbers</h3>
                     <p>Automatically stamp page numbers across your entire document.</p>
                 </a>
                 <!-- Rotate -->
-                <a href="rotate.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/rotate.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">🔄</div>
                     <h3>Rotate PDF</h3>
                     <p>Fix upside-down pages by rotating individual thumbnails.</p>
                 </a>
                 <!-- OCR -->
-                <a href="ocr.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/ocr.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">👁️</div>
                     <h3>OCR Text Extraction</h3>
                     <p>Extract text from scanned PDFs or images instantly.</p>
                 </a>
                 <!-- Protect -->
-                <a href="protect.html" class="feature-card" style="text-decoration: none; color: inherit;">
+                <a href="../tools/protect.html" class="feature-card" style="text-decoration: none; color: inherit;">
                     <div class="feature-icon-wrapper">🔒</div>
                     <h3>Protect & Unlock</h3>
                     <p>Add passwords to your PDFs or remove existing protection.</p>
@@ -221,7 +226,7 @@
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
                         Convert your documents seamlessly without losing quality. Turn heavy PDF documents into high-resolution JPG or PNG image files for easy sharing, or convert RAW camera formats and PSD files instantly into web-ready formats. All powered by client-side WebAssembly.
                     </p>
-                    <a href="convert.html" class="btn btn-outline">Try Format Converter →</a>
+                    <a href="../tools/convert.html" class="btn btn-outline">Try Format Converter →</a>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
                     <div style="font-size: 64px;">🖼️</div>
@@ -236,7 +241,7 @@
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
                         Extract raw, copyable text from scanned documents or flat images perfectly. We load the powerful Tesseract.js language models directly into your browser memory to read your documents without ever uploading them to an external server.
                     </p>
-                    <a href="ocr.html" class="btn btn-outline">Try OCR Text Extraction →</a>
+                    <a href="../tools/ocr.html" class="btn btn-outline">Try OCR Text Extraction →</a>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
                     <div style="font-size: 64px;">🔍</div>
@@ -252,8 +257,8 @@
                         Reorganize your documents seamlessly. Drag and drop multiple files to stitch them together into one master PDF. Or, input a custom page range (like "1-3, 5") to slice out only the pages you need into a brand new isolated file.
                     </p>
                     <div style="display: flex; gap: 16px;">
-                        <a href="merge.html" class="btn btn-outline btn-sm">Merge PDFs</a>
-                        <a href="split.html" class="btn btn-outline btn-sm">Split PDFs</a>
+                        <a href="../tools/merge.html" class="btn btn-outline btn-sm">Merge PDFs</a>
+                        <a href="../tools/split.html" class="btn btn-outline btn-sm">Split PDFs</a>
                     </div>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
@@ -270,8 +275,8 @@
                         Keep your sensitive data secure. Lock your PDFs using military-grade AES-256 encryption with a custom password. You can also stamp custom diagonal text (like "CONFIDENTIAL" or "DRAFT") across all pages to prevent unauthorized distribution.
                     </p>
                     <div style="display: flex; gap: 16px;">
-                        <a href="protect.html" class="btn btn-outline btn-sm">Protect PDF</a>
-                        <a href="watermark.html" class="btn btn-outline btn-sm">Add Watermark</a>
+                        <a href="../tools/protect.html" class="btn btn-outline btn-sm">Protect PDF</a>
+                        <a href="../tools/watermark.html" class="btn btn-outline btn-sm">Add Watermark</a>
                     </div>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
@@ -291,21 +296,21 @@
             <div class="steps-container scroll-reveal">
                 <div class="step-card">
                     <div class="step-circle">1</div>
-                    <img src="assets/icons/upload.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/upload.svg" class="step-icon" alt="">
                     <h3>Upload</h3>
                     <p>Drag & drop or click to select up to 5 PDF files from your device</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">2</div>
-                    <img src="assets/icons/compress.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/compress.svg" class="step-icon" alt="">
                     <h3>Configure</h3>
                     <p>Select your tool (Compress, Convert, OCR, Merge) and adjust settings</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">3</div>
-                    <img src="assets/icons/download.svg" class="step-icon" alt="">
+                    <img src="../assets/icons/download.svg" class="step-icon" alt="">
                     <h3>Process & Download</h3>
                     <p>Instantly download your processed files — no email, no account</p>
                 </div>
@@ -432,7 +437,7 @@
             </div>
             
             <div class="faq-more" style="text-align: center; margin-top: 32px;">
-                <a href="faq.html" class="btn btn-outline">View All FAQs</a>
+                <a href="../pages/faq.html" class="btn btn-outline">View All FAQs</a>
             </div>
         </div>
     </section>
@@ -452,13 +457,13 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <!-- Logic -->
-    <script src="assets/js/ui.js"></script>
-    <script src="assets/js/tools/merge.js"></script>
-    <script src="assets/js/chat.js"></script>
+    <script src="../assets/js/ui.js"></script>
+    <script src="../assets/js/tools/split.js"></script>
+    <script src="../assets/js/chat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             ZapUI.initUI();
-            ZapMerge.init();
+            ZapSplit.init();
         });
     </script>
 </body>
