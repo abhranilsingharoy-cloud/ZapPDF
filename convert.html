@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <title>ZapPDF - Universal Format Converter</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/navbar.css">
+    <link rel="stylesheet" href="assets/css/hero.css">
+    <link rel="stylesheet" href="assets/css/tool.css">
+    <link rel="stylesheet" href="assets/css/results.css">
+    <link rel="stylesheet" href="assets/css/sections.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
+    <link rel="stylesheet" href="assets/css/chat.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
+                <span>ZapPDF</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Compress</a>
+                <a href="convert.html" style="color: var(--color-primary);">Convert</a>
+                <a href="merge.html">Merge</a>
+                <a href="faq.html">FAQ</a>
+            </div>
+            <div class="nav-cta">
+                <a href="#tool" class="btn btn-primary btn-sm">Convert Now</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero" class="hero">
+        <div class="particle-container" id="particles"></div>
+        <div class="hero-content">
+            <h1><span class="gradient-text">Format Converter.</span><br>Any File to Any Format.</h1>
+            <p>Instantly convert PDF to JPG, RAW to PNG, PSD to SVG, and more. 100% private, client-side processing using WebAssembly.</p>
+            <div class="hero-actions">
+                <a href="#tool" class="btn btn-primary btn-lg">Select Files →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Tool -->
+    <section id="tool" class="tool-section">
+        <div class="tool-container">
+            <div id="upload-zone" class="upload-zone">
+                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
+                <h2>Drag & Drop Files to Convert</h2>
+                <p>or <span class="upload-link">click to browse files</span></p>
+                <p class="accepted-text">Supports: PDF, JPG, PNG, SVG, TIFF, RAW, PSD, EPS</p>
+                <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.svg,.tiff,.tif,.raw,.cr2,.nef,.psd,.eps" multiple class="visually-hidden">
+            </div>
+
+            <div id="upload-compact" class="upload-compact hidden">
+                <span id="file-count-text">0 file(s) selected</span>
+                <button id="btn-change-files" class="btn-text">Change / Clear</button>
+            </div>
+
+            <div id="file-list" class="file-list hidden"></div>
+
+            <div id="controls" class="controls-container hidden">
+                <div class="control-panel panel-convert">
+                    <h3>Conversion Output</h3>
+                    <div class="target-inputs" style="margin-top: 16px;">
+                        <label>Convert all files to:</label>
+                        <select id="output-format">
+                            <option value="image/jpeg">JPG / JPEG</option>
+                            <option value="image/png">PNG</option>
+                            <option value="image/webp">WebP</option>
+                            <option value="application/pdf">PDF</option>
+                        </select>
+                    </div>
+                    
+                    <h3 style="margin-top: 24px;">Optional: Compress while Converting</h3>
+                    <label class="checkbox-label" style="margin-top: 8px;">
+                        <input type="checkbox" id="opt-compress" checked> Apply smart compression during conversion
+                    </label>
+                </div>
+                
+                <button id="btn-convert" class="btn btn-primary btn-massive">
+                    <img src="assets/icons/lightning.svg" width="24" height="24"> <span id="btn-convert-text">Convert Files</span>
+                </button>
+                
+                <div id="progress-container" class="progress-container hidden">
+                    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+                    <p class="progress-text" id="progress-text">Converting... 0%</p>
+                </div>
+            </div>
+
+            <div id="results-panel" class="results-panel hidden">
+                <div id="results-list" class="results-list"></div>
+                <div id="batch-download-bar" class="batch-download-bar hidden">
+                    <button id="btn-download-zip" class="btn btn-primary">
+                        <img src="assets/icons/download.svg" alt="" width="20" height="20"> Download All as ZIP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 ZapPDF — No files stored. Ever.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magickwasm/magick-wasm@0.0.30/dist/magick.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-psd@14.3.11/dist/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
+
+    <!-- Logic -->
+    <script src="assets/js/ui.js"></script>
+    <script src="assets/js/tools/convert.js"></script>
+    <script src="assets/js/chat.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            ZapUI.initUI();
+            ZapConvert.init();
+        });
+    </script>
+</body>
+</html>
