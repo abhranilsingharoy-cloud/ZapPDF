@@ -51,6 +51,10 @@ It now natively supports PDF, JPG, PNG, SVG, TIFF, and PSD formats! Your files n
 - 🧠 **ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
 - 🖼️ **Ultimate Tool Ecosystem:** Not just a compressor! Natively includes:
   - **Merger & Splitter:** Stitch documents together or extract exact page ranges.
+  - **Organize Pages:** Visually rearrange or delete specific pages using a drag-and-drop interface.
+  - **Redact Text:** Permanently obliterate sensitive information from your documents.
+  - **Page Numbers:** Automatically stamp page numbers on every page.
+  - **Rotate:** Fix upside-down pages individually or in bulk.
   - **OCR Extraction:** Powered by `Tesseract.js` AI to extract raw copyable text from images and scanned PDFs.
   - **Password Protection:** AES-256 encryption to secure your PDFs.
   - **Watermarking:** Stamp custom diagonal text across all pages.
