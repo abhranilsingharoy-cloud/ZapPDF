@@ -159,8 +159,15 @@ window.ZapCompress = {
       else if (settings.dpi === 96) scale = 1.0;
       else if (settings.dpi === 300) scale = 3.0;
 
-      // Heuristic quality determination
-      let quality = Math.max(0.1, Math.min(0.9, targetSize / fileObj.originalSize));
+      // Call the ML Inference Engine to predict optimal quality and scale
+      const originalSizeMB = fileObj.originalSize / (1024 * 1024);
+      const targetSizeMB = targetSize / (1024 * 1024);
+      const mlPrediction = window.ZapSmartCompress ? window.ZapSmartCompress.predict(originalSizeMB, targetSizeMB, numPages) : null;
+      
+      let quality = mlPrediction ? mlPrediction.quality : Math.max(0.1, Math.min(0.9, targetSize / fileObj.originalSize));
+      if (mlPrediction && mlPrediction.scale) {
+          scale = mlPrediction.scale;
+      }
 
       const pdfDoc = await PDFLib.PDFDocument.create();
       
