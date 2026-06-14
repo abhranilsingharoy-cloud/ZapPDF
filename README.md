@@ -31,6 +31,7 @@
 - [About the Project](#-about-the-project)
 - [Key Features](#-key-features)
 - [Architecture & Security](#-architecture--security)
+- [Project Structure](#-project-structure)
 - [Getting Started](#-getting-started)
 - [Usage Guide](#-usage-guide)
 - [Roadmap](#-roadmap)
@@ -85,6 +86,29 @@ graph TD
 **Security Guarantees:**
 - **No API Calls:** The network tab remains entirely quiet during processing.
 - **Stateless:** The application relies only on standard browser memory which is cleared upon tab closure.
+
+## 📁 Project Structure
+
+```text
+ZapPDF/
+├── tools/                  # PDF & Image Manipulation Apps
+│   ├── convert.html
+│   ├── merge.html
+│   ├── organize.html
+│   └── ...
+├── pages/                  # Legal & Informational Pages
+│   ├── about.html
+│   ├── faq.html
+│   └── privacy.html
+├── assets/                 # Static Assets
+│   ├── css/                # Stylesheets
+│   ├── icons/              # SVG Icons
+│   └── js/                 # Logic & WebAssembly modules
+│       └── tools/          # JavaScript logic for each specific tool
+├── index.html              # Homepage
+├── sw.js                   # Service Worker for PWA Offline Support
+└── manifest.json           # PWA Manifest
+```
 
 ## 🚀 Getting Started
 
