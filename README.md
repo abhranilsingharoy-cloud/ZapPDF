@@ -92,6 +92,7 @@ graph TD
 ```text
 ZapPDF/
 ├── .github/                # Community & Security Guidelines
+├── api/                    # Vercel Serverless Functions (Gemini AI)
 ├── tools/                  # PDF & Image Manipulation Apps
 │   ├── convert.html
 │   ├── merge.html
