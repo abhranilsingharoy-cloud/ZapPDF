@@ -48,29 +48,34 @@ It now natively supports PDF, JPG, PNG, SVG, TIFF, and PSD formats! Your files n
 ## ✨ Key Features
 
 - 🔒 **Absolute Privacy:** 100% client-side processing. Once you close the tab, your data vanishes.
-- 🖼️ **Universal Format Support:** Natively compress PDFs, JPG, PNG, SVG, TIFF, PSD, RAW (CR2, NEF), and EPS directly in the browser using WebAssembly and `magick-wasm`.
+- 🧠 **ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
+- 🖼️ **Ultimate Tool Ecosystem:** Not just a compressor! Natively includes:
+  - **Merger & Splitter:** Stitch documents together or extract exact page ranges.
+  - **OCR Extraction:** Powered by `Tesseract.js` AI to extract raw copyable text from images and scanned PDFs.
+  - **Password Protection:** AES-256 encryption to secure your PDFs.
+  - **Watermarking:** Stamp custom diagonal text across all pages.
+  - **Format Converter:** Convert image formats to PDF and vice versa.
 - 📱 **Progressive Web App (PWA):** Fully installable on iOS and Android as a native-feeling app without app store downloads.
-- ⚡ **Zero Latency:** Because there are no uploads or downloads to a server, compression begins instantly.
+- ⚡ **Zero Latency:** Because there are no uploads or downloads to a server, processing begins instantly.
 - 🤖 **ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
-- 🎯 **Smart Target Sizing:** Specify an exact target file size (e.g., 200KB) and the algorithm will attempt to hit it using advanced rasterization.
 - 📦 **Batch Operations:** Drag, drop, and compress multiple files simultaneously, then download them bundled in a ZIP.
-- 🛠️ **Granular Controls:** Strip metadata, flatten form fields, and adjust image DPI.
 - 🎨 **Premium UI/UX:** A stunning "Golden Solar" dark-mode UI with glassmorphism effects, dynamic 3D floating background orbs, and confetti explosions upon successful compression!
 - 📊 **Global Impact Tracker:** A local-storage tracker that calculates your lifetime bandwidth saved using the tool.
 
 ## 🏗️ Architecture & Security
 
-ZapPDF utilizes a Web Worker architecture to prevent the main UI thread from blocking during heavy PDF manipulation tasks. 
+ZapPDF utilizes a multi-page routing architecture and a Web Worker setup to prevent the main UI thread from blocking during heavy PDF manipulation tasks. 
 
 ```mermaid
 graph TD
     A[User Interface HTML/CSS] -->|File Selection| B(Main Thread JS)
-    B -->|PostMessage: ArrayBuffer + Settings| C{Web Worker}
-    C -->|pdf-lib load & manipulate| D[In-Memory PDF processing]
-    D -->|Object Streams & Optimization| E[Compressed Bytes]
-    E -->|PostMessage: Result| B
-    B -->|Blob URL| F[FileSaver.js / JSZip]
-    F -->|Download| G(User Device)
+    B -->|ML Inference| C{ml_compress.js}
+    B -->|PostMessage: ArrayBuffer + Settings| D{Web Worker}
+    D -->|pdf-lib load & manipulate| E[In-Memory PDF processing]
+    E -->|Object Streams & Optimization| F[Processed Bytes]
+    F -->|PostMessage: Result| B
+    B -->|Blob URL| G[FileSaver.js / JSZip]
+    G -->|Download| H(User Device)
 ```
 
 **Security Guarantees:**
@@ -123,8 +128,10 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 - [x] Custom Target Size Rasterization
 - [x] Universal Image Format Support (JPG, PNG, SVG, TIFF, PSD)
 - [x] Gemini AI Chatbot Integration
-- [ ] Implement OCR capabilities (via Tesseract.js)
-- [ ] Add PDF merging and splitting utilities
+- [x] Implement OCR capabilities (via Tesseract.js)
+- [x] Add PDF merging and splitting utilities
+- [x] Add Watermarking and Encryption (AES-256)
+- [x] Train ML Model for Smart Compression Prediction
 
 ## 🤝 Contributing
 
