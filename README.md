@@ -91,6 +91,7 @@ graph TD
 
 ```text
 ZapPDF/
+├── .github/                # Community & Security Guidelines
 ├── tools/                  # PDF & Image Manipulation Apps
 │   ├── convert.html
 │   ├── merge.html
