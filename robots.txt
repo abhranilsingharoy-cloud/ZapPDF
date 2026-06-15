@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abhranilsingharoy-cloud.github.io/ZapPDF/sitemap.xml
+Sitemap: https://zappdf.com/sitemap.xml
