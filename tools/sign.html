@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#1a1a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="manifest" href="../manifest.json">
-    <title>ZapPDF - Redact PDF Data</title>
+    <title>ZapPDF - Sign PDF & Reorder PDF Pages</title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -22,32 +22,70 @@
     <link rel="stylesheet" href="../assets/css/sections.css">
     <link rel="stylesheet" href="../assets/css/responsive.css">
     <style>
-        .canvas-container {
+        .page-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 16px;
+            background: var(--color-surface-2);
+            border-radius: var(--radius-md);
+            border: 1px solid var(--color-border);
+        }
+        .page-item {
             position: relative;
-            display: inline-block;
-            margin-top: 16px;
+            background: var(--color-surface);
             border: 1px solid var(--color-border);
             border-radius: var(--radius-sm);
-            background: var(--color-surface);
-            overflow: hidden;
+            padding: 8px;
+            cursor: grab;
+            transition: transform 0.2s;
+            user-select: none;
         }
-        .canvas-layer {
+        .page-item:active {
+            cursor: grabbing;
+            transform: scale(1.05);
+        }
+        .page-item.dragging {
+            opacity: 0.5;
+        }
+        .page-item canvas {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            pointer-events: none;
+        }
+        .page-label {
+            text-align: center;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--color-text-muted);
+            pointer-events: none;
+        }
+        .delete-btn {
             position: absolute;
-            top: 0;
-            left: 0;
-            cursor: crosshair;
-        }
-        .redact-controls {
+            top: -8px;
+            right: -8px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            font-size: 12px;
+            cursor: pointer;
             display: flex;
-            gap: 16px;
             align-items: center;
             justify-content: center;
-            margin-bottom: 16px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            opacity: 0;
+            transition: opacity 0.2s;
         }
-        .page-nav {
-            display: flex;
-            gap: 8px;
-            align-items: center;
+        .page-item:hover .delete-btn {
+            opacity: 1;
         }
     </style>
 </head>
@@ -84,7 +122,7 @@
                 <a href="../pages/faq.html">FAQ</a>
             </div>
             <div class="nav-cta">
-                <a href="#tool" class="btn btn-primary btn-sm">Redact Now</a>
+                <a href="#tool" class="btn btn-primary btn-sm">Sign PDF Now</a>
             </div>
             <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -96,8 +134,8 @@
     <section id="hero" class="hero">
         <div class="particle-container" id="particles"></div>
         <div class="hero-content">
-            <h1><span class="gradient-text">Redact PDF.</span><br>Erase sensitive data.</h1>
-            <p>Draw black boxes to permanently flatten and censor sensitive information.</p>
+            <h1><span class="gradient-text">Sign PDF PDF.</span><br>Drag, drop, delete.</h1>
+            <p>Visually reorder pages or remove unwanted pages directly in your browser.</p>
             <div class="hero-actions">
                 <a href="#tool" class="btn btn-primary btn-lg">Select PDF →</a>
             </div>
@@ -109,7 +147,7 @@
         <div class="tool-container">
             <div id="upload-zone" class="upload-zone">
                 <img src="../assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
-                <h2>Drag & Drop PDF to Redact</h2>
+                <h2>Drag & Drop PDF to Sign PDF</h2>
                 <p>or <span class="upload-link">click to browse files</span></p>
                 <input type="file" id="file-input" accept=".pdf" hidden>
                 <div class="privacy-badge">
@@ -119,26 +157,21 @@
 
             <div id="active-workspace" class="active-workspace" style="display: none;">
                 <div class="workspace-header">
-                    <h3>Redact Data</h3>
-                    <button id="undo-btn" class="btn btn-outline btn-sm">↺ Undo Last</button>
+                    <h3>Sign PDF Pages</h3>
+                    <button id="add-more-btn" class="btn btn-outline btn-sm">+ Add Another File</button>
                 </div>
 
-                <div class="tool-controls" style="text-align: center;">
-                    <div class="redact-controls">
-                        <button id="prev-page" class="btn btn-outline btn-sm">← Prev</button>
-                        <span id="page-indicator" style="font-weight: bold;">Page 1 / 1</span>
-                        <button id="next-page" class="btn btn-outline btn-sm">Next →</button>
-                    </div>
-                    <p style="color: var(--color-text-muted); font-size: 14px;">Click and drag on the document below to draw redaction boxes.</p>
-                    
-                    <div class="canvas-container">
-                        <canvas id="pdf-render-canvas"></canvas>
-                        <canvas id="draw-layer" class="canvas-layer"></canvas>
+                <div class="tool-controls">
+                    <div class="control-group">
+                        <label>Drag pages to reorder them. Click the red X to delete a page.</label>
+                        <div id="page-grid" class="page-grid">
+                            <!-- Pages injected here -->
+                        </div>
                     </div>
                 </div>
 
                 <div class="action-row">
-                    <button id="process-btn" class="btn btn-primary btn-lg" style="width: 100%;">Flatten & Download</button>
+                    <button id="process-btn" class="btn btn-primary btn-lg" style="width: 100%;">Save & Download PDF</button>
                 </div>
                 
                 <div id="progress-container" style="display: none; margin-top: 24px;">
@@ -160,7 +193,7 @@
     <!-- SECTION 5: How It Works -->
     <section id="how-it-works" class="sections">
         <div class="container">
-            <h2 class="section-heading">How To Redact PDF</h2>
+            <h2 class="section-heading">How To Sign PDF PDF</h2>
             <div class="heading-accent"></div>
             
             <div class="steps-container scroll-reveal">
@@ -168,21 +201,21 @@
                     <div class="step-circle">1</div>
                     <img src="../assets/icons/upload.svg" class="step-icon" alt="">
                     <h3>Upload PDF</h3>
-                    <p>Open the PDF containing sensitive information.</p>
+                    <p>Load your PDF to view all pages as visual thumbnails.</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">2</div>
                     <img src="../assets/icons/compress.svg" class="step-icon" alt="">
-                    <h3>Draw Rectangles</h3>
-                    <p>Visually draw black boxes over text, numbers, or images you want to hide.</p>
+                    <h3>Draw Signature</h3>
+                    <p>Draw your signature and place it anywhere on the document.</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">3</div>
                     <img src="../assets/icons/download.svg" class="step-icon" alt="">
-                    <h3>Flatten & Download</h3>
-                    <p>ZapPDF permanently erases the data underneath and saves the file.</p>
+                    <h3>Save & Download</h3>
+                    <p>Instantly download your newly signd PDF document.</p>
                 </div>
             </div>
         </div>
@@ -191,24 +224,24 @@
     <!-- SECTION 6: Features -->
     <section id="features" class="sections">
         <div class="container">
-            <h2 class="section-heading">Why ZapPDF Redact PDF?</h2>
+            <h2 class="section-heading">Why ZapPDF Sign PDF PDF?</h2>
             <p class="section-subheading">Built for speed, privacy, and precision.</p>
             
             <div class="features-grid scroll-reveal">
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">⬛</div>
-                    <h3>Permanent Erasure</h3>
-                    <p>We don't just cover the text; we flatten the PDF so the underlying data cannot be copied or recovered.</p>
+                    <div class="feature-icon-wrapper">🔀</div>
+                    <h3>Visual Organization</h3>
+                    <p>Easily rearrange your document using an intuitive drag-and-drop grid.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">🔒</div>
-                    <h3>100% Local</h3>
-                    <p>Your sensitive contracts and IDs are never sent over the internet.</p>
+                    <h3>Client-Side Privacy</h3>
+                    <p>All page reorganization happens securely in your browser memory.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon-wrapper">⚡</div>
-                    <h3>Instant Flattening</h3>
-                    <p>The redaction is applied instantly using WebAssembly.</p>
+                    <h3>Zero Latency</h3>
+                    <p>See changes in real-time. No waiting for server rendering.</p>
                 </div>
             </div>
         </div>
@@ -222,16 +255,16 @@
             
             <div class="faq-container scroll-reveal" style="max-width: 800px; margin: 0 auto;">
                 <div class="faq-item" style="background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px;">
-                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Is the text actually removed, or just covered?</h3>
-                    <p style="color: var(--color-text-muted); line-height: 1.6;">Unlike simple markup tools, ZapPDF flattens the document. This means the text underneath the black box is permanently destroyed and cannot be highlighted or extracted.</p>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Can I delete multiple pages?</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Yes! Simply click the trash can icon on any page thumbnail you wish to remove before saving.</p>
                 </div>
                 <div class="faq-item" style="background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px;">
-                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Can I redact images as well as text?</h3>
-                    <p style="color: var(--color-text-muted); line-height: 1.6;">Yes, you can draw a redaction box over any part of the page, including images, logos, and signatures.</p>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Is it safe to sign sensitive documents here?</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Absolutely. Because ZapPDF is a client-side app, your sensitive files are never uploaded to the cloud.</p>
                 </div>
                 <div class="faq-item" style="background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 24px;">
-                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Is my data secure?</h3>
-                    <p style="color: var(--color-text-muted); line-height: 1.6;">Yes. Redaction is a highly sensitive task, which is why doing it locally in your browser with ZapPDF is much safer than using an online server.</p>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Can I undo a deleted page?</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Currently, you must reload the PDF if you accidentally delete a page. We recommend double-checking before saving.</p>
                 </div>
             </div>
         </div>
@@ -245,7 +278,7 @@
                     <h2 class="section-heading" style="text-align: left;">100% Free & Private</h2>
                     <div class="heading-accent" style="margin: 0 0 24px 0;"></div>
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
-                        ZapPDF is on a mission to provide professional-grade document tools without compromising your privacy. Our <strong>Redact PDF</strong> tool utilizes modern WebAssembly to perform complex operations right inside your browser memory.
+                        ZapPDF is on a mission to provide professional-grade document tools without compromising your privacy. Our <strong>Sign PDF PDF</strong> tool utilizes modern WebAssembly to perform complex operations right inside your browser memory.
                     </p>
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.8;">
                         No accounts, no paywalls, and absolutely no data collection. Enjoy unlimited usage completely free of charge.
@@ -256,7 +289,7 @@
                     <h3 style="font-size: 24px; margin-bottom: 16px;">Unlimited Access</h3>
                     <div style="font-size: 48px; font-weight: 800; color: var(--color-primary); margin-bottom: 24px;">$0<span style="font-size: 16px; color: var(--color-text-muted);">/forever</span></div>
                     <ul style="list-style: none; text-align: left; margin-bottom: 32px;">
-                        <li style="margin-bottom: 12px;">✅ Unlimited Redact PDF</li>
+                        <li style="margin-bottom: 12px;">✅ Unlimited Sign PDF PDF</li>
                         <li style="margin-bottom: 12px;">✅ 100% Client-Side Privacy</li>
                         <li style="margin-bottom: 12px;">✅ No File Size Limits</li>
                         <li>✅ No Watermarks Added</li>
@@ -283,7 +316,7 @@
                     <a href="../tools/convert.html">Format Converter</a>
                     <a href="../tools/merge.html">Merge PDF</a>
                     <a href="../tools/split.html">Split PDF</a>
-                    <a href="../tools/organize.html">Organize PDF</a>
+                    <a href="../tools/sign.html">Sign PDF PDF</a>
                     <a href="../tools/redact.html">Redact PDF</a>
                 </div>
                 <div class="footer-col">
@@ -311,7 +344,8 @@
     <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
     <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
     <script src="../assets/js/ui.js"></script>
-    <script src="../assets/js/tools/redact.js"></script>
+    <script src="../assets/js/db.js"></script>
+    <script src="../assets/js/tools/sign.js"></script>
     <script src="../assets/js/chat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {

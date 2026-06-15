@@ -1,4 +1,4 @@
-const CACHE_NAME = 'zappdf-cache-v3';
+const CACHE_NAME = 'zappdf-cache-v4';
 
 const FILES_TO_CACHE = [
     '/',
@@ -18,6 +18,10 @@ const FILES_TO_CACHE = [
     '/tools/ocr.html',
     '/tools/protect.html',
     '/tools/watermark.html',
+    '/tools/edit.html',
+    '/tools/sign.html',
+    '/tools/crop.html',
+    '/tools/extract.html',
     '/assets/css/main.css',
     '/assets/css/navbar.css',
     '/assets/css/hero.css',
@@ -45,6 +49,10 @@ const FILES_TO_CACHE = [
     '/assets/js/tools/ocr.js',
     '/assets/js/tools/protect.js',
     '/assets/js/tools/watermark.js',
+    '/assets/js/tools/edit.js',
+    '/assets/js/tools/sign.js',
+    '/assets/js/tools/crop.js',
+    '/assets/js/tools/extract.js',
     '/manifest.json',
     'https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js',
     'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js',

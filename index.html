@@ -49,6 +49,10 @@
                         <a href="tools/ocr.html">👁️ OCR</a>
                         <a href="tools/protect.html">🔒 Protect</a>
                         <a href="tools/watermark.html">💧 Watermark</a>
+                        <a href="tools/extract.html">🖼️ Extract Images</a>
+                        <a href="tools/crop.html">✂️ Crop PDF</a>
+                        <a href="tools/sign.html">✍️ eSign PDF</a>
+                        <a href="tools/edit.html">✍️ Add Text</a>
                     </div>
                 </div>
                 <a href="#how-it-works">How It Works</a>
@@ -229,6 +233,16 @@
                 </div>
             </div>
 
+        </div>
+    </section>
+
+    <!-- SECTION 3.5: Recent Files (Injected via JS) -->
+    <section id="recent-files-section" class="sections hidden" style="background: var(--color-surface-2); padding-bottom: 0;">
+        <div class="container">
+            <h2 class="section-heading" style="text-align: left; margin-bottom: 24px;">🕒 Recent Files</h2>
+            <div id="recent-files-container" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+                <!-- Recent files injected here -->
+            </div>
         </div>
     </section>
 
@@ -645,6 +659,7 @@
     <script src="assets/js/download.js"></script>
     <script src="assets/js/tools/ml_compress.js"></script>
     <script src="assets/js/chat.js"></script>
+    <script src="assets/js/db.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
 </html>

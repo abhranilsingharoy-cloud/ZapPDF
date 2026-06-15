@@ -83,6 +83,9 @@ window.ZapUpload = {
     }
 
     if (validFiles.length > 0) {
+      if (window.ZapDB) {
+        validFiles.forEach(f => ZapDB.saveFile(f));
+      }
       window.dispatchEvent(new CustomEvent('zap:filesSelected', { detail: validFiles }));
     }
   },
