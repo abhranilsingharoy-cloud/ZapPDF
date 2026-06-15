@@ -97,6 +97,10 @@ ZapPDF/
 │   ├── convert.html
 │   ├── merge.html
 │   ├── organize.html
+│   ├── crop.html
+│   ├── extract.html
+│   ├── edit.html
+│   ├── sign.html
 │   └── ...
 ├── pages/                  # Legal & Informational Pages
 │   ├── about.html
