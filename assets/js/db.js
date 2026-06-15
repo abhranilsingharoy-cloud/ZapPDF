@@ -1,92 +1,105 @@
-// db.js - IndexedDB wrapper for Recent Files History
+/**
+ * db.js
+ * Handles client-side IndexedDB storage for Recent Files History.
+ * Ensures a maximum of 3 recent files are stored locally.
+ */
+
 window.ZapDB = {
     dbName: 'ZapPDF_DB',
-    dbVersion: 1,
     storeName: 'recent_files',
     maxFiles: 3,
-    maxSizeBytes: 20 * 1024 * 1024, // 20 MB
+    db: null,
 
-    init() {
+    async init() {
         return new Promise((resolve, reject) => {
-            const request = indexedDB.open(this.dbName, this.dbVersion);
+            if (this.db) return resolve();
 
-            request.onerror = (e) => reject("IndexedDB error: " + e.target.errorCode);
+            const request = indexedDB.open(this.dbName, 1);
+            
+            request.onupgradeneeded = (event) => {
+                const db = event.target.result;
+                if (!db.objectStoreNames.contains(this.storeName)) {
+                    db.createObjectStore(this.storeName, { keyPath: 'id' });
+                }
+            };
 
-            request.onsuccess = (e) => {
-                this.db = e.target.result;
+            request.onsuccess = (event) => {
+                this.db = event.target.result;
                 resolve();
             };
 
-            request.onupgradeneeded = (e) => {
-                const db = e.target.result;
-                if (!db.objectStoreNames.contains(this.storeName)) {
-                    const store = db.createObjectStore(this.storeName, { keyPath: 'id', autoIncrement: true });
-                    store.createIndex('timestamp', 'timestamp', { unique: false });
-                }
+            request.onerror = (event) => {
+                console.error('IndexedDB error:', event.target.error);
+                reject(event.target.error);
             };
         });
     },
 
     async saveFile(file) {
-        if (!this.db) await this.init();
-        
-        // Don't save if over 20MB
-        if (file.size > this.maxSizeBytes) return;
+        await this.init();
+        return new Promise(async (resolve, reject) => {
+            try {
+                // Create a unique ID or use filename + timestamp
+                const id = `${Date.now()}_${file.name}`;
+                const record = {
+                    id: id,
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    timestamp: Date.now(),
+                    data: file // IndexedDB natively supports storing File objects
+                };
 
+                const tx = this.db.transaction([this.storeName], 'readwrite');
+                const store = tx.objectStore(this.storeName);
+                
+                store.add(record);
+
+                tx.oncomplete = async () => {
+                    await this.enforceLimit();
+                    resolve(record);
+                };
+                tx.onerror = () => reject(tx.error);
+            } catch (err) {
+                reject(err);
+            }
+        });
+    },
+
+    async getRecentFiles() {
+        await this.init();
         return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction([this.storeName], 'readwrite');
-            const store = transaction.objectStore(this.storeName);
-
-            // Create a record
-            const record = {
-                name: file.name,
-                type: file.type,
-                size: file.size,
-                data: file, // Store the Blob/File directly
-                timestamp: Date.now()
-            };
-
-            const request = store.add(record);
+            const tx = this.db.transaction([this.storeName], 'readonly');
+            const store = tx.objectStore(this.storeName);
+            const request = store.getAll();
 
             request.onsuccess = () => {
-                this.enforceLimit();
-                resolve();
+                // Sort by timestamp descending (newest first)
+                let files = request.result;
+                files.sort((a, b) => b.timestamp - a.timestamp);
+                resolve(files);
             };
             request.onerror = () => reject(request.error);
         });
     },
 
-    async getFiles() {
-        if (!this.db) await this.init();
-
+    async getFile(id) {
+        await this.init();
         return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction([this.storeName], 'readonly');
-            const store = transaction.objectStore(this.storeName);
-            const index = store.index('timestamp');
-            
-            // Get all files sorted by timestamp (descending)
-            const request = index.openCursor(null, 'prev');
-            const files = [];
+            const tx = this.db.transaction([this.storeName], 'readonly');
+            const store = tx.objectStore(this.storeName);
+            const request = store.get(id);
 
-            request.onsuccess = (e) => {
-                const cursor = e.target.result;
-                if (cursor) {
-                    files.push(cursor.value);
-                    cursor.continue();
-                } else {
-                    resolve(files);
-                }
-            };
+            request.onsuccess = () => resolve(request.result);
             request.onerror = () => reject(request.error);
         });
     },
 
     async deleteFile(id) {
-        if (!this.db) await this.init();
-
+        await this.init();
         return new Promise((resolve, reject) => {
-            const transaction = this.db.transaction([this.storeName], 'readwrite');
-            const store = transaction.objectStore(this.storeName);
+            const tx = this.db.transaction([this.storeName], 'readwrite');
+            const store = tx.objectStore(this.storeName);
             const request = store.delete(id);
 
             request.onsuccess = () => resolve();
@@ -95,11 +108,12 @@ window.ZapDB = {
     },
 
     async enforceLimit() {
-        const files = await this.getFiles();
+        // Fetch all files, if length > maxFiles, delete oldest
+        const files = await this.getRecentFiles();
         if (files.length > this.maxFiles) {
-            // Delete the oldest files
-            const filesToDelete = files.slice(this.maxFiles);
-            for (const file of filesToDelete) {
+            // The files are sorted newest first. We need to delete from the end.
+            const toDelete = files.slice(this.maxFiles);
+            for (const file of toDelete) {
                 await this.deleteFile(file.id);
             }
         }

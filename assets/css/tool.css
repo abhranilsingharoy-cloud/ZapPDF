@@ -3,8 +3,82 @@
   background-color: var(--color-bg);
 }
 
+/* Recent Files History */
+.recent-files-container {
+  margin-top: 24px;
+  text-align: left;
+  display: none; /* hidden if no recent files */
+}
+
+.recent-files-title {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-bottom: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.recent-files-list {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.recent-file-card {
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all var(--transition);
+  max-width: 280px;
+  flex: 1;
+  min-width: 200px;
+}
+
+.recent-file-card:hover {
+  border-color: var(--color-primary);
+  transform: translateY(-2px);
+  box-shadow: var(--glow-sm);
+}
+
+.recent-file-icon {
+  font-size: 24px;
+  background: rgba(255, 171, 0, 0.1);
+  color: var(--color-primary);
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.recent-file-info {
+  overflow: hidden;
+}
+
+.recent-file-name {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 4px;
+}
+
+.recent-file-meta {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* General Tool Container */
 .tool-container {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 

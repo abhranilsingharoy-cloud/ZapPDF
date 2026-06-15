@@ -6,6 +6,88 @@ window.ZapUI = {
     this.initScrollAnimations();
     this.initLevelSlider();
     this.initParticles();
+    this.initRecentFiles();
+    this.initGlobalFileHandling();
+  },
+
+  async initRecentFiles() {
+    if (!window.ZapDB) return;
+    const container = document.getElementById('recent-files-container');
+    const list = document.getElementById('recent-files-list');
+    if (!container || !list) return;
+
+    try {
+        const files = await window.ZapDB.getRecentFiles();
+        if (files && files.length > 0) {
+            container.style.display = 'block';
+            list.innerHTML = '';
+            files.forEach(fileRecord => {
+                const card = document.createElement('div');
+                card.className = 'recent-file-card';
+                
+                // Get relative prefix for icons depending on path
+                const isSubfolder = window.location.pathname.includes('/tools/');
+                const prefix = isSubfolder ? '../' : '';
+                
+                card.innerHTML = `
+                    <div class="recent-file-icon">📄</div>
+                    <div class="recent-file-info">
+                        <div class="recent-file-name" title="${fileRecord.name}">${fileRecord.name}</div>
+                        <div class="recent-file-meta">${this.formatBytes(fileRecord.size)} • ${new Date(fileRecord.timestamp).toLocaleDateString()}</div>
+                    </div>
+                `;
+                
+                card.addEventListener('click', () => {
+                    // Dispatch an event that the tool scripts can listen to
+                    window.dispatchEvent(new CustomEvent('zap:loadRecentFile', { detail: fileRecord.data }));
+                });
+                
+                list.appendChild(card);
+            });
+        } else {
+            container.style.display = 'none';
+        }
+    } catch (e) {
+        console.error('Failed to load recent files:', e);
+    }
+  },
+
+  initGlobalFileHandling() {
+    // Automatically route Recent File clicks to the active tool
+    window.addEventListener('zap:loadRecentFile', (e) => {
+        const file = e.detail;
+        const toolNames = ['ZapCompress', 'ZapSplit', 'ZapMerge', 'ZapConvert', 'ZapCrop', 'ZapEdit', 'ZapExtract', 'ZapNumber', 'ZapOCR', 'ZapOrganize', 'ZapProtect', 'ZapRedact', 'ZapRotate', 'ZapSign', 'ZapWatermark'];
+        for (const name of toolNames) {
+            if (window[name] && typeof window[name].handleFiles === 'function') {
+                window[name].handleFiles([file]);
+                window.scrollTo({top: 0, behavior: 'smooth'});
+                return;
+            }
+        }
+    });
+
+    // Automatically save newly uploaded files to IndexedDB
+    document.addEventListener('change', (e) => {
+        if (e.target && e.target.type === 'file' && e.target.files && e.target.files.length > 0) {
+            if (window.ZapDB) {
+                window.ZapDB.saveFile(e.target.files[0]).then(() => {
+                    // Refresh recent files UI
+                    this.initRecentFiles();
+                });
+            }
+        }
+    });
+    
+    // Also catch drag and drop
+    document.addEventListener('drop', (e) => {
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            if (window.ZapDB) {
+                window.ZapDB.saveFile(e.dataTransfer.files[0]).then(() => {
+                    this.initRecentFiles();
+                });
+            }
+        }
+    });
   },
 
   initParticles() {
