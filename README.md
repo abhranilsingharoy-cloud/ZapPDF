@@ -166,6 +166,10 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 - [x] Add PDF merging and splitting utilities
 - [x] Add Watermarking and Encryption (AES-256)
 - [x] Train ML Model for Smart Compression Prediction
+- [x] Sign & Edit PDF directly in browser
+- [x] Visual PDF Cropping
+- [x] Image Extraction to ZIP
+- [x] IndexedDB Recent Files History
 
 ## 🤝 Contributing
 
