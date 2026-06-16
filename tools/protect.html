@@ -268,6 +268,37 @@
             <h2 class="section-heading">Powerful Tools for Every Need</h2>
             <div class="heading-accent"></div>
             
+            <!-- NEW: ZapPDF Studio -->
+            <div class="tool-feature-row scroll-reveal" style="display: flex; gap: 40px; align-items: center; margin-bottom: 80px; flex-wrap: wrap;">
+                <div class="tool-feature-text" style="flex: 1; min-width: 300px;">
+                    <div class="feature-icon-wrapper" style="margin-bottom: 16px; display: inline-flex;">✨</div>
+                    <h3 style="font-size: 28px; margin-bottom: 16px;">The All-In-One Studio</h3>
+                    <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
+                        Stop jumping between pages. Upload your document once and instantly switch between Compress, Edit, Watermark, and 12 other tools without ever downloading or re-uploading. Chain operations together sequentially in our massive new fullscreen workspace.
+                    </p>
+                    <a href="studio.html" class="btn btn-primary">Enter Studio Mode →</a>
+                </div>
+                <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
+                    <div style="font-size: 64px;">🛠️</div>
+                    <div style="margin-top: 20px; font-weight: bold; color: var(--color-primary);">Upload Once. Edit Everything.</div>
+                </div>
+            </div>
+
+            <!-- NEW: Batch Processing -->
+            <div class="tool-feature-row scroll-reveal" style="display: flex; gap: 40px; align-items: center; margin-bottom: 80px; flex-wrap: wrap; flex-direction: row-reverse;">
+                <div class="tool-feature-text" style="flex: 1; min-width: 300px;">
+                    <div class="feature-icon-wrapper" style="margin-bottom: 16px; display: inline-flex;">📦</div>
+                    <h3 style="font-size: 28px; margin-bottom: 16px;">100-File Batch Processing</h3>
+                    <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
+                        Need to compress 80 PDFs at once? No problem. Drag and drop up to 100 files simultaneously. ZapPDF will process them in parallel natively in your browser, and instantly bundle them into a single, clean `.zip` file for 1-click downloading.
+                    </p>
+                </div>
+                <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
+                    <div style="font-size: 64px;">⚡</div>
+                    <div style="margin-top: 20px; font-weight: bold; color: var(--color-primary);">100 Files in Seconds</div>
+                </div>
+            </div>
+
             <div class="tool-feature-row scroll-reveal" style="display: flex; gap: 40px; align-items: center; margin-bottom: 80px; flex-wrap: wrap;">
                 <div class="tool-feature-text" style="flex: 1; min-width: 300px;">
                     <div class="feature-icon-wrapper" style="margin-bottom: 16px; display: inline-flex;">⚡</div>
@@ -293,7 +324,7 @@
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
                         Convert your documents seamlessly without losing quality. Turn heavy PDF documents into high-resolution JPG or PNG image files for easy sharing, or convert RAW camera formats and PSD files instantly into web-ready formats. All powered by client-side WebAssembly.
                     </p>
-                    <a href="../tools/convert.html" class="btn btn-outline">Try Format Converter →</a>
+                    <a href="convert.html" class="btn btn-outline">Try Format Converter →</a>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
                     <div style="font-size: 64px;">🖼️</div>
@@ -308,7 +339,7 @@
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
                         Extract raw, copyable text from scanned documents or flat images perfectly. We load the powerful Tesseract.js language models directly into your browser memory to read your documents without ever uploading them to an external server.
                     </p>
-                    <a href="../tools/ocr.html" class="btn btn-outline">Try OCR Text Extraction →</a>
+                    <a href="ocr.html" class="btn btn-outline">Try OCR Text Extraction →</a>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
                     <div style="font-size: 64px;">🔍</div>
@@ -324,8 +355,8 @@
                         Reorganize your documents seamlessly. Drag and drop multiple files to stitch them together into one master PDF. Or, input a custom page range (like "1-3, 5") to slice out only the pages you need into a brand new isolated file.
                     </p>
                     <div style="display: flex; gap: 16px;">
-                        <a href="../tools/merge.html" class="btn btn-outline btn-sm">Merge PDFs</a>
-                        <a href="../tools/split.html" class="btn btn-outline btn-sm">Split PDFs</a>
+                        <a href="merge.html" class="btn btn-outline btn-sm">Merge PDFs</a>
+                        <a href="split.html" class="btn btn-outline btn-sm">Split PDFs</a>
                     </div>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
@@ -342,13 +373,31 @@
                         Keep your sensitive data secure. Lock your PDFs using military-grade AES-256 encryption with a custom password. You can also stamp custom diagonal text (like "CONFIDENTIAL" or "DRAFT") across all pages to prevent unauthorized distribution.
                     </p>
                     <div style="display: flex; gap: 16px;">
-                        <a href="../tools/protect.html" class="btn btn-outline btn-sm">Protect PDF</a>
-                        <a href="../tools/watermark.html" class="btn btn-outline btn-sm">Add Watermark</a>
+                        <a href="protect.html" class="btn btn-outline btn-sm">Protect PDF</a>
+                        <a href="watermark.html" class="btn btn-outline btn-sm">Add Watermark</a>
                     </div>
                 </div>
                 <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
                     <div style="font-size: 64px;">🛡️</div>
                     <div style="margin-top: 20px; font-family: monospace; color: var(--color-primary);">••••••••</div>
+                </div>
+            </div>
+            </div>
+            <div class="tool-feature-row scroll-reveal" style="display: flex; gap: 40px; align-items: center; flex-wrap: wrap; flex-direction: row;">
+                <div class="tool-feature-text" style="flex: 1; min-width: 300px;">
+                    <div class="feature-icon-wrapper" style="margin-bottom: 16px; display: inline-flex;">✍️</div>
+                    <h3 style="font-size: 28px; margin-bottom: 16px;">Professional Editing & E-Signing</h3>
+                    <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.6; margin-bottom: 16px;">
+                        Sign contracts and fill out forms natively in your browser. Draw your signature on a beautiful HTML5 canvas and stamp it directly onto the document, or use the Text Tool to click anywhere and type text boxes over your PDF.
+                    </p>
+                    <div style="display: flex; gap: 16px;">
+                        <a href="sign.html" class="btn btn-outline btn-sm">eSign PDF</a>
+                        <a href="edit.html" class="btn btn-outline btn-sm">Add Text</a>
+                    </div>
+                </div>
+                <div class="tool-feature-visual" style="flex: 1; min-width: 300px; background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 40px; text-align: center; border: 1px solid var(--color-border);">
+                    <div style="font-size: 64px;">📜</div>
+                    <div style="margin-top: 20px; font-family: 'Pacifico', cursive; color: var(--color-primary); font-size: 24px;">John Doe</div>
                 </div>
             </div>
         </div>
@@ -358,29 +407,29 @@
     <!-- SECTION 5: How It Works -->
     <section id="how-it-works" class="sections">
         <div class="container">
-            <h2 class="section-heading">How To Protect & Unlock</h2>
+            <h2 class="section-heading">How It Works</h2>
             <div class="heading-accent"></div>
             
             <div class="steps-container scroll-reveal">
                 <div class="step-card">
                     <div class="step-circle">1</div>
                     <img src="../assets/icons/upload.svg" class="step-icon" alt="">
-                    <h3>Upload PDF</h3>
-                    <p>Select the document you want to secure.</p>
+                    <h3>Upload</h3>
+                    <p>Drag & drop or click to select up to 5 PDF files from your device</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">2</div>
                     <img src="../assets/icons/compress.svg" class="step-icon" alt="">
-                    <h3>Set Password</h3>
-                    <p>Enter a strong password to lock the file.</p>
+                    <h3>Configure</h3>
+                    <p>Select your tool (Compress, Convert, OCR, Merge) and adjust settings</p>
                 </div>
                 <div class="step-connector"></div>
                 <div class="step-card">
                     <div class="step-circle">3</div>
                     <img src="../assets/icons/download.svg" class="step-icon" alt="">
-                    <h3>Encrypt & Download</h3>
-                    <p>Download the securely encrypted PDF.</p>
+                    <h3>Process & Download</h3>
+                    <p>Instantly download your processed files — no email, no account</p>
                 </div>
             </div>
         </div>
@@ -389,24 +438,44 @@
     <!-- SECTION 6: Features -->
     <section id="features" class="sections">
         <div class="container">
-            <h2 class="section-heading">Why ZapPDF Protect & Unlock?</h2>
+            <h2 class="section-heading">Why ZapPDF?</h2>
             <p class="section-subheading">Built for speed, privacy, and precision.</p>
             
             <div class="features-grid scroll-reveal">
                 <div class="feature-card">
-                    <div class="feature-icon-wrapper">🔒</div>
-                    <h3>AES-256 Encryption</h3>
-                    <p>We use military-grade AES-256 encryption to completely lock your file.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon-wrapper">🛡️</div>
-                    <h3>Zero Knowledge</h3>
-                    <p>Because it runs locally, we never know your password or see your document.</p>
-                </div>
-                <div class="feature-card">
                     <div class="feature-icon-wrapper">⚡</div>
-                    <h3>Instant Protection</h3>
-                    <p>Secure your files in milliseconds before sending them via email.</p>
+                    <h3>Lightning Fast</h3>
+                    <p>Client-side processing means no upload delays — compression starts immediately.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🔒</div>
+                    <h3>Fully Private</h3>
+                    <p>Your files never touch a server. Everything runs inside your browser only.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🧠</div>
+                    <h3>AI Smart Compression</h3>
+                    <p>Our built-in Machine Learning model predicts the exact ratio to perfectly hit your target size.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🛠️</div>
+                    <h3>Complete Suite</h3>
+                    <p>Compress, Convert, Organize, Redact, Rotate, Split, OCR, Encrypt, Sign, Edit, Crop, and Extract. The ultimate document ecosystem.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">⚙️</div>
+                    <h3>Advanced Controls</h3>
+                    <p>Fine-tune DPI, quality, metadata, grayscale, and more for total control.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon-wrapper">🖼️</div>
+                    <h3>Universal Formats</h3>
+                    <p>Not just PDFs. Process JPG, PNG, SVG, TIFF, RAW, and PSD natively!</p>
+                </div>
+                <div class="feature-card" style="grid-column: 1 / -1; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+                    <div class="feature-icon-wrapper" style="background: var(--color-surface-2);">🤖</div>
+                    <h3>ZapBot AI Assistant</h3>
+                    <p>Have questions? Chat with our built-in Gemini-powered AI assistant anytime!</p>
                 </div>
             </div>
         </div>
@@ -481,20 +550,20 @@
                         <div class="footer-col">
                 <h4>Tools</h4>
                 <a href="../index.html">Compress PDF</a>
-                <a href="../tools/convert.html">Format Converter</a>
-                <a href="../tools/merge.html">Merge PDF</a>
-                <a href="../tools/split.html">Split PDF</a>
-                <a href="../tools/organize.html">Organize PDF</a>
-                <a href="../tools/redact.html">Redact PDF</a>
-                <a href="../tools/number.html">Page Numbers</a>
-                <a href="../tools/rotate.html">Rotate PDF</a>
-                <a href="../tools/ocr.html">OCR</a>
-                <a href="../tools/protect.html">Protect & Unlock</a>
-                <a href="../tools/watermark.html">Watermark</a>
-                <a href="../tools/extract.html">Extract Images</a>
-                <a href="../tools/crop.html">Crop PDF</a>
-                <a href="../tools/sign.html">eSign PDF</a>
-                <a href="../tools/edit.html">Add Text</a>
+                <a href="convert.html">Format Converter</a>
+                <a href="merge.html">Merge PDF</a>
+                <a href="split.html">Split PDF</a>
+                <a href="organize.html">Organize PDF</a>
+                <a href="redact.html">Redact PDF</a>
+                <a href="number.html">Page Numbers</a>
+                <a href="rotate.html">Rotate PDF</a>
+                <a href="ocr.html">OCR</a>
+                <a href="protect.html">Protect & Unlock</a>
+                <a href="watermark.html">Watermark</a>
+                <a href="extract.html">Extract Images</a>
+                <a href="crop.html">Crop PDF</a>
+                <a href="sign.html">eSign PDF</a>
+                <a href="edit.html">Add Text</a>
             </div>
             <div class="footer-col">
                 <h4>Company</h4>
