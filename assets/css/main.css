@@ -25,6 +25,19 @@
   --font: 'Inter', sans-serif;
 }
 
+body.light-theme {
+  --color-bg: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-surface-2: #F0F0F0;
+  --color-glass: rgba(255, 255, 255, 0.8);
+  --color-border: rgba(0, 0, 0, 0.1);
+  --color-text: #111111;
+  --color-text-muted: #666666;
+  --glow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --glow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --glow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
