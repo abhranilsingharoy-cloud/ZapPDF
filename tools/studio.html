@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZapPDF Studio - The All-In-One PDF Workspace</title>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/main.css">
     <link rel="stylesheet" href="../assets/css/studio.css">
 </head>
 <body>
@@ -50,9 +50,16 @@
             <div class="studio-workspace">
                 <!-- Initial Upload Zone -->
                 <div class="studio-dropzone" id="studio-dropzone">
-                    <div class="upload-icon">📦</div>
-                    <h2>Drop your PDF here to begin your workflow</h2>
-                    <p>You only need to upload once. Apply multiple tools instantly.</p>
+                    <div class="upload-icon-container">
+                        <svg class="upload-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                            <polyline points="17 8 12 3 7 8"></polyline>
+                            <line x1="12" y1="3" x2="12" y2="15"></line>
+                        </svg>
+                    </div>
+                    <h2 class="dropzone-title">Initialize Your Workspace</h2>
+                    <p class="dropzone-subtitle">Drag & drop your documents here, or click to browse.</p>
+                    <p class="dropzone-info">⚡ 100% Secure • Processed locally • Up to 100 files at once</p>
                 </div>
 
                 <!-- Iframe Viewport (Hidden until file uploaded) -->
