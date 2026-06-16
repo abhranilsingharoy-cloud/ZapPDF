@@ -8,6 +8,7 @@ window.ZapUI = {
     this.initParticles();
     this.initRecentFiles();
     this.initGlobalFileHandling();
+    this.initModeBar();
     
     // Studio Mode Layout adjustments
     if (window.location.search.includes('studio=true')) {
@@ -21,6 +22,29 @@ window.ZapUI = {
         if (cta) cta.style.display = 'none';
         if (features && features.parentElement) features.parentElement.style.display = 'none';
     }
+  },
+
+  initModeBar() {
+    // Only show on tool pages, not the homepage
+    if (window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.search.includes('studio=true')) return;
+    
+    const navbar = document.querySelector('.navbar');
+    if (!navbar) return;
+
+    // Extract mode name from the title tag
+    let modeName = document.title.split('-')[0].split('|')[0].trim();
+    if (!modeName) modeName = 'Tool Mode';
+
+    const modeBar = document.createElement('div');
+    modeBar.className = 'mode-indicator-bar';
+    modeBar.innerHTML = `<div class="container" style="display: flex; align-items: center; gap: 8px;">
+        <span style="font-size: 12px; opacity: 0.7;">ZapPDF</span>
+        <span style="font-size: 10px; opacity: 0.5;">▶</span>
+        <span style="font-size: 13px; font-weight: 600; color: var(--color-primary);">${modeName}</span>
+    </div>`;
+    
+    // Insert right after the navbar
+    navbar.parentNode.insertBefore(modeBar, navbar.nextSibling);
   },
 
   async initRecentFiles() {

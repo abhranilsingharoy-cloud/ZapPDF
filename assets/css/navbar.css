@@ -186,3 +186,11 @@
   background: rgba(255, 255, 255, 0.05);
   color: var(--color-primary);
 }
+
+.mode-indicator-bar {
+  width: 100%;
+  padding: 8px 0;
+  background: var(--color-surface-2);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
