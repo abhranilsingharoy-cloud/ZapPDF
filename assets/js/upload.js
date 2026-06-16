@@ -58,7 +58,7 @@ window.ZapUpload = {
 
   handleFiles(fileList) {
     const validFiles = [];
-    const MAX_FILES = 5;
+    const MAX_FILES = 100;
     const MAX_SIZE = 100 * 1024 * 1024; // 100MB
 
     for (let i = 0; i < fileList.length; i++) {

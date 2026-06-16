@@ -8,6 +8,19 @@ window.ZapUI = {
     this.initParticles();
     this.initRecentFiles();
     this.initGlobalFileHandling();
+    
+    // Studio Mode Layout adjustments
+    if (window.location.search.includes('studio=true')) {
+        document.body.classList.add('studio-mode-active');
+        const navbar = document.querySelector('.navbar');
+        const footer = document.querySelector('.footer');
+        const cta = document.querySelector('.cta-section');
+        const features = document.querySelector('.features-grid');
+        if (navbar) navbar.style.display = 'none';
+        if (footer) footer.style.display = 'none';
+        if (cta) cta.style.display = 'none';
+        if (features && features.parentElement) features.parentElement.style.display = 'none';
+    }
   },
 
   async initRecentFiles() {
@@ -63,6 +76,13 @@ window.ZapUI = {
                 window.scrollTo({top: 0, behavior: 'smooth'});
                 return;
             }
+        }
+    });
+
+    // Listen for Studio commands (Cross-iframe)
+    window.addEventListener('message', (e) => {
+        if (e.data && e.data.type === 'ZAP_STUDIO_LOAD') {
+            window.dispatchEvent(new CustomEvent('zap:loadRecentFile', { detail: e.data.file }));
         }
     });
 

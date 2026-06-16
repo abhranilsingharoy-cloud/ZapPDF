@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapPDF Studio - All-In-One PDF Editor</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/studio.css">
+</head>
+<body>
+    <div class="studio-layout">
+        <!-- Sidebar -->
+        <aside class="studio-sidebar">
+            <div class="studio-brand">
+                <a href="../index.html">⚡ ZapPDF <span>Studio</span></a>
+            </div>
+            <nav class="studio-nav" id="studio-nav">
+                <button class="studio-tool-btn active" data-tool="../index.html">🗜️ Compress</button>
+                <button class="studio-tool-btn" data-tool="convert.html">🔄 Convert</button>
+                <button class="studio-tool-btn" data-tool="split.html">✂️ Split</button>
+                <button class="studio-tool-btn" data-tool="merge.html">🔗 Merge</button>
+                <button class="studio-tool-btn" data-tool="organize.html">📑 Organize</button>
+                <button class="studio-tool-btn" data-tool="ocr.html">🔍 OCR</button>
+                <button class="studio-tool-btn" data-tool="protect.html">🔒 Protect</button>
+                <button class="studio-tool-btn" data-tool="redact.html">⬛ Redact</button>
+                <button class="studio-tool-btn" data-tool="rotate.html">🔃 Rotate</button>
+                <button class="studio-tool-btn" data-tool="edit.html">✏️ Edit</button>
+                <button class="studio-tool-btn" data-tool="crop.html">📐 Crop</button>
+                <button class="studio-tool-btn" data-tool="extract.html">📤 Extract</button>
+                <button class="studio-tool-btn" data-tool="number.html">🔢 Number</button>
+                <button class="studio-tool-btn" data-tool="sign.html">🖋️ Sign</button>
+                <button class="studio-tool-btn" data-tool="watermark.html">©️ Watermark</button>
+            </nav>
+        </aside>
+
+        <!-- Main Canvas -->
+        <main class="studio-main">
+            <header class="studio-header">
+                <div class="studio-file-info" id="studio-file-info">
+                    No file uploaded yet. Drop a file below.
+                </div>
+                <div class="studio-actions">
+                    <button class="btn btn-outline" id="btn-studio-download" disabled>Download Current File</button>
+                    <button class="btn btn-primary" id="btn-studio-upload">Upload New File</button>
+                    <input type="file" id="studio-file-input" class="visually-hidden">
+                </div>
+            </header>
+
+            <div class="studio-workspace">
+                <!-- Initial Upload Zone -->
+                <div class="studio-dropzone" id="studio-dropzone">
+                    <div class="upload-icon">📦</div>
+                    <h2>Drop your PDF here to begin your workflow</h2>
+                    <p>You only need to upload once. Apply multiple tools instantly.</p>
+                </div>
+
+                <!-- Iframe Viewport (Hidden until file uploaded) -->
+                <iframe id="studio-iframe" class="studio-iframe hidden" src=""></iframe>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/db.js"></script>
+    <script src="../assets/js/studio.js"></script>
+</body>
+</html>
