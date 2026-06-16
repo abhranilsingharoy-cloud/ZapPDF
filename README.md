@@ -53,14 +53,20 @@ Stop jumping between different web pages. With our revolutionary **All-In-One St
 - **📦 100-File Batch Processing**: Process up to 100 files simultaneously in parallel, packaged instantly into a downloadable `.zip`.
 - **🔒 Absolute Privacy**: 100% client-side processing. Once you close the tab, your data vanishes.
 - **🧠 ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
-- **🖼️ Ultimate Tool Ecosystem:** Not just a compressor! Natively includes:
+- **🖼️ 15+ Tools in the Ultimate Ecosystem:** Natively includes:
+  - **Compress:** Smart AI-driven compression to hit exact target sizes.
   - **Merger & Splitter:** Stitch documents together or extract exact page ranges.
   - **Organize Pages:** Visually rearrange or delete specific pages.
-  - **Redact Text:** Permanently obliterate sensitive information from your documents.
-  - **Page Numbers:** Automatically stamp page numbers on every page.
-  - **OCR Extraction:** Powered by `Tesseract.js` AI to extract raw copyable text from images and scanned PDFs.
-  - **Password Protection:** AES-256 encryption to secure your PDFs.
-  - **Format Converter:** Convert image formats to PDF and vice versa.
+  - **Crop & Rotate:** Visually crop out margins or fix upside-down pages.
+  - **Edit PDF:** Draw, highlight, or add custom shapes and text over your document.
+  - **Extract Images:** Pull every single embedded image from a PDF into a ZIP folder.
+  - **Sign PDF:** Securely draw or upload digital signatures and stamp them onto contracts.
+  - **Watermark:** Add diagonal, customizable text stamps across your entire document.
+  - **Redact Text:** Permanently obliterate sensitive information with black boxes.
+  - **Page Numbers:** Automatically stamp sequential page numbers on every page.
+  - **OCR Extraction:** Powered by `Tesseract.js` to extract raw copyable text from images and scanned PDFs.
+  - **Protect & Unlock:** AES-256 encryption to secure your PDFs or remove existing passwords.
+  - **Format Converter:** Convert between PDF, JPG, PNG, WebP, SVG, TIFF, and RAW (CR2, NEF, PSD).
 - **🌙 Light / Dark Theme**: A beautifully engineered dynamic theme toggle that respects system preferences and saves to `localStorage`.
 - **📱 Progressive Web App (PWA):** Fully installable on iOS and Android as a native-feeling app without app store downloads.
 - **⚡ Zero Latency:** Because there are no uploads or downloads to a server, processing begins instantly.
