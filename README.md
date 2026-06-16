@@ -3,7 +3,7 @@
   <h1 align="center">ZapPDF</h1>
   
   <p align="center">
-    <strong>A blazing-fast, privacy-first universal file compressor. Natively compress PDFs, JPGs, RAW files, and more 100% locally in your browser using WebAssembly. No servers, no uploads.</strong>
+    <strong>The Ultimate Privacy-First PDF Suite. Compress, edit, merge, and organize up to 100 files at once using our revolutionary All-In-One Studio Mode. 100% local processing via WebAssembly. No servers, no uploads.</strong>
     <br />
     <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
     ·
@@ -21,7 +21,7 @@
 </div>
 
 <div align="center">
-  <code>pdf-compression</code> • <code>image-compression</code> • <code>client-side</code> • <code>webassembly</code> • <code>privacy-first</code> • <code>imagemagick</code>
+  <code>pdf-compression</code> • <code>batch-processing</code> • <code>client-side</code> • <code>webassembly</code> • <code>privacy-first</code> • <code>imagemagick</code>
 </div>
 
 ---
@@ -44,28 +44,27 @@
 
 Traditionally, manipulating sensitive documents—such as legal contracts, financial invoices, or personal identification—required uploading files to external, third-party servers. This workflow introduces significant data security and privacy risks. ZapPDF eliminates this vulnerability entirely by leveraging modern Web APIs, WebAssembly, and client-side processing libraries to execute all operations **100% locally on your machine**.
 
-More than just a blazing-fast compressor, ZapPDF has evolved into an ultimate document ecosystem. From AI-driven smart compression and universal format conversions (PDF, RAW, PSD, TIFF), to visual page cropping, OCR text extraction, and digital signature rendering, ZapPDF delivers a premium, zero-latency experience without file size limits, subscriptions, or remote server dependencies. Your files are never uploaded, ensuring absolute privacy from start to finish.
+### 🛠️ The ZapPDF Studio
+Stop jumping between different web pages. With our revolutionary **All-In-One Studio Mode**, you can upload your document once and instantly switch between Compress, Edit, Watermark, and 12 other tools without ever downloading or re-uploading. Chain operations together sequentially in our massive new fullscreen workspace.
 
 ## ✨ Key Features
 
-- 🔒 **Absolute Privacy:** 100% client-side processing. Once you close the tab, your data vanishes.
-- 🧠 **ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
-- 🖼️ **Ultimate Tool Ecosystem:** Not just a compressor! Natively includes:
+- **✨ ZapPDF Studio**: An All-In-One fullscreen workspace to chain multiple operations (compress, watermark, crop) without re-uploading.
+- **📦 100-File Batch Processing**: Process up to 100 files simultaneously in parallel, packaged instantly into a downloadable `.zip`.
+- **🔒 Absolute Privacy**: 100% client-side processing. Once you close the tab, your data vanishes.
+- **🧠 ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
+- **🖼️ Ultimate Tool Ecosystem:** Not just a compressor! Natively includes:
   - **Merger & Splitter:** Stitch documents together or extract exact page ranges.
-  - **Organize Pages:** Visually rearrange or delete specific pages using a drag-and-drop interface.
+  - **Organize Pages:** Visually rearrange or delete specific pages.
   - **Redact Text:** Permanently obliterate sensitive information from your documents.
   - **Page Numbers:** Automatically stamp page numbers on every page.
-  - **Rotate:** Fix upside-down pages individually or in bulk.
   - **OCR Extraction:** Powered by `Tesseract.js` AI to extract raw copyable text from images and scanned PDFs.
   - **Password Protection:** AES-256 encryption to secure your PDFs.
-  - **Watermarking:** Stamp custom diagonal text across all pages.
   - **Format Converter:** Convert image formats to PDF and vice versa.
-- 📱 **Progressive Web App (PWA):** Fully installable on iOS and Android as a native-feeling app without app store downloads.
-- ⚡ **Zero Latency:** Because there are no uploads or downloads to a server, processing begins instantly.
-- 🤖 **ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
-- 📦 **Batch Operations:** Drag, drop, and compress multiple files simultaneously, then download them bundled in a ZIP.
-- 🎨 **Premium UI/UX:** A stunning "Golden Solar" dark-mode UI with glassmorphism effects, dynamic 3D floating background orbs, and confetti explosions upon successful compression!
-- 📊 **Global Impact Tracker:** A local-storage tracker that calculates your lifetime bandwidth saved using the tool.
+- **🌙 Light / Dark Theme**: A beautifully engineered dynamic theme toggle that respects system preferences and saves to `localStorage`.
+- **📱 Progressive Web App (PWA):** Fully installable on iOS and Android as a native-feeling app without app store downloads.
+- **⚡ Zero Latency:** Because there are no uploads or downloads to a server, processing begins instantly.
+- **🤖 ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
 
 ## 🏗️ Architecture & Security
 
@@ -94,25 +93,18 @@ ZapPDF/
 ├── .github/                # Community & Security Guidelines
 ├── api/                    # Vercel Serverless Functions (Gemini AI)
 ├── tools/                  # PDF & Image Manipulation Apps
+│   ├── studio.html         # All-In-One Workspace
 │   ├── convert.html
 │   ├── merge.html
-│   ├── organize.html
-│   ├── crop.html
-│   ├── extract.html
-│   ├── edit.html
-│   ├── sign.html
 │   └── ...
 ├── pages/                  # Legal & Informational Pages
-│   ├── about.html
-│   ├── faq.html
-│   └── privacy.html
 ├── assets/                 # Static Assets
 │   ├── css/                # Stylesheets
 │   ├── icons/              # SVG Icons
 │   └── js/                 # Logic & WebAssembly modules
-│       └── tools/          # JavaScript logic for each specific tool
 ├── index.html              # Homepage
 ├── sw.js                   # Service Worker for PWA Offline Support
+├── sitemap.xml             # SEO Sitemap
 └── manifest.json           # PWA Manifest
 ```
 
@@ -151,29 +143,30 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 
 ## 💡 Usage Guide
 
-1. **Upload:** Drag and drop your PDF files into the designated drop zone.
-2. **Configure:** Select a preset compression level (Low, Medium, High, Extreme) or toggle the advanced settings accordion to fine-tune metadata and DPI settings.
-3. **Compress:** Click the "Compress" button. Watch the progress bar as the Web Worker processes your files in the background.
+1. **Upload:** Drag and drop your PDF files into the designated drop zone. (Up to 100 files at once!)
+2. **Configure:** Select a preset compression level (Low, Medium, High, Extreme) or jump into **ZapPDF Studio** to apply multiple tools.
+3. **Process:** Click the action button. Watch the progress bar as the Web Worker processes your files natively in your browser.
 4. **Download:** Download files individually or click "Download All as ZIP" for batch downloads.
 
 ## 🗺️ Roadmap
 
-- [x] Initial Release (UI/UX, core compression, batch processing)
-- [x] Custom Target Size Rasterization
+- [x] Initial Release (UI/UX, core compression)
 - [x] Universal Image Format Support (JPG, PNG, SVG, TIFF, PSD)
 - [x] Gemini AI Chatbot Integration
 - [x] Implement OCR capabilities (via Tesseract.js)
 - [x] Add PDF merging and splitting utilities
 - [x] Add Watermarking and Encryption (AES-256)
-- [x] Train ML Model for Smart Compression Prediction
-- [x] Sign & Edit PDF directly in browser
-- [x] Visual PDF Cropping
+- [x] Visual PDF Cropping & Edit PDF
 - [x] Image Extraction to ZIP
-- [x] IndexedDB Recent Files History
+- [x] **100-File Batch Processing**
+- [x] **ZapPDF Studio Mode (All-In-One)**
+- [x] **Light/Dark Theme Toggle**
+- [x] **IndexedDB Recent Files History**
 
 ## 🤝 Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+See `CONTRIBUTING.md` for full details.
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
