@@ -13,13 +13,16 @@ window.ZapUI = {
     // Studio Mode Layout adjustments
     if (window.location.search.includes('studio=true')) {
         document.body.classList.add('studio-mode-active');
-        const navbar = document.querySelector('.navbar');
-        const footer = document.querySelector('.footer');
-        const cta = document.querySelector('.cta-section');
+        const elsToHide = [
+            '.navbar', '.footer', '.cta-section',
+            '.tool-hero', '.mode-indicator-bar', '.breadcrumb'
+        ];
+        elsToHide.forEach(sel => {
+            const el = document.querySelector(sel);
+            if (el) el.style.display = 'none';
+        });
+        
         const features = document.querySelector('.features-grid');
-        if (navbar) navbar.style.display = 'none';
-        if (footer) footer.style.display = 'none';
-        if (cta) cta.style.display = 'none';
         if (features && features.parentElement) features.parentElement.style.display = 'none';
     }
   },
@@ -106,7 +109,19 @@ window.ZapUI = {
     // Listen for Studio commands (Cross-iframe)
     window.addEventListener('message', (e) => {
         if (e.data && e.data.type === 'ZAP_STUDIO_LOAD') {
-            window.dispatchEvent(new CustomEvent('zap:loadRecentFile', { detail: e.data.file }));
+            const file = e.data.file;
+            
+            // Attempt 1: Route via Custom Event (if tool explicitly supports it)
+            window.dispatchEvent(new CustomEvent('zap:loadRecentFile', { detail: file }));
+            
+            // Attempt 2: Programmatically trigger the file input (Universal fallback for all 15 tools)
+            const input = document.getElementById('file-input');
+            if (input) {
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                input.files = dt.files;
+                input.dispatchEvent(new Event('change', { bubbles: true }));
+            }
         }
     });
 
