@@ -15,15 +15,18 @@ window.ZapUI = {
         document.body.classList.add('studio-mode-active');
         const elsToHide = [
             '.navbar', '.footer', '.cta-section',
-            '.tool-hero', '.mode-indicator-bar', '.breadcrumb'
+            '.tool-hero', '.mode-indicator-bar', '.breadcrumb',
+            '.hero' // specifically for index.html
         ];
         elsToHide.forEach(sel => {
             const el = document.querySelector(sel);
             if (el) el.style.display = 'none';
         });
-        
-        const features = document.querySelector('.features-grid');
-        if (features && features.parentElement) features.parentElement.style.display = 'none';
+
+        // Hide all marketing sections (how it works, features, faq) across all tools
+        document.querySelectorAll('.sections').forEach(section => {
+            section.style.display = 'none';
+        });
     }
   },
 
