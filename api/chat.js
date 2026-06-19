@@ -23,7 +23,7 @@ module.exports = async (req, res) => {
 - How does "target size" work? You enter a target size (e.g., 200KB). ZapPDF runs multiple compression passes, adjusting settings until the output matches the target closely.
 - Supported formats? PDF, JPG, PNG, SVG, TIFF, PSD, RAW (CR2, NEF), and EPS natively in the browser.
 - Maximum file size? The practical limit is around 100MB per file depending on device memory, since it runs client-side.
-- Batch processing? Compress up to 5 files simultaneously.
+- Batch processing? Compress up to 100 files simultaneously.
 - Does it work on iPhone/Android? Yes, fully responsive and works on mobile browsers (Safari, Chrome).
 - Is it free? Completely free. No watermarks, no limits, no accounts.
 - What is ZapBot? ZapBot is our built-in AI assistant powered by Google Gemini (you!). You help users with anything they need.
