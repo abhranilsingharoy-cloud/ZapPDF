@@ -27,6 +27,41 @@ window.ZapUI = {
         document.querySelectorAll('.sections').forEach(section => {
             section.style.display = 'none';
         });
+
+        // Globally intercept all downloads in iframes to route them to the Studio pipeline instead
+        if (window.parent !== window) {
+            const urlToBlobMap = new Map();
+            const originalCreateObjectURL = URL.createObjectURL;
+            URL.createObjectURL = function(obj) {
+                const url = originalCreateObjectURL.call(URL, obj);
+                if (obj instanceof Blob || obj instanceof File) {
+                    urlToBlobMap.set(url, obj);
+                }
+                return url;
+            };
+
+            const originalClick = HTMLAnchorElement.prototype.click;
+            HTMLAnchorElement.prototype.click = function() {
+                if (this.download && this.href) {
+                    // Some tools use data URIs, some use Object URLs
+                    if (this.href.startsWith('blob:')) {
+                        const blob = urlToBlobMap.get(this.href);
+                        if (blob) {
+                            const file = new File([blob], this.download, { type: blob.type || 'application/pdf' });
+                            window.parent.postMessage({ type: 'ZAP_STUDIO_OUTPUT', file: file }, '*');
+                            return;
+                        }
+                    }
+                    // Fallback for data URIs or missing blobs
+                    fetch(this.href).then(res => res.blob()).then(blob => {
+                        const file = new File([blob], this.download, { type: blob.type || 'application/pdf' });
+                        window.parent.postMessage({ type: 'ZAP_STUDIO_OUTPUT', file: file }, '*');
+                    }).catch(err => console.error('Studio interception error:', err));
+                    return; // Prevent standard browser download
+                }
+                originalClick.call(this);
+            };
+        }
     }
   },
 
