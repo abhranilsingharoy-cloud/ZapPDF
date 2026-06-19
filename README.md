@@ -3,7 +3,7 @@
   <h1 align="center">ZapPDF</h1>
   
   <p align="center">
-    <strong>The Ultimate Privacy-First PDF Suite. Compress, edit, merge, and organize up to 100 files at once using our revolutionary All-In-One Studio Mode. 100% local processing via WebAssembly. No servers, no uploads.</strong>
+    <strong>The Ultimate Privacy-First PDF Suite. Compress, edit, merge, and organize up to 100 files at once. 100% local processing via WebAssembly. No servers, no uploads.</strong>
     <br />
     <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
     ·
@@ -44,12 +44,7 @@
 
 Traditionally, manipulating sensitive documents—such as legal contracts, financial invoices, or personal identification—required uploading files to external, third-party servers. This workflow introduces significant data security and privacy risks. ZapPDF eliminates this vulnerability entirely by leveraging modern Web APIs, WebAssembly, and client-side processing libraries to execute all operations **100% locally on your machine**.
 
-### 🛠️ The ZapPDF Studio
-Stop jumping between different web pages. With our revolutionary **All-In-One Studio Mode**, you can upload your document once and instantly switch between Compress, Edit, Watermark, and 12 other tools without ever downloading or re-uploading. Chain operations together sequentially in our massive new fullscreen workspace.
-
 ## ✨ Key Features
-
-- **✨ ZapPDF Studio**: An All-In-One fullscreen workspace to chain multiple operations (compress, watermark, crop) without re-uploading.
 - **📦 100-File Batch Processing**: Process up to 100 files simultaneously in parallel, packaged instantly into a downloadable `.zip`.
 - **🔒 Absolute Privacy**: 100% client-side processing. Once you close the tab, your data vanishes.
 - **🧠 ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
@@ -74,27 +69,26 @@ Stop jumping between different web pages. With our revolutionary **All-In-One St
 
 ## 🎨 Visual Architecture
 
-ZapPDF is structured as a client-side suite powered by WebAssembly. The Studio Coordinator acts as the central hub for the All-In-One Workspace:
+ZapPDF is structured as a client-side suite powered by WebAssembly.
 
 ```mermaid
 graph TD
-    Upload[User File Upload] --> Coord[Studio Coordinator - studio.js]
+    User[User / Client Browser]
+    User --> UI[UI Interface]
+    Upload[User File Upload] --> UI
+    UI --> Router[Module Router]
     
-    Coord --> Select{Select PDF Tool}
+    Router --> Compress[compress.js]
+    Router --> Edit[edit.js]
+    Router --> OCR[ocr.js]
+    Router --> Merge[merge.js]
+    Router --> Etc[11 Other Modules...]
     
-    Select -->|Compress| Comp[compress.js]
-    Select -->|Merge| Mrg[merge.js]
-    Select -->|Organize| Org[organize.js]
-    Select -->|Extract| Ext[extract.js]
-    Select -->|Protect| Pro[protect.js]
-    Select -->|...Other Tools| Oth[Various JS Modules]
-    
-    Comp --> Wasm[Web Worker & WebAssembly Processing]
-    Mrg --> Wasm
-    Org --> Wasm
-    Ext --> Wasm
-    Pro --> Wasm
-    Oth --> Wasm
+    Compress --> Wasm[Web Worker & WebAssembly Processing]
+    Edit --> Wasm
+    OCR --> Wasm
+    Merge --> Wasm
+    Etc --> Wasm
     
     Wasm --> Blob[Generate Blob URL]
     
@@ -113,7 +107,6 @@ ZapPDF/
 ├── .github/                # Community & Security Guidelines
 ├── api/                    # Vercel Serverless Functions (Gemini AI)
 ├── tools/                  # PDF & Image Manipulation Apps
-│   ├── studio.html         # All-In-One Workspace
 │   ├── convert.html
 │   ├── merge.html
 │   └── ...
@@ -164,7 +157,7 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 ## 💡 Usage Guide
 
 1. **Upload:** Drag and drop your PDF files into the designated drop zone. (Up to 100 files at once!)
-2. **Configure:** Select a preset compression level (Low, Medium, High, Extreme) or jump into **ZapPDF Studio** to apply multiple tools.
+2. **Configure:** Select a preset compression level (Low, Medium, High, Extreme).
 3. **Process:** Click the action button. Watch the progress bar as the Web Worker processes your files natively in your browser.
 4. **Download:** Download files individually or click "Download All as ZIP" for batch downloads.
 
@@ -179,7 +172,6 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 - [x] Visual PDF Cropping & Edit PDF
 - [x] Image Extraction to ZIP
 - [x] **100-File Batch Processing**
-- [x] **ZapPDF Studio Mode (All-In-One)**
 - [x] **Light/Dark Theme Toggle**
 - [x] **IndexedDB Recent Files History**
 

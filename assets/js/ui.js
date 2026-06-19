@@ -9,60 +9,6 @@ window.ZapUI = {
     this.initRecentFiles();
     this.initGlobalFileHandling();
     this.initModeBar();
-    
-    // Studio Mode Layout adjustments
-    if (window.location.search.includes('studio=true')) {
-        document.body.classList.add('studio-mode-active');
-        const elsToHide = [
-            '.navbar', '.footer', '.cta-section',
-            '.tool-hero', '.mode-indicator-bar', '.breadcrumb',
-            '.hero' // specifically for index.html
-        ];
-        elsToHide.forEach(sel => {
-            const el = document.querySelector(sel);
-            if (el) el.style.display = 'none';
-        });
-
-        // Hide all marketing sections (how it works, features, faq) across all tools
-        document.querySelectorAll('.sections').forEach(section => {
-            section.style.display = 'none';
-        });
-
-        // Globally intercept all downloads in iframes to route them to the Studio pipeline instead
-        if (window.parent !== window) {
-            const urlToBlobMap = new Map();
-            const originalCreateObjectURL = URL.createObjectURL;
-            URL.createObjectURL = function(obj) {
-                const url = originalCreateObjectURL.call(URL, obj);
-                if (obj instanceof Blob || obj instanceof File) {
-                    urlToBlobMap.set(url, obj);
-                }
-                return url;
-            };
-
-            const originalClick = HTMLAnchorElement.prototype.click;
-            HTMLAnchorElement.prototype.click = function() {
-                if (this.download && this.href) {
-                    // Some tools use data URIs, some use Object URLs
-                    if (this.href.startsWith('blob:')) {
-                        const blob = urlToBlobMap.get(this.href);
-                        if (blob) {
-                            const file = new File([blob], this.download, { type: blob.type || 'application/pdf' });
-                            window.parent.postMessage({ type: 'ZAP_STUDIO_OUTPUT', file: file }, '*');
-                            return;
-                        }
-                    }
-                    // Fallback for data URIs or missing blobs
-                    fetch(this.href).then(res => res.blob()).then(blob => {
-                        const file = new File([blob], this.download, { type: blob.type || 'application/pdf' });
-                        window.parent.postMessage({ type: 'ZAP_STUDIO_OUTPUT', file: file }, '*');
-                    }).catch(err => console.error('Studio interception error:', err));
-                    return; // Prevent standard browser download
-                }
-                originalClick.call(this);
-            };
-        }
-    }
   },
 
   initModeBar() {
@@ -140,25 +86,6 @@ window.ZapUI = {
                 window[name].handleFiles([file]);
                 window.scrollTo({top: 0, behavior: 'smooth'});
                 return;
-            }
-        }
-    });
-
-    // Listen for Studio commands (Cross-iframe)
-    window.addEventListener('message', (e) => {
-        if (e.data && e.data.type === 'ZAP_STUDIO_LOAD') {
-            const file = e.data.file;
-            
-            // Attempt 1: Route via Custom Event (if tool explicitly supports it)
-            window.dispatchEvent(new CustomEvent('zap:loadRecentFile', { detail: file }));
-            
-            // Attempt 2: Programmatically trigger the file input (Universal fallback for all 15 tools)
-            const input = document.getElementById('file-input');
-            if (input) {
-                const dt = new DataTransfer();
-                dt.items.add(file);
-                input.files = dt.files;
-                input.dispatchEvent(new Event('change', { bubbles: true }));
             }
         }
     });

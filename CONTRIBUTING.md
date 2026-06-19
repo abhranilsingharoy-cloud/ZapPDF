@@ -12,7 +12,7 @@ By participating in this project, you are expected to uphold our Code of Conduct
 Before creating bug reports, please check the existing issues to see if the problem has already been reported. When you are creating a bug report, please include as many details as possible (OS, Browser version, steps to reproduce).
 
 ### Suggesting Enhancements
-If you have an idea for a new tool or an enhancement to the All-In-One Studio, open a feature request issue! Provide a clear description of the feature and how it improves the user experience.
+If you have an idea for a new tool or an enhancement, open a feature request issue! Provide a clear description of the feature and how it improves the user experience.
 
 ### Submitting Pull Requests
 1. Fork the repo and create your branch from `main`.
