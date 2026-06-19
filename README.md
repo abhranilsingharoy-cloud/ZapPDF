@@ -72,20 +72,34 @@ Stop jumping between different web pages. With our revolutionary **All-In-One St
 - **⚡ Zero Latency:** Because there are no uploads or downloads to a server, processing begins instantly.
 - **🤖 ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
 
-## 🏗️ Architecture & Security
+## 🎨 Visual Architecture
 
-ZapPDF utilizes a multi-page routing architecture and a Web Worker setup to prevent the main UI thread from blocking during heavy PDF manipulation tasks. 
+ZapPDF is structured as a client-side suite powered by WebAssembly. The Studio Coordinator acts as the central hub for the All-In-One Workspace:
 
 ```mermaid
 graph TD
-    A[User Interface HTML/CSS] -->|File Selection| B(Main Thread JS)
-    B -->|ML Inference| C{ml_compress.js}
-    B -->|PostMessage: ArrayBuffer + Settings| D{Web Worker}
-    D -->|pdf-lib load & manipulate| E[In-Memory PDF processing]
-    E -->|Object Streams & Optimization| F[Processed Bytes]
-    F -->|PostMessage: Result| B
-    B -->|Blob URL| G[FileSaver.js / JSZip]
-    G -->|Download| H(User Device)
+    Upload[User File Upload] --> Coord[Studio Coordinator - studio.js]
+    
+    Coord --> Select{Select PDF Tool}
+    
+    Select -->|Compress| Comp[compress.js]
+    Select -->|Merge| Mrg[merge.js]
+    Select -->|Organize| Org[organize.js]
+    Select -->|Extract| Ext[extract.js]
+    Select -->|Protect| Pro[protect.js]
+    Select -->|...Other Tools| Oth[Various JS Modules]
+    
+    Comp --> Wasm[Web Worker & WebAssembly Processing]
+    Mrg --> Wasm
+    Org --> Wasm
+    Ext --> Wasm
+    Pro --> Wasm
+    Oth --> Wasm
+    
+    Wasm --> Blob[Generate Blob URL]
+    
+    Blob --> Down[Download ZIP / File]
+    Down --> DB[(IndexedDB History - db.js)]
 ```
 
 **Security Guarantees:**
