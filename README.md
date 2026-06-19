@@ -3,7 +3,7 @@
   <h1 align="center">ZapPDF</h1>
   
   <p align="center">
-    <strong>The Ultimate Privacy-First PDF Suite. Compress, edit, merge, and organize up to 100 files at once. 100% local processing via WebAssembly. No servers, no uploads.</strong>
+    <strong>The Ultimate Privacy-First PDF Suite. Compress, edit, merge, and organize up to 5 files at once. 100% local processing via WebAssembly. No servers, no uploads.</strong>
     <br />
     <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
     ·
@@ -45,7 +45,7 @@
 Traditionally, manipulating sensitive documents—such as legal contracts, financial invoices, or personal identification—required uploading files to external, third-party servers. This workflow introduces significant data security and privacy risks. ZapPDF eliminates this vulnerability entirely by leveraging modern Web APIs, WebAssembly, and client-side processing libraries to execute all operations **100% locally on your machine**.
 
 ## ✨ Key Features
-- **📦 100-File Batch Processing**: Process up to 100 files simultaneously in parallel, packaged instantly into a downloadable `.zip`.
+- **📦 5-File Batch Processing**: Process up to 5 files simultaneously in parallel, packaged instantly into a downloadable `.zip`.
 - **🔒 Absolute Privacy**: 100% client-side processing. Once you close the tab, your data vanishes.
 - **🧠 ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
 - **🖼️ 15+ Tools in the Ultimate Ecosystem:** Natively includes:
@@ -171,7 +171,7 @@ ZapPDF is a static frontend application. You simply need a local web server to s
 - [x] Add Watermarking and Encryption (AES-256)
 - [x] Visual PDF Cropping & Edit PDF
 - [x] Image Extraction to ZIP
-- [x] **100-File Batch Processing**
+- [x] **5-File Batch Processing**
 - [x] **Light/Dark Theme Toggle**
 - [x] **IndexedDB Recent Files History**
 
