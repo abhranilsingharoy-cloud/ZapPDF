@@ -40,68 +40,143 @@
 <body>
 
     <!-- SECTION 1: Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
-                <span>ZapPDF</span>
+    
+    <nav class="navbar" id="navbar" style="border-bottom: 1px solid var(--color-border); background: var(--color-surface);">
+        <div class="nav-container ilove-nav" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; padding: 0 24px;">
+            <a href="index.html" class="logo" style="font-weight: 900; font-size: 28px; letter-spacing: -1px; display: flex; align-items: center; gap: 4px; text-decoration: none; color: var(--color-text);">
+                I <svg style="color: #e53935; width: 28px; height: 28px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> PDF
             </a>
-            <div class="nav-links">
-                <div class="nav-dropdown">
-                    <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
-                    <div class="dropdown-menu">
-                        <a href="index.html">⚡ Compress</a>
-                        <a href="tools/convert.html">🔄 Convert</a>
-                        <a href="tools/merge.html">🔗 Merge</a>
-                        <a href="tools/split.html">✂️ Split</a>
-                        <a href="tools/organize.html">🔀 Organize</a>
-                        <a href="tools/redact.html">⬛ Redact</a>
-                        <a href="tools/number.html">🔢 Page Numbers</a>
-                        <a href="tools/rotate.html">🔄 Rotate</a>
-                        <a href="tools/ocr.html">👁️ OCR</a>
-                        <a href="tools/protect.html">🔒 Protect</a>
-                        <a href="tools/watermark.html">💧 Watermark</a>
-                        <a href="tools/extract.html">🖼️ Extract Images</a>
-                        <a href="tools/crop.html">✂️ Crop PDF</a>
-                        <a href="tools/sign.html">✍️ eSign PDF</a>
-                        <a href="tools/edit.html">✍️ Add Text</a>
+            
+            <div class="nav-links" style="display: flex; align-items: center; gap: 24px; font-size: 14px; font-weight: 600; text-transform: uppercase;">
+                <a href="tools/merge.html" class="nav-link-top" style="text-decoration: none; color: var(--color-text);">MERGE PDF</a>
+                <a href="tools/split.html" class="nav-link-top" style="text-decoration: none; color: var(--color-text);">SPLIT PDF</a>
+                <a href="index.html#tool" class="nav-link-top" style="text-decoration: none; color: var(--color-text);">COMPRESS PDF</a>
+                
+                <div class="nav-dropdown" style="position: relative;">
+                    <a href="#" class="dropdown-toggle nav-link-top" style="text-decoration: none; color: var(--color-text); cursor: default; display: flex; align-items: center; gap: 4px;">CONVERT PDF <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></a>
+                    <div class="dropdown-menu convert-dropdown">
+                        <div style="padding: 16px; display: flex; gap: 32px;">
+                            <div>
+                                <div style="color: #9ca3af; font-size: 11px; margin-bottom: 12px;">CONVERT TO PDF</div>
+                                <a href="tools/jpg-to-pdf.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">JPG to PDF</a>
+                                <a href="tools/word-to-pdf.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">WORD to PDF</a>
+                                <a href="tools/ppt-to-pdf.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">POWERPOINT to PDF</a>
+                                <a href="tools/excel-to-pdf.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">EXCEL to PDF</a>
+                                <a href="tools/html-to-pdf.html" style="display: block; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">HTML to PDF</a>
+                            </div>
+                            <div>
+                                <div style="color: #9ca3af; font-size: 11px; margin-bottom: 12px;">CONVERT FROM PDF</div>
+                                <a href="tools/pdf-to-jpg.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">PDF to JPG</a>
+                                <a href="tools/pdf-to-word.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">PDF to WORD</a>
+                                <a href="tools/pdf-to-ppt.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">PDF to POWERPOINT</a>
+                                <a href="tools/pdf-to-excel.html" style="display: block; margin-bottom: 8px; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">PDF to EXCEL</a>
+                                <a href="tools/pdf-to-pdfa.html" style="display: block; color: var(--color-text); text-decoration: none; text-transform: none; font-weight: 500;">PDF to PDF/A</a>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#features">Features</a>
-                <a href="pages/faq.html">FAQ</a>
-                <a href="pages/about.html">About</a>
-            </div>
-            <div class="nav-cta">
-                <button class="btn btn-outline btn-sm theme-toggle-btn" style="margin-right: 8px; border-radius: 50%; padding: 6px 10px; border: 1px solid var(--color-border); font-size: 16px; background: transparent; cursor: pointer;" title="Toggle Theme">☀️</button>
                 
-                <a href="#tool" class="btn btn-primary btn-sm">Compress Now</a>
+                <div class="nav-dropdown mega-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link-top" style="text-decoration: none; color: #e53935; cursor: default; display: flex; align-items: center; gap: 4px;">ALL PDF TOOLS <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg></a>
+                    
+                    <div class="dropdown-menu mega-menu" style="position: absolute; top: 100%; left: 0; right: 0; width: 100vw; background: var(--color-surface); box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-top: 1px solid var(--color-border); padding: 32px 0;">
+                        <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(7, 1fr); gap: 24px; padding: 0 24px; text-transform: none;">
+                            
+                            <!-- COL 1: ORGANIZE PDF -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Organize PDF</h4>
+                                <a href="tools/merge.html" class="mega-link"><span style="color:#ff7c5c">■</span> Merge PDF</a>
+                                <a href="tools/split.html" class="mega-link"><span style="color:#ff7c5c">■</span> Split PDF</a>
+                                <a href="#" class="mega-link"><span style="color:#ff7c5c">■</span> Remove pages</a>
+                                <a href="tools/extract.html" class="mega-link"><span style="color:#ff7c5c">■</span> Extract pages</a>
+                                <a href="tools/organize.html" class="mega-link"><span style="color:#ff7c5c">■</span> Organize PDF</a>
+                                <a href="tools/scan-to-pdf.html" class="mega-link"><span style="color:#ff5722">■</span> Scan to PDF</a>
+                            </div>
+
+                            <!-- COL 2: OPTIMIZE PDF -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Optimize PDF</h4>
+                                <a href="index.html#tool" class="mega-link"><span style="color:#8bc34a">■</span> Compress PDF</a>
+                                <a href="tools/repair-pdf.html" class="mega-link"><span style="color:#4caf50">■</span> Repair PDF</a>
+                                <a href="tools/ocr.html" class="mega-link"><span style="color:#4caf50">■</span> OCR PDF</a>
+                            </div>
+
+                            <!-- COL 3: CONVERT TO PDF -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Convert to PDF</h4>
+                                <a href="tools/jpg-to-pdf.html" class="mega-link"><span style="color:#fbc02d">■</span> JPG to PDF</a>
+                                <a href="tools/word-to-pdf.html" class="mega-link"><span style="color:#4285f4">■</span> WORD to PDF</a>
+                                <a href="tools/ppt-to-pdf.html" class="mega-link"><span style="color:#ff7c5c">■</span> POWERPOINT to PDF</a>
+                                <a href="tools/excel-to-pdf.html" class="mega-link"><span style="color:#4caf50">■</span> EXCEL to PDF</a>
+                                <a href="tools/html-to-pdf.html" class="mega-link"><span style="color:#fbc02d">■</span> HTML to PDF</a>
+                            </div>
+
+                            <!-- COL 4: CONVERT FROM PDF -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Convert from PDF</h4>
+                                <a href="tools/pdf-to-jpg.html" class="mega-link"><span style="color:#fbc02d">■</span> PDF to JPG</a>
+                                <a href="tools/pdf-to-word.html" class="mega-link"><span style="color:#4285f4">■</span> PDF to WORD</a>
+                                <a href="tools/pdf-to-ppt.html" class="mega-link"><span style="color:#ff7c5c">■</span> PDF to POWERPOINT</a>
+                                <a href="tools/pdf-to-excel.html" class="mega-link"><span style="color:#4caf50">■</span> PDF to EXCEL</a>
+                                <a href="tools/pdf-to-pdfa.html" class="mega-link"><span style="color:#1976d2">■</span> PDF to PDF/A</a>
+                            </div>
+
+                            <!-- COL 5: EDIT PDF -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Edit PDF</h4>
+                                <a href="tools/rotate.html" class="mega-link"><span style="color:#9c27b0">■</span> Rotate PDF</a>
+                                <a href="tools/number.html" class="mega-link"><span style="color:#ad1457">■</span> Add page numbers</a>
+                                <a href="tools/watermark.html" class="mega-link"><span style="color:#d81b60">■</span> Add watermark</a>
+                                <a href="tools/crop.html" class="mega-link"><span style="color:#9c27b0">■</span> Crop PDF</a>
+                                <a href="tools/edit.html" class="mega-link"><span style="color:#9c27b0">■</span> Edit PDF</a>
+                                <a href="tools/pdf-forms.html" class="mega-link"><span style="color:#9c27b0">■</span> PDF Forms</a>
+                            </div>
+
+                            <!-- COL 6: PDF SECURITY -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">PDF Security</h4>
+                                <a href="tools/unlock-pdf.html" class="mega-link"><span style="color:#4285f4">■</span> Unlock PDF</a>
+                                <a href="tools/protect.html" class="mega-link"><span style="color:#1976d2">■</span> Protect PDF</a>
+                                <a href="tools/sign.html" class="mega-link"><span style="color:#4285f4">■</span> Sign PDF</a>
+                                <a href="tools/redact.html" class="mega-link"><span style="color:#1976d2">■</span> Redact PDF</a>
+                                <a href="tools/compare-pdf.html" class="mega-link"><span style="color:#1976d2">■</span> Compare PDF</a>
+                            </div>
+
+                            <!-- COL 7: PDF INTELLIGENCE -->
+                            <div>
+                                <h4 style="color: #9ca3af; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">PDF Intelligence</h4>
+                                <a href="tools/ai-summarizer.html" class="mega-link"><span style="color:#7e57c2">■</span> AI Summarizer</a>
+                                <a href="tools/translate-pdf.html" class="mega-link"><span style="color:#7e57c2">■</span> Translate PDF</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
+            
+            <div class="nav-cta" style="display: flex; align-items: center; gap: 16px;">
+                <button class="btn btn-outline btn-sm theme-toggle-btn" style="border-radius: 50%; padding: 6px 10px; border: 1px solid var(--color-border); font-size: 16px; background: transparent; cursor: pointer;" title="Toggle Theme">☀️</button>
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #e5e7eb; display: flex; align-items: center; justify-content: center; cursor: pointer;">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#9ca3af"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+            </div>
+            
             <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
         </div>
+        
+        <!-- Mobile Overlay -->
         <div class="mobile-nav-overlay">
             <div class="mobile-nav-links">
                 <a href="index.html">⚡ Compress</a>
                 <a href="tools/convert.html">🔄 Convert</a>
                 <a href="tools/merge.html">🔗 Merge</a>
                 <a href="tools/split.html">✂️ Split</a>
-                <a href="tools/organize.html">🔀 Organize</a>
-                <a href="tools/redact.html">⬛ Redact</a>
-                <a href="tools/number.html">🔢 Page Numbers</a>
-                <a href="tools/rotate.html">🔄 Rotate</a>
-                <a href="tools/ocr.html">👁️ OCR</a>
-                <a href="tools/protect.html">🔒 Protect</a>
-                <a href="tools/watermark.html">💧 Watermark</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#features">Features</a>
-                <a href="pages/faq.html">FAQ</a>
-                <a href="pages/about.html">About</a>
-                <a href="#tool" class="btn btn-primary">Compress Now</a>
             </div>
         </div>
     </nav>
+
 
     <!-- SECTION 2: Hero -->
     <section id="hero" class="hero">
@@ -132,13 +207,56 @@
         <div class="tool-container">
             
             <!-- Upload Zone -->
-            <div id="upload-zone" class="upload-zone">
-                <img src="assets/icons/upload.svg" alt="Upload Icon" class="upload-icon">
-                <h2>Drag & Drop PDFs Here</h2>
-                <p>or <span class="upload-link">click to browse files</span></p>
-                <p class="accepted-text">Supports: PDF, JPG, PNG, SVG, TIFF, RAW, PSD, EPS • Max 100 files</p>
+            <div id="upload-zone" class="upload-zone transparent-upload">
+                <div class="upload-icon-3d" style="margin-bottom: 0px;">
+                    <svg width="180" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="cloud-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#4ae0ff" />
+                                <stop offset="50%" stop-color="#2a8fff" />
+                                <stop offset="100%" stop-color="#7038ff" />
+                            </linearGradient>
+                            <linearGradient id="cloud-highlight" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" stop-color="rgba(255,255,255,0.5)" />
+                                <stop offset="100%" stop-color="rgba(255,255,255,0.0)" />
+                            </linearGradient>
+                            <linearGradient id="arrow-grad" x1="50%" y1="0%" x2="50%" y2="100%">
+                                <stop offset="0%" stop-color="#d6f4ff" />
+                                <stop offset="100%" stop-color="#60baff" />
+                            </linearGradient>
+                            <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+                                <feDropShadow dx="0" dy="10" stdDeviation="10" flood-color="#7038ff" flood-opacity="0.2"/>
+                            </filter>
+                        </defs>
+                        <!-- Cloud Background -->
+                        <path d="M50,95 C20,95 10,75 10,50 C10,25 30,10 50,10 C65,10 80,20 90,30 C100,10 130,5 150,15 C175,25 190,40 190,65 C190,90 170,95 150,95 Z" fill="url(#cloud-grad)" filter="url(#shadow)"/>
+                        
+                        <!-- Cloud 3D Highlight -->
+                        <path d="M50,95 C20,95 10,75 10,50 C10,25 30,10 50,10 C65,10 80,20 90,30 C100,10 130,5 150,15 C175,25 190,40 190,65 C190,90 170,95 150,95 Z" fill="url(#cloud-highlight)"/>
+
+                        <!-- Cloud Inner bubbles for 3D look -->
+                        <circle cx="50" cy="45" r="25" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="150" cy="50" r="25" fill="rgba(255,255,255,0.15)"/>
+                        <circle cx="100" cy="55" r="40" fill="rgba(255,255,255,0.1)"/>
+                        
+                        <!-- Arrow -->
+                        <path d="M100,30 L140,70 L115,70 L115,115 L85,115 L85,70 L60,70 Z" fill="url(#arrow-grad)" filter="url(#shadow)"/>
+                    </svg>
+                </div>
+                <p class="upload-text-main">Drop your content here or</p>
+                <div class="upload-buttons">
+                    <button class="btn btn-upload-split" id="btn-upload-files" onclick="event.stopPropagation(); document.getElementById('file-input').click()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline><path d="M12 18v-6"></path><path d="M9 15l3-3 3 3"></path></svg>
+                        Upload files
+                    </button>
+                    <button class="btn btn-upload-split" id="btn-upload-folder" onclick="event.stopPropagation(); document.getElementById('folder-input').click()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path><path d="M12 16v-5"></path><path d="M9 14l3-3 3 3"></path></svg>
+                        Upload folder
+                    </button>
+                </div>
                 <input type="file" id="file-input" accept=".pdf,.jpg,.jpeg,.png,.svg,.tiff,.tif,.raw,.cr2,.nef,.psd,.eps" multiple class="visually-hidden">
-            </div>
+                <input type="file" id="folder-input" webkitdirectory directory multiple class="visually-hidden">
+</div>
 
             <!-- Compact Header (Hidden until files selected) -->
             <div id="upload-compact" class="upload-compact hidden">
@@ -266,118 +384,275 @@
             <p style="text-align: center; color: var(--color-text-muted); margin-bottom: 40px;">Explore all our 100% private, client-side tools.</p>
             
             <div class="features-grid scroll-reveal">
-                <!-- Compress -->
-                <a href="index.html#tool" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        ⚡
+
+                <a href="tools/merge.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ff7c5c20; color: #ff7c5c; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Compress Files</h3>
-                    <p>Reduce PDF and Image sizes perfectly with advanced WebAssembly.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Merge PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Combine PDFs in the order you want with the easiest PDF merger available.</p>
                 </a>
-                <!-- Convert -->
-                <a href="tools/convert.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        🔄
+
+                <a href="tools/split.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ff7c5c20; color: #ff7c5c; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Format Converter</h3>
-                    <p>Convert PDFs to Images, or convert RAW/PSD to JPG seamlessly.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Split PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Separate one page or a whole set for easy conversion into independent PDF files.</p>
                 </a>
-                <!-- Merge -->
-                <a href="tools/merge.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        🔗
+
+                <a href="index.html#tool" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #8bc34a20; color: #8bc34a; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Merge PDFs</h3>
-                    <p>Combine multiple PDFs into a single document in seconds.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Compress PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Reduce file size while optimizing for maximal PDF quality.</p>
                 </a>
-                <!-- Split -->
-                <a href="tools/split.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        ✂️
+
+                <a href="tools/word-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4285f420; color: #4285f4; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Split PDF</h3>
-                    <p>Extract specific pages or split a PDF into individual files.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PDF to Word</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Easily convert your PDF files into easy to edit DOC and DOCX documents. The converted WORD document is almost 100% accurate.</p>
                 </a>
-                <!-- OCR -->
-                <a href="tools/ocr.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        👁️
+
+                <a href="tools/ppt-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ff7c5c20; color: #ff7c5c; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>OCR Text Extraction</h3>
-                    <p>Extract text from scanned PDFs or images instantly.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PDF to PowerPoint</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Turn your PDF files into easy to edit PPT and PPTX slideshows.</p>
                 </a>
-                <!-- Protect -->
-                <a href="tools/protect.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        🔒
+
+                <a href="tools/excel-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4caf5020; color: #4caf50; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Protect & Unlock</h3>
-                    <p>Add passwords to your PDFs or remove existing protection.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PDF to Excel</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Pull data straight from PDFs into Excel spreadsheets in a few short seconds.</p>
                 </a>
-                <!-- Organize -->
-                <a href="tools/organize.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        🔀
+
+                <a href="tools/pdf-to-word.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4285f420; color: #4285f4; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Organize PDF</h3>
-                    <p>Rearrange or delete pages with a visual drag-and-drop interface.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Word to PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Make DOC and DOCX files easy to read by converting them to PDF.</p>
                 </a>
-                <!-- Redact -->
-                <a href="tools/redact.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        ⬛
+
+                <a href="tools/pdf-to-ppt.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ff7c5c20; color: #ff7c5c; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Redact PDF</h3>
-                    <p>Permanently remove sensitive information by flattening pages.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PowerPoint to PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Make PPT and PPTX slideshows easy to view by converting them to PDF.</p>
                 </a>
-                <!-- Page Numbers -->
-                <a href="tools/number.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        🔢
+
+                <a href="tools/pdf-to-excel.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4caf5020; color: #4caf50; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Page Numbers</h3>
-                    <p>Automatically stamp page numbers across your entire document.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Excel to PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Make EXCEL spreadsheets easy to read by converting them to PDF.</p>
                 </a>
-                <!-- Rotate -->
-                <a href="tools/rotate.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        🔄
+
+                <a href="tools/edit.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #9c27b020; color: #9c27b0; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Rotate PDF</h3>
-                    <p>Fix upside-down pages by rotating individual thumbnails.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Edit PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Add text, images, shapes or freehand annotations to a PDF document. Edit the size, font, and color of the added content.</p>
                 </a>
-                <!-- Watermark -->
-                <a href="tools/watermark.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">
-                        💧
+
+                <a href="tools/pdf-to-jpg.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #fbc02d20; color: #fbc02d; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
                     </div>
-                    <h3>Watermark</h3>
-                    <p>Stamp custom diagonal text securely across all pages.</p>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PDF to JPG</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Convert each PDF page into a JPG or extract all images contained in a PDF.</p>
                 </a>
-            
-                <!-- Sign -->
-                <a href="tools/sign.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">✍️</div>
-                    <h3>eSign PDF</h3>
-                    <p>Draw your signature and securely stamp it onto any document.</p>
+
+                <a href="tools/jpg-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #fbc02d20; color: #fbc02d; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">JPG to PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Convert JPG images to PDF in seconds. Easily adjust orientation and margins.</p>
                 </a>
-                <!-- Edit -->
-                <a href="tools/edit.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">📝</div>
-                    <h3>Add Text</h3>
-                    <p>Click anywhere to type text boxes or fill out non-interactive forms.</p>
+
+                <a href="tools/sign.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4285f420; color: #4285f4; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Sign PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Sign yourself or request electronic signatures from others.</p>
                 </a>
-                <!-- Crop -->
-                <a href="tools/crop.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">✂️</div>
-                    <h3>Crop PDF</h3>
-                    <p>Trim margins and edges visually with a dynamic crop box.</p>
+
+                <a href="tools/watermark.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #d81b6020; color: #d81b60; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Watermark</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Stamp an image or text over your PDF in seconds. Choose the typography, transparency and position.</p>
                 </a>
-                <!-- Extract -->
-                <a href="tools/extract.html" class="feature-card" style="text-decoration: none; color: inherit;">
-                    <div class="feature-icon-wrapper">🖼️</div>
-                    <h3>Extract Images</h3>
-                    <p>Extract all embedded images from your PDF to a ZIP instantly.</p>
+
+                <a href="tools/rotate.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #9c27b020; color: #9c27b0; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Rotate PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Rotate your PDFs the way you need them. You can even rotate multiple PDFs at once!</p>
+                </a>
+
+                <a href="tools/html-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #fbc02d20; color: #fbc02d; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">HTML to PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Convert webpages in HTML to PDF. Copy and paste the URL of the page you want and convert it to PDF with a click.</p>
+                </a>
+
+                <a href="tools/unlock-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4285f420; color: #4285f4; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Unlock PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Remove PDF password security, giving you the freedom to use your PDFs as you want.</p>
+                </a>
+
+                <a href="tools/protect.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #1976d220; color: #1976d2; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Protect PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Protect PDF files with a password. Encrypt PDF documents to prevent unauthorized access.</p>
+                </a>
+
+                <a href="tools/organize.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ff7c5c20; color: #ff7c5c; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Organize PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Sort pages of your PDF file however you like. Delete PDF pages or add PDF pages to your document at your convenience.</p>
+                </a>
+
+                <a href="tools/pdf-to-pdfa.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #1976d220; color: #1976d2; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PDF to PDF/A</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Transform your PDF to PDF/A, the ISO-standardized version of PDF for long-term archiving. Your PDF will preserve formatting when accessed in the future.</p>
+                </a>
+
+                <a href="tools/repair-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4caf5020; color: #4caf50; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Repair PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Repair a damaged PDF and recover data from corrupt PDF. Fix PDF files with our Repair tool.</p>
+                </a>
+
+                <a href="tools/number.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ad145720; color: #ad1457; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Page numbers</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Add page numbers into PDFs with ease. Choose your positions, dimensions, typography.</p>
+                </a>
+
+                <a href="tools/scan-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #ff572220; color: #ff5722; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Scan to PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Capture document scans from your mobile device and send them instantly to your browser.</p>
+                </a>
+
+                <a href="tools/ocr.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    <span class="card-badge" style="position: absolute; top: 16px; right: 16px; background: #333; color: white; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">OCR PDF</span>
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #4caf5020; color: #4caf50; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">OCR PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Easily convert scanned PDF into searchable and selectable documents.</p>
+                </a>
+
+                <a href="tools/compare-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #1976d220; color: #1976d2; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Compare PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Show a side-by-side document comparison and easily spot changes between different file versions.</p>
+                </a>
+
+                <a href="tools/redact.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #1976d220; color: #1976d2; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Redact PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Redact text and graphics to permanently remove sensitive information from a PDF.</p>
+                </a>
+
+                <a href="tools/crop.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #9c27b020; color: #9c27b0; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Crop PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Crop margins of PDF documents or select specific areas, then apply the changes to one page or the whole document.</p>
+                </a>
+
+                <a href="tools/pdf-forms.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    <span class="card-badge" style="position: absolute; top: 16px; right: 16px; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">New!</span>
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #9c27b020; color: #9c27b0; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">PDF Forms</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Detect form fields automatically, create interactive fillable PDFs, or fill PDF forms yourself. Add text fields, checkboxes, multiple choice fields, and lists.</p>
+                </a>
+
+                <a href="tools/ai-summarizer.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    <span class="card-badge" style="position: absolute; top: 16px; right: 16px; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">New!</span>
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #7e57c220; color: #7e57c2; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">AI Summarizer</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Quickly generate concise summaries from articles, paragraphs, and essays, providing clear and precise key points in seconds.</p>
+                </a>
+
+                <a href="tools/translate-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 24px; display: flex; flex-direction: column;">
+                    <span class="card-badge" style="position: absolute; top: 16px; right: 16px; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold;">New!</span>
+                    <div class="feature-icon-wrapper" style="width: 48px; height: 48px; margin-bottom: 16px; border-radius: 8px; background: #7e57c220; color: #7e57c2; display: flex; align-items: center; justify-content: center;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+                    </div>
+                    <h3 style="font-size: 18px; font-weight: 600; margin-bottom: 8px;">Translate PDF</h3>
+                    <p style="font-size: 13px; line-height: 1.5; color: var(--color-text-muted);">Easily translate PDF files powered by AI. Keep fonts, layout, and formatting perfectly intact.</p>
                 </a>
             </div>
         </div>
@@ -707,6 +982,17 @@
                 <a href="tools/protect.html">Protect & Unlock</a>
                 <a href="tools/watermark.html">Watermark</a>
                 <a href="tools/extract.html">Extract Images</a>
+                <a href="tools/word-to-pdf.html">Word to PDF</a>
+                <a href="tools/ppt-to-pdf.html">PPT to PDF</a>
+                <a href="tools/excel-to-pdf.html">Excel to PDF</a>
+                <a href="tools/pdf-to-word.html">PDF to Word</a>
+                <a href="tools/pdf-to-ppt.html">PDF to PPT</a>
+                <a href="tools/pdf-to-excel.html">PDF to Excel</a>
+                <a href="tools/html-to-pdf.html">HTML to PDF</a>
+                <a href="tools/scan-to-pdf.html">Scan to PDF</a>
+                <a href="tools/repair-pdf.html">Repair PDF</a>
+                <a href="tools/compare-pdf.html">Compare PDF</a>
+                <a href="tools/pdf-to-pdfa.html">PDF to PDF/A</a>
                 <a href="tools/crop.html">Crop PDF</a>
                 <a href="tools/sign.html">eSign PDF</a>
                 <a href="tools/edit.html">Add Text</a>

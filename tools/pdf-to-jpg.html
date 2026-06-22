@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="description" content="Drag and drop multiple PDF files to stitch them together into a single master document locally in your browser.">
+    <meta name="description" content="Instantly convert PDF to JPG, PNG to PDF, or process RAW and PSD files entirely in your browser without uploading.">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#1a1a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <link rel="manifest" href="../manifest.json">
-    <title>Merge PDFs - Combine multiple documents | ZapPDF</title>
+    <title>PDF to JPG | ZapPDF</title>
 
     <!-- Global SEO Tags -->
     <meta name="keywords" content="PDF tools, PDF compressor, convert PDF, edit PDF, eSign PDF, organize PDF, redact PDF, browser PDF tools, privacy-first PDF, client-side PDF processing">
     <meta name="author" content="ZapPDF">
-    <meta property="og:title" content="Merge PDFs - Combine multiple documents | ZapPDF">
-    <meta property="og:description" content="Drag and drop multiple PDF files to stitch them together into a single master document locally in your browser.">
+    <meta property="og:title" content="Format Converter - Convert PDFs, JPGs, and RAWs locally | ZapPDF">
+    <meta property="og:description" content="Instantly convert PDF to JPG, PNG to PDF, or process RAW and PSD files entirely in your browser without uploading.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://zappdf.com/">
     <meta property="og:image" content="https://zappdf.com/assets/icons/logo.svg">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Merge PDFs - Combine multiple documents | ZapPDF">
-    <meta name="twitter:description" content="Drag and drop multiple PDF files to stitch them together into a single master document locally in your browser.">
+    <meta name="twitter:title" content="Format Converter - Convert PDFs, JPGs, and RAWs locally | ZapPDF">
+    <meta name="twitter:description" content="Instantly convert PDF to JPG, PNG to PDF, or process RAW and PSD files entirely in your browser without uploading.">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -66,14 +66,14 @@
                     </div>
                 </div>
                 <a href="../index.html">Compress</a>
-                <a href="../tools/convert.html">Convert</a>
-                <a href="../tools/merge.html" style="color: var(--color-primary);">Merge</a>
+                <a href="../tools/convert.html" style="color: var(--color-primary);">Convert</a>
+                <a href="../tools/merge.html">Merge</a>
                 <a href="../pages/faq.html">FAQ</a>
             </div>
             <div class="nav-cta">
                 <button class="btn btn-outline btn-sm theme-toggle-btn" style="margin-right: 8px; border-radius: 50%; padding: 6px 10px; border: 1px solid var(--color-border); font-size: 16px; background: transparent; cursor: pointer;" title="Toggle Theme">☀️</button>
                 
-                <a href="#tool" class="btn btn-primary btn-sm">Merge Now</a>
+                <a href="#tool" class="btn btn-primary btn-sm">Convert Now</a>
             </div>
             <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
                 <span></span><span></span><span></span>
@@ -85,10 +85,10 @@
     <section id="hero" class="hero">
         <div class="particle-container" id="particles"></div>
         <div class="hero-content">
-            <h1><span class="gradient-text">Merge PDFs.</span><br>Combine files instantly.</h1>
-            <p>Select multiple PDFs and merge them into a single document. 100% private, client-side processing.</p>
+            <h1><span class="gradient-text">PDF to JPG.</span><br>Convert PDF to JPG.</h1>
+            <p>Convert each PDF page into a JPG or extract all images contained in a PDF. 100% private, client-side processing.</p>
             <div class="hero-actions">
-                <a href="#tool" class="btn btn-primary btn-lg">Select PDFs →</a>
+                <a href="#tool" class="btn btn-primary btn-lg">Select Files →</a>
             </div>
         </div>
     </section>
@@ -155,23 +155,37 @@
             <div id="file-list" class="file-list hidden"></div>
 
             <div id="controls" class="controls-container hidden">
-                <div class="control-panel panel-convert">
-                    <h3>Merge Options</h3>
-                    <p class="hint-text" style="margin-top: 8px;">Files will be merged in the order shown above.</p>
+                
+                <div class="control-panel" style="text-align: center; padding: 40px; margin-top: 20px; border: 1px dashed var(--color-primary); background: rgba(66, 133, 244, 0.05); border-radius: var(--radius-lg);">
+                    <div style="font-size: 48px; margin-bottom: 16px;">🚧</div>
+                    <h3 style="color: var(--color-text); margin-bottom: 16px;">Premium Feature In Development</h3>
+                    <p style="color: var(--color-text-muted); font-size: 16px; line-height: 1.6;">The 100% local, client-side WebAssembly engine for <strong>PDF to JPG</strong> is currently being finalized to ensure your files never leave your device. We are training custom models to ensure perfect layout retention without using any cloud servers. Please check back in a future update!</p>
+                </div>
+    
+                    
+                    <h3 style="margin-top: 24px;">Optional: Compress while Converting</h3>
+                    <label class="checkbox-label" style="margin-top: 8px;">
+                        <input type="checkbox" id="opt-compress" checked> Apply smart compression during conversion
+                    </label>
                 </div>
                 
-                <button id="btn-merge" class="btn btn-primary btn-massive">
-                    <img src="../assets/icons/lightning.svg" width="24" height="24"> <span id="btn-merge-text">Merge Files</span>
+                <button id="btn-convert" disabled style="opacity: 0.5; cursor: not-allowed;" class="btn btn-primary btn-massive">
+                    <img src="../assets/icons/lightning.svg" width="24" height="24"> <span id="btn-convert-text">Convert Files</span>
                 </button>
                 
                 <div id="progress-container" class="progress-container hidden">
                     <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-                    <p class="progress-text" id="progress-text">Merging... 0%</p>
+                    <p class="progress-text" id="progress-text">Converting... 0%</p>
                 </div>
             </div>
 
             <div id="results-panel" class="results-panel hidden">
                 <div id="results-list" class="results-list"></div>
+                <div id="batch-download-bar" class="batch-download-bar hidden">
+                    <button id="btn-download-zip" class="btn btn-primary">
+                        <img src="../assets/icons/download.svg" alt="" width="20" height="20"> Download All as ZIP
+                    </button>
+                </div>
             </div>
         </div>
     </section>
@@ -528,16 +542,16 @@
             
             <div class="faq-container scroll-reveal" style="max-width: 800px; margin: 0 auto;">
                 <div class="faq-item" style="background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px;">
-                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Is there a limit to how many files I can merge?</h3>
-                    <p style="color: var(--color-text-muted); line-height: 1.6;">ZapPDF allows you to merge a large number of files simultaneously, limited only by your browser's memory.</p>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Is the conversion process private?</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">Yes! Unlike online converters, ZapPDF uses WebAssembly to convert files directly on your machine. No data is sent to our servers.</p>
                 </div>
                 <div class="faq-item" style="background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 24px; margin-bottom: 16px;">
-                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Can I change the order of the merged PDFs?</h3>
-                    <p style="color: var(--color-text-muted); line-height: 1.6;">Yes! Simply drag and drop the files in the list before clicking merge.</p>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">What formats are supported?</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">You can convert PDFs to high-resolution JPG or PNG. You can also convert images (including RAW and PSD) to PDF.</p>
                 </div>
                 <div class="faq-item" style="background: var(--color-surface-2); border-radius: var(--radius-lg); padding: 24px;">
-                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Are my merged files saved anywhere?</h3>
-                    <p style="color: var(--color-text-muted); line-height: 1.6;">No, your files are completely private and disappear the moment you close the tab.</p>
+                    <h3 style="font-size: 18px; margin-bottom: 12px; color: var(--color-primary);">Does it reduce the quality?</h3>
+                    <p style="color: var(--color-text-muted); line-height: 1.6;">No, we preserve the original quality of your document or image during conversion.</p>
                 </div>
             </div>
         </div>
@@ -551,7 +565,7 @@
                     <h2 class="section-heading" style="text-align: left;">100% Free & Private</h2>
                     <div class="heading-accent" style="margin: 0 0 24px 0;"></div>
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.8; margin-bottom: 24px;">
-                        ZapPDF is on a mission to provide professional-grade document tools without compromising your privacy. Our <strong>Merge PDFs</strong> tool utilizes modern WebAssembly to perform complex operations right inside your browser memory.
+                        ZapPDF is on a mission to provide professional-grade document tools without compromising your privacy. Our <strong>Format Converter</strong> tool utilizes modern WebAssembly to perform complex operations right inside your browser memory.
                     </p>
                     <p style="color: var(--color-text-muted); font-size: 18px; line-height: 1.8;">
                         No accounts, no paywalls, and absolutely no data collection. Enjoy unlimited usage completely free of charge.
@@ -562,7 +576,7 @@
                     <h3 style="font-size: 24px; margin-bottom: 16px;">Unlimited Access</h3>
                     <div style="font-size: 48px; font-weight: 800; color: var(--color-primary); margin-bottom: 24px;">$0<span style="font-size: 16px; color: var(--color-text-muted);">/forever</span></div>
                     <ul style="list-style: none; text-align: left; margin-bottom: 32px;">
-                        <li style="margin-bottom: 12px;">✅ Unlimited Merge PDFs</li>
+                        <li style="margin-bottom: 12px;">✅ Unlimited Format Converter</li>
                         <li style="margin-bottom: 12px;">✅ 100% Client-Side Privacy</li>
                         <li style="margin-bottom: 12px;">✅ No File Size Limits</li>
                         <li>✅ No Watermarks Added</li>
@@ -627,20 +641,26 @@
     </footer>
 
     <!-- Libraries -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@magickwasm/magick-wasm@0.0.30/dist/magick.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/utif@3.1.0/UTIF.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/ag-psd@14.3.11/dist/bundle.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';</script>
 
     <!-- Logic -->
     
     <script src="../assets/js/db.js"></script>
     <script src="../assets/js/ui.js"></script>
-    <script src="../assets/js/tools/merge.js"></script>
+    <script src="../assets/js/tools/convert.js"></script>
     <script src="../assets/js/chat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             ZapUI.initUI();
-            ZapMerge.init();
+            ZapConvert.init();
         });
     </script>
 <script src="../assets/js/theme.js"></script>

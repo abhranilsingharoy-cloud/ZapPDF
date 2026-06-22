@@ -140,6 +140,59 @@
   color: var(--color-text-muted);
 }
 
+.upload-zone.transparent-upload {
+  background: transparent;
+  border: none;
+  min-height: auto;
+  padding: 48px 24px;
+}
+
+.upload-zone.transparent-upload:hover,
+.upload-zone.transparent-upload.dragover {
+  background: transparent;
+  border: none;
+  transform: none;
+  box-shadow: none;
+}
+
+.upload-zone.transparent-upload.dragover {
+  background: rgba(0, 0, 0, 0.02);
+  border-radius: var(--radius-lg);
+}
+
+.upload-text-main {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin: 16px 0;
+  font-weight: 500;
+}
+
+.upload-buttons {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+}
+
+.btn-upload-split {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-upload-split:hover {
+  background: var(--color-surface-2);
+  border-color: var(--color-text-muted);
+}
+
 /* Compact Upload Header */
 .upload-compact {
   display: flex;
