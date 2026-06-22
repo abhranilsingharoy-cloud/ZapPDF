@@ -28,7 +28,7 @@
     
     <!-- CSS -->
     <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/navbar.css">
+    <link rel="stylesheet" href="../assets/css/navbar.css?v=2">
     <link rel="stylesheet" href="../assets/css/hero.css">
     <link rel="stylesheet" href="../assets/css/tool.css">
     <link rel="stylesheet" href="../assets/css/results.css">
@@ -106,45 +106,193 @@
 </head>
 <body>
     <!-- Navbar -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="../index.html" class="logo">
-                <img src="../assets/icons/logo.svg" alt="ZapPDF Logo" width="24" height="24">
-                <span>ZapPDF</span>
+    <nav class="navbar" id="navbar" style="background: white; border-bottom: 1px solid #e5e7eb; position: relative; z-index: 50; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+        <div class="nav-container ilove-nav" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 24px;">
+            
+            <!-- LOGO -->
+            <a href="../index.html" class="logo" style="font-weight: 900; font-size: 26px; letter-spacing: -1px; display: flex; align-items: center; gap: 4px; text-decoration: none; color: #111;">
+                I <svg style="color: #e53935; width: 24px; height: 24px; margin: 0 2px;" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg> PDF
             </a>
-            <div class="nav-links">
-                <div class="nav-dropdown">
-                    <a href="#" class="dropdown-toggle" style="cursor: pointer;">Tools ▼</a>
-                    <div class="dropdown-menu">
-                        <a href="../index.html">⚡ Compress</a>
-                        <a href="../tools/convert.html">🔄 Convert</a>
-                        <a href="../tools/merge.html">🔗 Merge</a>
-                        <a href="../tools/split.html">✂️ Split</a>
-                        <a href="../tools/organize.html">🔀 Organize</a>
-                        <a href="../tools/redact.html">⬛ Redact</a>
-                        <a href="../tools/number.html">🔢 Page Numbers</a>
-                        <a href="../tools/rotate.html">🔄 Rotate</a>
-                        <a href="../tools/ocr.html">👁️ OCR</a>
-                        <a href="../tools/protect.html">🔒 Protect</a>
-                        <a href="../tools/watermark.html">💧 Watermark</a>
-                        <a href="../tools/extract.html">🖼️ Extract Images</a>
-                        <a href="../tools/crop.html">✂️ Crop PDF</a>
-                        <a href="../tools/sign.html">✍️ eSign PDF</a>
-                        <a href="../tools/edit.html">✍️ Add Text</a>
+            
+            <!-- TOP LINKS -->
+            <div class="nav-links" style="display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 700; text-transform: uppercase;">
+                <a href="../tools/merge.html" class="nav-link-top ilove-hover" style="text-decoration: none; color: #111; transition: color 0.2s;">MERGE PDF</a>
+                <a href="../tools/split.html" class="nav-link-top ilove-hover" style="text-decoration: none; color: #111; transition: color 0.2s;">SPLIT PDF</a>
+                <a href="../index.html#tool" class="nav-link-top ilove-hover" style="text-decoration: none; color: #111; transition: color 0.2s;">COMPRESS PDF</a>
+                
+                <!-- CONVERT PDF DROPDOWN -->
+                <div class="nav-dropdown" style="position: relative;">
+                    <a href="#" class="dropdown-toggle nav-link-top ilove-hover" style="text-decoration: none; color: #111; cursor: default; display: flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                        CONVERT PDF 
+                        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </a>
+                    
+                    <div class="dropdown-menu convert-dropdown" style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid #e5e7eb; padding: 24px; min-width: 450px; z-index: 100;">
+                        <div style="position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 12px; height: 12px; background: white; border-left: 1px solid #e5e7eb; border-top: 1px solid #e5e7eb;"></div>
+                        <div style="display: flex; gap: 48px; position: relative; z-index: 2;">
+                            
+                            <div style="flex: 1;">
+                                <div style="color: #6b7280; font-size: 12px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.5px;">CONVERT TO PDF</div>
+                                
+                                <a href="../tools/jpg-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#facc15"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="white"/><polyline points="21 15 16 10 5 21" fill="white"/></svg>
+                                    JPG to PDF
+                                </a>
+                                <a href="../tools/word-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#3b82f6"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M7 8l2 8 2.5-6 2.5 6 2-8" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    WORD to PDF
+                                </a>
+                                <a href="../tools/ppt-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#f97316"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7h5a3 3 0 0 1 0 6H8V7z" stroke="white" stroke-width="2" fill="none"/><path d="M8 17v-4" stroke="white" stroke-width="2" fill="none"/></svg>
+                                    POWERPOINT to PDF
+                                </a>
+                                <a href="../tools/excel-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#22c55e"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7l8 10M16 7l-8 10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                                    EXCEL to PDF
+                                </a>
+                                <a href="../tools/html-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#eab308"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8" stroke="white" stroke-width="1.5"/><path d="M11.5 3a17 17 0 0 0 0 18M12.5 3a17 17 0 0 1 0 18" stroke="white" stroke-width="1.5" fill="none"/></svg>
+                                    HTML to PDF
+                                </a>
+                            </div>
+                            
+                            <div style="flex: 1;">
+                                <div style="color: #6b7280; font-size: 12px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.5px;">CONVERT FROM PDF</div>
+                                
+                                <a href="../tools/pdf-to-jpg.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#facc15"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="white"/><polyline points="21 15 16 10 5 21" fill="white"/></svg>
+                                    PDF to JPG
+                                </a>
+                                <a href="../tools/pdf-to-word.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#3b82f6"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M7 8l2 8 2.5-6 2.5 6 2-8" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    PDF to WORD
+                                </a>
+                                <a href="../tools/pdf-to-ppt.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#f97316"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7h5a3 3 0 0 1 0 6H8V7z" stroke="white" stroke-width="2" fill="none"/><path d="M8 17v-4" stroke="white" stroke-width="2" fill="none"/></svg>
+                                    PDF to POWERPOINT
+                                </a>
+                                <a href="../tools/pdf-to-excel.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#22c55e"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7l8 10M16 7l-8 10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                                    PDF to EXCEL
+                                </a>
+                                <a href="../tools/pdf-to-pdfa.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#60a5fa"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 16l3.5-9 3.5 9M9.5 12h5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                                    PDF to PDF/A
+                                </a>
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
-                <a href="../index.html">Compress</a>
-                <a href="../pages/faq.html">FAQ</a>
-            </div>
-            <div class="nav-cta">
-                <button class="btn btn-outline btn-sm theme-toggle-btn" style="margin-right: 8px; border-radius: 50%; padding: 6px 10px; border: 1px solid var(--color-border); font-size: 16px; background: transparent; cursor: pointer;" title="Toggle Theme">☀️</button>
                 
-                <a href="#tool" class="btn btn-primary btn-sm">Rotate Now</a>
+                <!-- ALL PDF TOOLS MEGA MENU -->
+                <div class="nav-dropdown mega-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link-top ilove-hover" style="text-decoration: none; color: #111; cursor: default; display: flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                        ALL PDF TOOLS 
+                        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </a>
+                    
+                    <div class="dropdown-menu mega-menu" style="position: absolute; top: 100%; left: 0; right: 0; width: 100vw; background: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-top: 1px solid #e5e7eb; padding: 32px 0; z-index: 99;">
+                        <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(7, 1fr); gap: 24px; padding: 0 24px; text-transform: none;">
+                            
+                            <!-- COL 1: ORGANIZE PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Organize PDF</h4>
+                                <a href="../tools/merge.html" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> Merge PDF</a>
+                                <a href="../tools/split.html" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> Split PDF</a>
+                                <a href="#" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> Remove pages</a>
+                                <a href="../tools/extract.html" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> Extract pages</a>
+                                <a href="../tools/organize.html" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> Organize PDF</a>
+                                <a href="../tools/scan-to-pdf.html" class="mega-link"><span style="color:#ff5722; font-size: 18px;">■</span> Scan to PDF</a>
+                            </div>
+
+                            <!-- COL 2: OPTIMIZE PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Optimize PDF</h4>
+                                <a href="../index.html#tool" class="mega-link"><span style="color:#8bc34a; font-size: 18px;">■</span> Compress PDF</a>
+                                <a href="../tools/repair-pdf.html" class="mega-link"><span style="color:#4caf50; font-size: 18px;">■</span> Repair PDF</a>
+                                <a href="../tools/ocr.html" class="mega-link"><span style="color:#4caf50; font-size: 18px;">■</span> OCR PDF</a>
+                            </div>
+
+                            <!-- COL 3: CONVERT TO PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Convert to PDF</h4>
+                                <a href="../tools/jpg-to-pdf.html" class="mega-link"><span style="color:#fbc02d; font-size: 18px;">■</span> JPG to PDF</a>
+                                <a href="../tools/word-to-pdf.html" class="mega-link"><span style="color:#4285f4; font-size: 18px;">■</span> WORD to PDF</a>
+                                <a href="../tools/ppt-to-pdf.html" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> POWERPOINT to PDF</a>
+                                <a href="../tools/excel-to-pdf.html" class="mega-link"><span style="color:#4caf50; font-size: 18px;">■</span> EXCEL to PDF</a>
+                                <a href="../tools/html-to-pdf.html" class="mega-link"><span style="color:#fbc02d; font-size: 18px;">■</span> HTML to PDF</a>
+                            </div>
+
+                            <!-- COL 4: CONVERT FROM PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Convert from PDF</h4>
+                                <a href="../tools/pdf-to-jpg.html" class="mega-link"><span style="color:#fbc02d; font-size: 18px;">■</span> PDF to JPG</a>
+                                <a href="../tools/pdf-to-word.html" class="mega-link"><span style="color:#4285f4; font-size: 18px;">■</span> PDF to WORD</a>
+                                <a href="../tools/pdf-to-ppt.html" class="mega-link"><span style="color:#ff7c5c; font-size: 18px;">■</span> PDF to POWERPOINT</a>
+                                <a href="../tools/pdf-to-excel.html" class="mega-link"><span style="color:#4caf50; font-size: 18px;">■</span> PDF to EXCEL</a>
+                                <a href="../tools/pdf-to-pdfa.html" class="mega-link"><span style="color:#1976d2; font-size: 18px;">■</span> PDF to PDF/A</a>
+                            </div>
+
+                            <!-- COL 5: EDIT PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Edit PDF</h4>
+                                <a href="../tools/rotate.html" class="mega-link"><span style="color:#9c27b0; font-size: 18px;">■</span> Rotate PDF</a>
+                                <a href="../tools/number.html" class="mega-link"><span style="color:#ad1457; font-size: 18px;">■</span> Add page numbers</a>
+                                <a href="../tools/watermark.html" class="mega-link"><span style="color:#d81b60; font-size: 18px;">■</span> Add watermark</a>
+                                <a href="../tools/crop.html" class="mega-link"><span style="color:#9c27b0; font-size: 18px;">■</span> Crop PDF</a>
+                                <a href="../tools/edit.html" class="mega-link"><span style="color:#9c27b0; font-size: 18px;">■</span> Edit PDF</a>
+                                <a href="../tools/pdf-forms.html" class="mega-link"><span style="color:#9c27b0; font-size: 18px;">■</span> PDF Forms</a>
+                            </div>
+
+                            <!-- COL 6: PDF SECURITY -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">PDF Security</h4>
+                                <a href="../tools/unlock-pdf.html" class="mega-link"><span style="color:#4285f4; font-size: 18px;">■</span> Unlock PDF</a>
+                                <a href="../tools/protect.html" class="mega-link"><span style="color:#1976d2; font-size: 18px;">■</span> Protect PDF</a>
+                                <a href="../tools/sign.html" class="mega-link"><span style="color:#4285f4; font-size: 18px;">■</span> Sign PDF</a>
+                                <a href="../tools/redact.html" class="mega-link"><span style="color:#1976d2; font-size: 18px;">■</span> Redact PDF</a>
+                                <a href="../tools/compare-pdf.html" class="mega-link"><span style="color:#1976d2; font-size: 18px;">■</span> Compare PDF</a>
+                            </div>
+
+                            <!-- COL 7: PDF INTELLIGENCE -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">PDF Intelligence</h4>
+                                <a href="../tools/ai-summarizer.html" class="mega-link"><span style="color:#7e57c2; font-size: 18px;">■</span> AI Summarizer</a>
+                                <a href="../tools/translate-pdf.html" class="mega-link"><span style="color:#7e57c2; font-size: 18px;">■</span> Translate PDF</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+            
+            <!-- RIGHT SIDE ICONS -->
+            <div class="nav-cta" style="display: flex; align-items: center; gap: 16px;">
+                <!-- Profile Icon -->
+                <a href="#" style="color: #6b7280; display: flex; align-items: center;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                
+                <!-- Grid Menu Icon -->
+                <a href="#" style="color: #6b7280; display: flex; align-items: center;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </a>
+            </div>
+            
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" style="display: none;">
                 <span></span><span></span><span></span>
             </button>
         </div>
+        
     </nav>
 
     <!-- Hero -->

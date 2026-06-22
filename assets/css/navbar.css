@@ -63,6 +63,35 @@
   width: 100%;
 }
 
+.ilove-hover:hover {
+  color: #e53935 !important;
+}
+.ilove-hover:hover .chevron {
+  transform: rotate(-180deg);
+  transition: transform 0.2s ease;
+}
+.ilove-hover .chevron {
+  transition: transform 0.2s ease;
+}
+
+/* Ensure the dropdown chevron stays flipped if dropdown is active */
+.nav-dropdown:hover .ilove-hover {
+  color: #e53935 !important;
+}
+.nav-dropdown:hover .ilove-hover .chevron {
+  transform: rotate(-180deg);
+}
+
+.ilove-dropdown-item {
+  transition: background 0.1s ease;
+  padding: 8px;
+  border-radius: 4px;
+  margin-left: -8px;
+}
+.ilove-dropdown-item:hover {
+  background: #f3f4f6;
+}
+
 .mobile-menu-btn {
   display: none;
   background: none;
@@ -146,13 +175,19 @@
 
 .nav-dropdown {
   position: relative;
-  display: inline-block;
+  display: flex;
+  align-items: center;
+  height: 72px; /* Matches navbar height to bridge hover gap */
+}
+
+.nav-dropdown.mega-dropdown {
+  position: static;
 }
 
 .dropdown-menu {
   display: none;
   position: absolute;
-  top: 100%;
+  top: 72px; /* Explicitly set to bottom of navbar */
   left: 0;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
@@ -162,7 +197,7 @@
 }
 
 .nav-dropdown:hover .dropdown-menu {
-  display: block;
+  display: block !important;
 }
 
 .dropdown-menu.mega-menu {
