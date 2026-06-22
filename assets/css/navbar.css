@@ -215,16 +215,16 @@
   align-items: center;
   gap: 8px;
   padding: 8px 0 !important;
-  color: var(--color-text);
+  color: #333 !important;
   font-size: 13px !important;
   text-decoration: none;
   font-weight: 500 !important;
 }
 
 .mega-link:hover {
-  color: var(--color-text) !important;
+  color: #e53935 !important;
   background: transparent !important;
-  opacity: 0.8;
+  opacity: 1;
 }
 
 .dropdown-menu a::after {
