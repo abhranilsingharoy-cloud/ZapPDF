@@ -1,194 +1,192 @@
 <div align="center">
-  <img src="assets/icons/logo.svg" alt="ZapPDF Logo" width="80" height="80">
-  <h1 align="center">ZapPDF</h1>
-  
-  <p align="center">
-    <strong>The Ultimate Privacy-First PDF Suite. Compress, edit, merge, and organize up to 5 files at once. 100% local processing via WebAssembly. No servers, no uploads.</strong>
-    <br />
-    <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/abhranilsingharoy-cloud/ZapPDF/issues">Request Feature</a>
-  </p>
-</div>
 
-<div align="center">
-  <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT">
-  <img src="https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white" alt="HTML5">
-  <img src="https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white" alt="CSS3">
-  <img src="https://img.shields.io/badge/JavaScript-323330?logo=javascript&logoColor=F7DF1E" alt="JavaScript">
-  <img src="https://img.shields.io/badge/WebAssembly-654FF0?logo=webassembly&logoColor=white" alt="WebAssembly">
-  <img src="https://img.shields.io/badge/Gemini_AI-4285F4?logo=google&logoColor=white" alt="Gemini AI">
-</div>
+<!-- Futuristic Decorative Header -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=FF4B2B,FF416C&height=200&section=header&text=ZapPDF&fontSize=70&fontColor=fff&fontAlignY=35&desc=The%20Ultimate%20100%25%20Private%20Client-Side%20PDF%20Suite&descAlignY=60&descColor=E0E0E0&animation=fadeIn" />
 
-<div align="center">
-  <code>pdf-compression</code> • <code>batch-processing</code> • <code>client-side</code> • <code>webassembly</code> • <code>privacy-first</code> • <code>imagemagick</code>
+<br/>
+
+<!-- Badges -->
+<p>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5" />
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3" />
+  <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript" />
+  <img src="https://img.shields.io/badge/WebAssembly-654FF0?style=for-the-badge&logo=webassembly&logoColor=white" alt="WebAssembly" />
+</p>
+
+<p>
+  <img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" />
+  <img src="https://img.shields.io/badge/Processing-100%25%20Local-blue?style=flat-square" />
+  <img src="https://img.shields.io/badge/Privacy-First-orange?style=flat-square" />
+</p>
+
+<br/>
+
+> *"All the power of a premium PDF suite, without ever uploading your files to a server."*
+
+<br/>
+
+<p>
+  <a href="#-about-the-project">About</a> &nbsp;·&nbsp;
+  <a href="#-key-features">Features</a> &nbsp;·&nbsp;
+  <a href="#-visual-architecture">Architecture</a> &nbsp;·&nbsp;
+  <a href="#-how-it-works">How It Works</a> &nbsp;·&nbsp;
+  <a href="#-installation">Installation</a>
+</p>
+
+<h3>🚀 <a href="http://localhost:3000">Try ZapPDF Locally</a></h3>
+
 </div>
 
 ---
 
-## 📖 Table of Contents
+## ✦ About the Project
 
-- [About the Project](#-about-the-project)
-- [Key Features](#-key-features)
-- [Architecture & Security](#-architecture--security)
-- [Project Structure](#-project-structure)
-- [Getting Started](#-getting-started)
-- [Usage Guide](#-usage-guide)
-- [Roadmap](#-roadmap)
-- [Contributing](#-contributing)
-- [License](#-license)
+**ZapPDF** is a revolutionary, privacy-first PDF utility suite that mimics the intuitive, expansive grid experience of major platforms (like iLovePDF) but operates **entirely within your browser**. By leveraging advanced WebAssembly (WASM) and modern JavaScript APIs, ZapPDF ensures that your sensitive documents never leave your local machine.
 
-## 🌟 About the Project
+Whether you're merging confidential financial reports, compressing heavy image-based PDFs, or securely unlocking and redacting documents, ZapPDF provides lightning-fast execution and absolute data privacy.
 
-**ZapPDF** is an advanced, privacy-first web application that revolutionizes document management by bringing a complete suite of professional PDF and image tools directly into your browser.
+<br clear="right"/>
 
-Traditionally, manipulating sensitive documents—such as legal contracts, financial invoices, or personal identification—required uploading files to external, third-party servers. This workflow introduces significant data security and privacy risks. ZapPDF eliminates this vulnerability entirely by leveraging modern Web APIs, WebAssembly, and client-side processing libraries to execute all operations **100% locally on your machine**.
+---
 
-## ✨ Key Features
-- **📦 5-File Batch Processing**: Process up to 5 files simultaneously in parallel, packaged instantly into a downloadable `.zip`.
-- **🔒 Absolute Privacy**: 100% client-side processing. Once you close the tab, your data vanishes.
-- **🧠 ML Smart Compression:** Integrated local AI Decision Tree inference (`ml_compress.js`) that mathematically predicts the optimal `quality` and `scale` for PDF compression to perfectly hit custom target sizes without server latency.
-- **🖼️ 15+ Tools in the Ultimate Ecosystem:** Natively includes:
-  - **Compress:** Smart AI-driven compression to hit exact target sizes.
-  - **Merger & Splitter:** Stitch documents together or extract exact page ranges.
-  - **Organize Pages:** Visually rearrange or delete specific pages.
-  - **Crop & Rotate:** Visually crop out margins or fix upside-down pages.
-  - **Edit PDF:** Draw, highlight, or add custom shapes and text over your document.
-  - **Extract Images:** Pull every single embedded image from a PDF into a ZIP folder.
-  - **Sign PDF:** Securely draw or upload digital signatures and stamp them onto contracts.
-  - **Watermark:** Add diagonal, customizable text stamps across your entire document.
-  - **Redact Text:** Permanently obliterate sensitive information with black boxes.
-  - **Page Numbers:** Automatically stamp sequential page numbers on every page.
-  - **OCR Extraction:** Powered by `Tesseract.js` to extract raw copyable text from images and scanned PDFs.
-  - **Protect & Unlock:** AES-256 encryption to secure your PDFs or remove existing passwords.
-  - **Format Converter:** Convert between PDF, JPG, PNG, WebP, SVG, TIFF, and RAW (CR2, NEF, PSD).
-- **🌙 Light / Dark Theme**: A beautifully engineered dynamic theme toggle that respects system preferences and saves to `localStorage`.
-- **📱 Progressive Web App (PWA):** Fully installable on iOS and Android as a native-feeling app without app store downloads.
-- **⚡ Zero Latency:** Because there are no uploads or downloads to a server, processing begins instantly.
-- **🤖 ZapBot AI:** A built-in, context-aware AI assistant (powered by Gemini) available 24/7 to answer your questions.
+## ✦ Key Features
 
-## 🎨 Visual Architecture
+<table>
+  <tr>
+    <td width="50%">
 
-ZapPDF is structured as a client-side suite powered by WebAssembly.
+### 🛠️ Core PDF Utilities
+- **Compress PDF ⚡**: Drastically reduce the file size of your PDFs while maintaining extreme visual quality.
+- **Merge & Split 🔗**: Combine dozens of PDFs into one master file, or extract individual pages effortlessly.
+- **Organize & Rotate 🔀**: Reorder pages visually via drag-and-drop or fix upside-down pages with a single click.
+- **Convert to/from PDF 🔄**: Comprehensive conversion tools supporting JPG, Word, Excel, PowerPoint, and HTML.
+
+    </td>
+    <td width="50%">
+
+### 🔒 Security & Privacy
+- **Zero-Server Processing**: 100% of the computation happens locally in your browser. No uploads, no cloud, no data retention.
+- **Protect & Unlock PDF 🔑**: Encrypt files with robust passwords or strip protections from documents you own.
+- **Permanent Redaction ⬛**: Visually scrub and permanently flatten sensitive information, removing it completely from the underlying text layers.
+- **Digital Signatures ✍️**: Securely draw and stamp your signature onto any document without third-party tracking.
+
+    </td>
+  </tr>
+  <tr>
+    <td width="50%">
+
+### 🧠 Advanced Tools & Intelligence
+- **AI Summarizer 🤖**: Generate concise, actionable summaries from long-form articles and PDF essays.
+- **Translate PDF 🌍**: Translate documents into any language while preserving the original layout and formatting.
+- **OCR Text Extraction 👁️**: Extract selectable text from flat, scanned images or image-based PDFs.
+- **PDF Forms 📋**: Detect fields and fill out interactive PDF forms locally.
+
+    </td>
+    <td width="50%">
+
+### 🎨 Premium UI & Experience
+- **Sleek iLovePDF-style Interface**: A familiar, gorgeous grid-based layout with a massive, organized Mega-Menu.
+- **Dark Mode / Light Mode ☀️🌙**: Toggleable cinematic themes using a dynamic CSS variable system.
+- **Transparent 3D Upload Zones**: Beautiful, highly-polished 3D cloud upload components on every tool page.
+- **Responsive Mobile Design**: Perfect functionality and scaling on desktops, tablets, and smartphones.
+
+    </td>
+  </tr>
+</table>
+
+---
+
+## ✦ Visual Architecture
+
+Unlike traditional PDF editors that require heavy server-side processing, ZapPDF pushes the boundaries of modern browsers to keep your data local.
 
 ```mermaid
 graph TD
-    User[User / Client Browser]
-    User --> UI[UI Interface]
-    Upload[User File Upload] --> UI
-    UI --> Router[Module Router]
+    A["🌐 ZapPDF UI\nHTML5 + CSS3 + Vanilla JS"] --> B["⚡ Local Execution Environment\nUser's Browser"]
     
-    Router --> Compress[compress.js]
-    Router --> Edit[edit.js]
-    Router --> OCR[ocr.js]
-    Router --> Merge[merge.js]
-    Router --> Etc[11 Other Modules...]
+    subgraph Frontend ["Client-Side Interface"]
+        A1["Grid Dashboard\n(Mega Menu)"]
+        A2["Tool Pages\n(Transparent Uploads)"]
+        A3["Results Viewer"]
+    end
     
-    Compress --> Wasm[Web Worker & WebAssembly Processing]
-    Edit --> Wasm
-    OCR --> Wasm
-    Merge --> Wasm
-    Etc --> Wasm
+    subgraph Engine ["WASM & JS Logic"]
+        B1["PDF-lib.js\n(Merge, Split, Edit)"]
+        B2["Ghostscript/WASM\n(Compress, Convert)"]
+        B3["Tesseract.js\n(OCR Extraction)"]
+    end
     
-    Wasm --> Blob[Generate Blob URL]
-    
-    Blob --> Down[Download ZIP / File]
-    Down --> DB[(IndexedDB History - db.js)]
+    subgraph Storage ["Browser Storage"]
+        C1["IndexedDB / Blob URL\n(Temporary local storage)"]
+    end
+
+    A --> A1 & A2 & A3
+    A1 & A2 & A3 --> B
+    B --> B1 & B2 & B3
+    B1 & B2 & B3 --> C1
+    C1 --> A3
 ```
-
-**Security Guarantees:**
-- **No API Calls:** The network tab remains entirely quiet during processing.
-- **Stateless:** The application relies only on standard browser memory which is cleared upon tab closure.
-
-## 📁 Project Structure
-
-```text
-ZapPDF/
-├── .github/                # Community & Security Guidelines
-├── api/                    # Vercel Serverless Functions (Gemini AI)
-├── tools/                  # PDF & Image Manipulation Apps
-│   ├── convert.html
-│   ├── merge.html
-│   └── ...
-├── pages/                  # Legal & Informational Pages
-├── assets/                 # Static Assets
-│   ├── css/                # Stylesheets
-│   ├── icons/              # SVG Icons
-│   └── js/                 # Logic & WebAssembly modules
-├── index.html              # Homepage
-├── sw.js                   # Service Worker for PWA Offline Support
-├── sitemap.xml             # SEO Sitemap
-└── manifest.json           # PWA Manifest
-```
-
-## 🚀 Getting Started
-
-To get a local copy up and running, follow these simple steps.
-
-### Prerequisites
-
-ZapPDF is a static frontend application. You simply need a local web server to serve the files (to bypass CORS/Worker restrictions that occur when opening `index.html` via the `file://` protocol).
-
-*   Node.js (for `npx serve`) or Python (for `http.server`)
-
-### Installation
-
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/abhranilsingharoy-cloud/ZapPDF.git
-   ```
-2. **Navigate to the directory**
-   ```sh
-   cd ZapPDF
-   ```
-3. **Start a local development server**
-   
-   Using Node/npm:
-   ```sh
-   npx serve .
-   ```
-   Or using Python 3:
-   ```sh
-   python -m http.server 8000
-   ```
-4. **Open your browser**
-   Navigate to `http://localhost:3000` (or `8000` depending on the server).
-
-## 💡 Usage Guide
-
-1. **Upload:** Drag and drop your PDF files into the designated drop zone. (Up to 100 files at once!)
-2. **Configure:** Select a preset compression level (Low, Medium, High, Extreme).
-3. **Process:** Click the action button. Watch the progress bar as the Web Worker processes your files natively in your browser.
-4. **Download:** Download files individually or click "Download All as ZIP" for batch downloads.
-
-## 🗺️ Roadmap
-
-- [x] Initial Release (UI/UX, core compression)
-- [x] Universal Image Format Support (JPG, PNG, SVG, TIFF, PSD)
-- [x] Gemini AI Chatbot Integration
-- [x] Implement OCR capabilities (via Tesseract.js)
-- [x] Add PDF merging and splitting utilities
-- [x] Add Watermarking and Encryption (AES-256)
-- [x] Visual PDF Cropping & Edit PDF
-- [x] Image Extraction to ZIP
-- [x] **5-File Batch Processing**
-- [x] **Light/Dark Theme Toggle**
-- [x] **IndexedDB Recent Files History**
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-See `CONTRIBUTING.md` for full details.
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
 
 ---
-<p align="center">Designed and Developed by Abhranil Singha Roy.</p>
+
+## ✦ Architecture & Folder Structure
+
+```text
+📁 ZapPDF/
+│
+├── 📄 index.html                  ← Main Dashboard & Compress Tool
+├── 📄 README.md                   ← Project documentation
+│
+├── 📁 assets/                     
+│   ├── 📁 css/                    ← Modular Stylesheets
+│   │   ├── main.css               ← Base variables, typography, dark mode
+│   │   ├── navbar.css             ← Mega-menu and responsive navigation
+│   │   ├── tool.css               ← 3D transparent upload zones & UI
+│   │   └── sections.css           ← Grid layout for tool cards
+│   │
+│   ├── 📁 icons/                  ← Custom SVG Iconography
+│   └── 📁 img/                    ← Static image assets
+│
+└── 📁 tools/                      ← Individual Tool Pages
+    ├── merge.html                 ← PDF Merging Tool
+    ├── split.html                 ← PDF Splitting Tool
+    ├── ai-summarizer.html         ← AI Document Summarizer
+    ├── pdf-to-jpg.html            ← Conversion Tools...
+    └── [... 28 more tools]        ← The complete suite
+```
+
+---
+
+## ✦ How It Works
+
+1. **Select a Tool**: Choose from over 30 distinct PDF utilities from the homepage grid or the top Mega-Menu.
+2. **Drop Your Files**: Drag and drop your PDFs onto the beautifully crafted 3D transparent upload zone.
+3. **Local Processing**: As soon as you hit execute, ZapPDF runs advanced JavaScript and WebAssembly libraries directly inside your browser tab to process the file. No network requests are made with your data.
+4. **Instant Download**: The output file is generated locally as a Blob URL and downloaded instantly.
+
+---
+
+## ✦ Installation
+
+Because ZapPDF is entirely client-side, it requires absolutely no complex backend setup or database configuration.
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/abhranilsingharoy-cloud/ZapPDF.git
+   cd ZapPDF
+   ```
+
+2. **Serve locally:**
+   You can use any simple HTTP server to serve the static files. For example, using Python:
+   ```bash
+   python -m http.server 3000
+   ```
+
+3. **Open your browser:**
+   Navigate to `http://localhost:3000` to access the full suite!
+
+---
+
+## ✦ Credits
+
+ZapPDF is maintained and developed as a premium, privacy-first alternative to commercial online PDF editors. Designed with a focus on intuitive user experience and absolute data security.
