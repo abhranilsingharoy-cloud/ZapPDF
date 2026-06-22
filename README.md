@@ -102,29 +102,46 @@ Unlike traditional PDF editors that require heavy server-side processing, ZapPDF
 
 ```mermaid
 graph TD
-    A["🌐 ZapPDF UI\nHTML5 + CSS3 + Vanilla JS"] --> B["⚡ Local Execution Environment\nUser's Browser"]
+    UI["🌐 ZapPDF UI<br>HTML5 + CSS3 + Vanilla JS"]
     
-    subgraph Frontend ["Client-Side Interface"]
-        A1["Grid Dashboard\n(Mega Menu)"]
-        A2["Tool Pages\n(Transparent Uploads)"]
-        A3["Results Viewer"]
+    subgraph Client ["Client-Side Interface"]
+        direction LR
+        G["Grid Dashboard<br>(Mega Menu)"]
+        T["Tool Pages<br>(Transparent Uploads)"]
     end
     
-    subgraph Engine ["WASM & JS Logic"]
-        B1["PDF-lib.js\n(Merge, Split, Edit)"]
-        B2["Ghostscript/WASM\n(Compress, Convert)"]
-        B3["Tesseract.js\n(OCR Extraction)"]
+    ENV["⚡ Local Execution Environment<br>User's Browser"]
+    
+    subgraph Logic ["WASM & JS Logic"]
+        direction LR
+        PDF["PDF-lib.js<br>(Merge, Split, Edit)"]
+        Ghost["Ghostscript/WASM<br>(Compress, Convert)"]
+        Tess["Tesseract.js<br>(OCR Extraction)"]
     end
     
     subgraph Storage ["Browser Storage"]
-        C1["IndexedDB / Blob URL\n(Temporary local storage)"]
+        IDB["IndexedDB / Blob URL<br>(Temporary local storage)"]
     end
+    
+    Res["Results..."]
 
-    A --> A1 & A2 & A3
-    A1 & A2 & A3 --> B
-    B --> B1 & B2 & B3
-    B1 & B2 & B3 --> C1
-    C1 --> A3
+    UI --> ENV
+    UI --> G
+    UI --> T
+    UI --> Res
+    
+    G --> ENV
+    T --> ENV
+    
+    ENV --> PDF
+    ENV --> Ghost
+    ENV --> Tess
+    
+    PDF --> IDB
+    Ghost --> IDB
+    Tess --> IDB
+    
+    IDB --> Res
 ```
 
 ---
