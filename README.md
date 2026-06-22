@@ -151,25 +151,58 @@ graph TD
 ```text
 📁 ZapPDF/
 │
-├── 📄 index.html                  ← Main Dashboard & Compress Tool
+├── 📄 index.html                  ← Main Entry Point, Grid Dashboard & Compress Tool
+├── 📄 package.json                ← Dependencies & build scripts (if any)
+├── 📄 manifest.json               ← PWA Manifest for progressive web app support
 ├── 📄 README.md                   ← Project documentation
 │
-├── 📁 assets/                     
-│   ├── 📁 css/                    ← Modular Stylesheets
-│   │   ├── main.css               ← Base variables, typography, dark mode
-│   │   ├── navbar.css             ← Mega-menu and responsive navigation
-│   │   ├── tool.css               ← 3D transparent upload zones & UI
-│   │   └── sections.css           ← Grid layout for tool cards
+├── 📁 assets/                     ← Core Frontend Assets & Logic
 │   │
-│   ├── 📁 icons/                  ← Custom SVG Iconography
+│   ├── 📁 css/                    ← Modular Stylesheets
+│   │   ├── 🎨 main.css            ← Global CSS Variables, Themes, Typography
+│   │   ├── 🎨 navbar.css          ← Mega-menu, complex dropdowns & navigation
+│   │   ├── 🎨 tool.css            ← 3D transparent upload zones & interactive UI
+│   │   ├── 🎨 hero.css            ← Hero section animations & particle effects
+│   │   ├── 🎨 sections.css        ← Grid layout for the 31+ tool cards
+│   │   ├── 🎨 results.css         ← Progress bars, success states, download UI
+│   │   ├── 🎨 chat.css            ← Prime AI Floating Chat Widget styles
+│   │   └── 🎨 responsive.css      ← Mobile breakpoints and scaling rules
+│   │
+│   ├── 📁 js/                     ← Client-Side Logic & WebAssembly Interfaces
+│   │   ├── ⚙️ main.js             ← Global UI state, event listeners, routing
+│   │   ├── ⚡ compress.js         ← Ghostscript/WASM integration for compression
+│   │   ├── 💾 db.js               ← IndexedDB / Blob URL local storage manager
+│   │   ├── 🧠 worker.js           ← Web Workers for non-blocking heavy processing
+│   │   ├── 📤 upload.js           ← Drag-and-drop mechanics & file validation
+│   │   ├── 🌙 theme.js            ← Dark/Light mode toggle & persistence
+│   │   ├── 💬 chat.js             ← Client-side AI Chatbot interactions
+│   │   └── 📁 tools/              ← Individual modular scripts for specific tools
+│   │
+│   ├── 📁 icons/                  ← Custom SVG Iconography (Flags, Tools, UI)
 │   └── 📁 img/                    ← Static image assets
 │
-└── 📁 tools/                      ← Individual Tool Pages
-    ├── merge.html                 ← PDF Merging Tool
-    ├── split.html                 ← PDF Splitting Tool
-    ├── ai-summarizer.html         ← AI Document Summarizer
-    ├── pdf-to-jpg.html            ← Conversion Tools...
-    └── [... 28 more tools]        ← The complete suite
+└── 📁 tools/                      ← Individual Tool Pages (31+ Tools)
+    ├── 📁 Organize/
+    │   ├── merge.html             ← Combine multiple PDFs
+    │   ├── split.html             ← Extract or split pages
+    │   └── organize.html          ← Drag-and-drop page reordering
+    │
+    ├── 📁 Convert/
+    │   ├── pdf-to-jpg.html        ← Extract images from PDF
+    │   ├── word-to-pdf.html       ← DOCX to PDF conversion
+    │   ├── excel-to-pdf.html      ← Spreadsheet to PDF conversion
+    │   └── html-to-pdf.html       ← Web page to PDF conversion
+    │
+    ├── 📁 Security/
+    │   ├── protect.html           ← Add AES encryption & passwords
+    │   ├── unlock-pdf.html        ← Remove security restrictions
+    │   └── redact.html            ← Permanently scrub text layers
+    │
+    ├── 📁 AI & Intelligence/
+    │   ├── ai-summarizer.html     ← Generate summaries from long PDFs
+    │   └── translate-pdf.html     ← Preserve layout while translating text
+    │
+    └── [... 18 more specific tools]
 ```
 
 ---
