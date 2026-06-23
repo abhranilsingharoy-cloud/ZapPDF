@@ -290,11 +290,7 @@
 
             <div id="controls" class="controls-container hidden">
                 
-                <div class="control-panel" style="text-align: center; padding: 40px; margin-top: 20px; border: 1px dashed var(--color-primary); background: rgba(66, 133, 244, 0.05); border-radius: var(--radius-lg);">
-                    <div style="font-size: 48px; margin-bottom: 16px;">🚧</div>
-                    <h3 style="color: var(--color-text); margin-bottom: 16px;">Premium Feature In Development</h3>
-                    <p style="color: var(--color-text-muted); font-size: 16px; line-height: 1.6;">The 100% local, client-side WebAssembly engine for <strong>PDF to JPG</strong> is currently being finalized to ensure your files never leave your device. We are training custom models to ensure perfect layout retention without using any cloud servers. Please check back in a future update!</p>
-                </div>
+                
     
                     
                     <h3 style="margin-top: 24px;">Optional: Compress while Converting</h3>
@@ -788,12 +784,12 @@
     
     <script src="../assets/js/db.js"></script>
     <script src="../assets/js/ui.js"></script>
-    <script src="../assets/js/tools/convert.js"></script>
+    <script src="../assets/js/tools/universal_fallback.js"></script>
     <script src="../assets/js/chat.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             ZapUI.initUI();
-            ZapConvert.init();
+            ZapUniversal.init('pdf-to-jpg');
         });
     </script>
 <script src="../assets/js/theme.js"></script>
