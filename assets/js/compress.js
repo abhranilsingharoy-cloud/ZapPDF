@@ -5,7 +5,9 @@ async function initMagick() {
   if (!window['@imagemagick/magick-wasm']) return;
   const { initializeImageMagick } = window['@imagemagick/magick-wasm'];
   try {
-    const wasmBytes = await fetch('assets/js/magick/magick.wasm').then(res => res.arrayBuffer());
+    const isToolPage = window.location.pathname.includes('/tools/');
+    const wasmPath = isToolPage ? '../assets/js/magick/magick.wasm' : 'assets/js/magick/magick.wasm';
+    const wasmBytes = await fetch(wasmPath).then(res => res.arrayBuffer());
     await initializeImageMagick(new Uint8Array(wasmBytes));
     magickInitialized = true;
   } catch (e) {
@@ -16,9 +18,11 @@ async function initMagick() {
 window.ZapCompress = {
   worker: null,
   
-  init() {
+  init(customWorkerPath) {
     if (window.Worker) {
-      this.worker = new Worker('assets/js/worker.js');
+      const isToolPage = window.location.pathname.includes('/tools/');
+      const workerPath = customWorkerPath || (isToolPage ? '../assets/js/worker.js' : 'assets/js/worker.js');
+      this.worker = new Worker(workerPath);
       
       this.worker.onmessage = (e) => {
         const { type, payload } = e.data;
