@@ -146,13 +146,20 @@ http://localhost:3000
 ```
 
 ### Configuring AI Capabilities (Optional)
-If you wish to use the AI Summarizer or Translate PDF features with Gemini:
-1. Copy `.env.example` to `.env`.
-2. Add your Google Gemini API key:
-   ```env
-   GEMINI_API_KEY=your_gemini_api_key_here
+If you wish to use the AI Summarizer, Translate PDF, or ZapBot assistant with ultra-fast LPU inference:
+1. Get a **100% free** API key from **[Groq Console](https://console.groq.com/keys)**.
+2. Copy `.env.example` to `.env`:
+   ```bash
+   cp .env.example .env
    ```
-3. Deploy to Vercel or run with the Vercel CLI (`vercel dev`).
+3. Set your Groq API key:
+   ```env
+   GROQ_API_KEY=gsk_your_groq_api_key_here
+   GROQ_MODEL=llama-3.3-70b-versatile
+   ```
+4. **Deploying on Vercel / Netlify:** Add `GROQ_API_KEY` under your project's **Environment Variables**.
+5. **Running pure static (e.g. GitHub Pages):** You can also activate AI features directly in the browser by typing `/key gsk_...` in the ZapBot chat widget! It will save your key locally and query Groq with zero backend required.
+*(Note: Google Gemini is also supported as an alternative via `GEMINI_API_KEY`)*
 
 ---
 

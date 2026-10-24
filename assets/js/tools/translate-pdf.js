@@ -188,21 +188,58 @@ window.ZapTranslatePDF = {
         const progress = 30 + Math.round(((i + 1) / chunks.length) * 60);
         this.setProgress(progress, `Translating chunk ${i+1} of ${chunks.length}...`);
 
-        const response = await fetch('/api/chat', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            message: `Translate the following text to ${targetName}. Preserve paragraph structure and page markers. Return ONLY the translated text, no explanations:\n\n${chunks[i]}`
-          })
-        });
+        let translatedChunk = null;
+        try {
+          const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              message: `Translate the following text to ${targetName}. Preserve paragraph structure and page markers. Return ONLY the translated text, no explanations:\n\n${chunks[i]}`
+            })
+          });
 
-        if (!response.ok) {
-          const errData = await response.json().catch(() => ({}));
-          throw new Error(errData.error || `API error ${response.status}`);
+          if (response.ok) {
+            const data = await response.json();
+            translatedChunk = data.response || data.text || data.message || '';
+          }
+        } catch (serverErr) {
+          console.warn('/api/chat failed, attempting client-side Groq call:', serverErr);
         }
 
-        const data = await response.json();
-        translatedParts.push(data.response || data.text || data.message || '');
+        // Direct Groq fallback if user saved key
+        if (!translatedChunk) {
+          const localGroqKey = localStorage.getItem('zap_groq_api_key');
+          if (localGroqKey) {
+            const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+              method: 'POST',
+              headers: {
+                'Authorization': `Bearer ${localGroqKey.trim()}`,
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                model: 'llama-3.3-70b-versatile',
+                messages: [
+                  { role: 'system', content: `Translate text accurately to ${targetName}. Preserve paragraph structure and page numbers. Output ONLY the translated text, no preamble or commentary.` },
+                  { role: 'user', content: chunks[i] }
+                ],
+                temperature: 0.3,
+                max_tokens: 3000
+              })
+            });
+            if (groqRes.ok) {
+              const groqData = await groqRes.json();
+              translatedChunk = groqData.choices && groqData.choices[0] && groqData.choices[0].message
+                ? groqData.choices[0].message.content
+                : null;
+            }
+          }
+        }
+
+        if (!translatedChunk) {
+          throw new Error('Translation requires an active GROQ_API_KEY (from https://console.groq.com/keys) or GEMINI_API_KEY.');
+        }
+
+        translatedParts.push(translatedChunk);
       }
 
       const fullTranslation = translatedParts.join('\n\n');
@@ -221,7 +258,7 @@ window.ZapTranslatePDF = {
     } catch (err) {
       console.error('Translate PDF failed:', err);
       const msg = err.message.includes('API error') || err.message.includes('fetch')
-        ? 'Translation requires an active Gemini API connection. Please ensure the server is running with a valid GEMINI_API_KEY.'
+        ? 'Translation requires a Groq API key (from https://console.groq.com/keys). Please set GROQ_API_KEY in your deployment environment or paste it in ZapBot.'
         : err.message;
       alert('Translation failed: ' + msg);
       state.phase = 'selected';

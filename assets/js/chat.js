@@ -48,6 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const text = input.value.trim();
     if (!text || messageCount >= MAX_MESSAGES) return;
 
+    // Check for Groq API Key command
+    if (text.startsWith('/key ') || text.startsWith('gsk_')) {
+      const newKey = text.replace('/key ', '').trim();
+      if (newKey.startsWith('gsk_')) {
+        localStorage.setItem('zap_groq_api_key', newKey);
+        appendMessage(text, 'user');
+        input.value = '';
+        appendMessage('✅ <strong>Groq API key saved securely!</strong> All AI features (ZapBot, AI Summarizer, Translate) will now run with ultra-fast Groq LPU inference.', 'bot', true);
+        return;
+      }
+    }
+
     // Add user message
     appendMessage(text, 'user');
     input.value = '';
@@ -65,10 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingEl = document.createElement('div');
     typingEl.className = 'chat-typing';
     typingEl.id = typingId;
-    typingEl.textContent = 'ZapBot is typing...';
+    typingEl.textContent = 'ZapBot is thinking...';
     msgContainer.appendChild(typingEl);
     scrollToBottom();
 
+    let botText = null;
+    const localGroqKey = localStorage.getItem('zap_groq_api_key');
+
+    // 1. Try serverless /api/chat first (Vercel with GROQ_API_KEY)
     try {
       const response = await fetch('/api/chat', {
         method: 'POST',
@@ -76,30 +92,61 @@ document.addEventListener('DOMContentLoaded', () => {
         body: JSON.stringify({ message: text, history: history })
       });
 
-      document.getElementById(typingId)?.remove();
-
-      if (!response.ok) throw new Error('API Error');
-
-      const data = await response.json();
-      
-      // format response basic markdown bolding
-      const formattedText = data.text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-      appendMessage(formattedText, 'bot', true);
-      
-      // Save to history
-      history.push({ role: 'user', text: text });
-      history.push({ role: 'bot', text: data.text });
-
+      if (response.ok) {
+        const data = await response.json();
+        botText = data.text || data.response;
+      }
     } catch (e) {
-      document.getElementById(typingId)?.remove();
-      appendMessage('Sorry, I encountered an error. Please check if GEMINI_API_KEY is set in Vercel.', 'bot');
+      console.warn('/api/chat unreachable, checking client-side Groq key:', e);
+    }
+
+    // 2. Direct client-side Groq call if server didn't respond and user set key
+    if (!botText && localGroqKey) {
+      try {
+        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${localGroqKey.trim()}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            model: 'llama-3.3-70b-versatile',
+            messages: [
+              { role: 'system', content: 'You are ZapBot, the helpful AI assistant for ZapPDF (https://zappdf.com).' },
+              ...history.map(h => ({ role: h.role === 'user' ? 'user' : 'assistant', content: h.text })),
+              { role: 'user', content: text }
+            ],
+            temperature: 0.7,
+            max_tokens: 1024
+          })
+        });
+
+        if (groqRes.ok) {
+          const groqData = await groqRes.json();
+          botText = groqData.choices && groqData.choices[0] && groqData.choices[0].message
+            ? groqData.choices[0].message.content
+            : null;
+        }
+      } catch (gErr) {
+        console.warn('Direct Groq fetch failed:', gErr);
+      }
+    }
+
+    document.getElementById(typingId)?.remove();
+
+    if (botText) {
+      const formattedText = botText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+      appendMessage(formattedText, 'bot', true);
+      history.push({ role: 'user', text: text });
+      history.push({ role: 'bot', text: botText });
+    } else {
+      appendMessage('To activate ZapBot, configure your free Groq API key (from <a href="https://console.groq.com/keys" target="_blank" style="color:var(--color-primary);text-decoration:underline;font-weight:600;">console.groq.com/keys</a>). Set <code>GROQ_API_KEY</code> on Vercel, or paste your key right here (e.g. <code>/key gsk_...</code>)!', 'bot', true);
       messageCount--; // refund
       limitText.textContent = `${messageCount} / ${MAX_MESSAGES} messages`;
-      
       if (messageCount < MAX_MESSAGES) {
-          input.disabled = false;
-          sendBtn.disabled = false;
-          input.placeholder = "Type your message...";
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.placeholder = "Type your message or /key gsk_...";
       }
     }
   }

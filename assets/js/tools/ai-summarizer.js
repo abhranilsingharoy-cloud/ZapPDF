@@ -176,7 +176,7 @@ window.ZapAISummarizer = {
                     <div style="background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:12px; padding:24px; margin-bottom:16px;">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid var(--color-border); padding-bottom:12px;">
                             <h3 style="font-size:18px; font-weight:700; margin:0;">AI Document Summary</h3>
-                            <span class="stat-pill success">Generated with Gemini</span>
+                            <span class="stat-pill success">Generated with AI (Groq / Gemini)</span>
                         </div>
                         <div id="summary-content" style="font-size:14px;">
                             ${formattedHTML}
@@ -303,7 +303,7 @@ window.ZapAISummarizer = {
 
             const truncatedText = docText.slice(0, 30000); // Keep within reasonable context limit
 
-            // Attempt to call /api/chat
+            // Attempt to call /api/chat (Serverless with GROQ_API_KEY / GEMINI_API_KEY)
             let summaryResult = null;
             try {
                 const response = await fetch('/api/chat', {
@@ -319,11 +319,44 @@ window.ZapAISummarizer = {
                     summaryResult = data.response || data.text || data.message;
                 }
             } catch (netErr) {
-                console.warn('API call failed, switching to local summarizer:', netErr);
+                console.warn('API call failed, checking direct Groq key:', netErr);
+            }
+
+            // Direct Groq fallback if user saved key in localStorage
+            if (!summaryResult) {
+                const localGroqKey = localStorage.getItem('zap_groq_api_key');
+                if (localGroqKey) {
+                    try {
+                        const groqRes = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${localGroqKey.trim()}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                model: 'llama-3.3-70b-versatile',
+                                messages: [
+                                    { role: 'system', content: 'You are an expert document summarizer. Output structured Markdown with Overview, Key Points, and Takeaways.' },
+                                    { role: 'user', content: `${promptInstruction}\n\nDocument text:\n${truncatedText}` }
+                                ],
+                                temperature: 0.5,
+                                max_tokens: 2048
+                            })
+                        });
+                        if (groqRes.ok) {
+                            const groqData = await groqRes.json();
+                            summaryResult = groqData.choices && groqData.choices[0] && groqData.choices[0].message
+                                ? groqData.choices[0].message.content
+                                : null;
+                        }
+                    } catch (gErr) {
+                        console.warn('Direct Groq call failed:', gErr);
+                    }
+                }
             }
 
             if (!summaryResult) {
-                // Seamless local fallback
+                // Seamless local extractive algorithm fallback
                 summaryResult = this.localExtractiveSummary(docText, state.mode);
             }
 
