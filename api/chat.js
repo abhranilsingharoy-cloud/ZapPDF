@@ -1,6 +1,6 @@
-// api/chat.js - Groq and Gemini AI endpoint for ZapPDF
+// api/chat.js - Groq and Gemini AI endpoint for ZapPDF (Vercel Serverless Function)
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   // CORS support
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -93,7 +93,7 @@ ZapPDF core architecture knowledge base:
   // 2. Fallback: Google Gemini API
   if (geminiKey) {
     try {
-      const { GoogleGenAI } = require('@google/genai');
+      const { GoogleGenAI } = await import('@google/genai');
       const ai = new GoogleGenAI({ apiKey: geminiKey.trim() });
 
       const contents = [];
@@ -124,4 +124,4 @@ ZapPDF core architecture knowledge base:
       return res.status(500).json({ error: `Gemini Error: ${geminiErr.message}` });
     }
   }
-};
+}
