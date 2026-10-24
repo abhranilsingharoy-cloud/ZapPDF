@@ -34,37 +34,37 @@
   line-height: 1.6;
 }
 
-/* Upload Zone Drop Area */
+/* Upload Zone Drop Area - Signature iLovePDF Architecture */
 .upload-zone {
   background: var(--color-surface);
   border: 2px dashed var(--color-border);
-  border-radius: var(--radius-xl);
-  min-height: 280px;
+  border-radius: 16px;
+  min-height: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding: 48px 24px;
+  padding: 56px 24px;
   cursor: pointer;
-  transition: all var(--transition);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
 }
 
 .upload-zone:hover {
-  border-color: var(--color-primary);
-  background: var(--color-primary-subtle);
+  border-color: #E5322D;
+  background: rgba(229, 50, 45, 0.02);
   transform: translateY(-2px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 12px 30px -4px rgba(229, 50, 45, 0.12);
 }
 
 .upload-zone.dragover {
-  border-color: var(--color-primary);
+  border-color: #E5322D;
   border-style: solid;
-  background: var(--color-primary-subtle);
+  background: rgba(229, 50, 45, 0.05);
   transform: scale(1.01);
-  box-shadow: 0 0 0 4px var(--color-primary-glow), var(--shadow-lg);
+  box-shadow: 0 0 0 4px rgba(229, 50, 45, 0.15), 0 16px 36px -4px rgba(229, 50, 45, 0.2);
 }
 
 /* Upload Elements */
@@ -308,66 +308,6 @@
   margin-top: 24px;
 }
 
-/* Upload Buttons & Split Controls */
-.upload-text-main {
-  font-size: 16px;
-  font-weight: 600;
-  color: var(--color-text);
-  margin-bottom: 18px;
-  text-align: center;
-}
-
-.upload-buttons {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.btn-upload-split {
-  background: var(--color-primary) !important;
-  color: #FFFFFF !important;
-  font-weight: 700;
-  font-size: 15px;
-  padding: 13px 26px;
-  border-radius: var(--radius-pill);
-  box-shadow: 0 4px 14px rgba(229, 50, 45, 0.32);
-  border: 1px solid transparent;
-  cursor: pointer;
-  transition: all var(--transition);
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.btn-upload-split:hover {
-  background: var(--color-primary-hover) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(229, 50, 45, 0.42);
-}
-
-.btn-upload-split#btn-upload-folder {
-  background: var(--color-surface-2) !important;
-  color: var(--color-text) !important;
-  border: 1px solid var(--color-border);
-  box-shadow: var(--shadow-sm);
-}
-
-.btn-upload-split#btn-upload-folder:hover {
-  background: var(--color-surface-hover) !important;
-  border-color: var(--color-border-hover);
-  color: var(--color-primary) !important;
-}
-
-.upload-icon-3d {
-  margin-bottom: 16px;
-  transition: transform var(--transition);
-}
-
-.upload-zone:hover .upload-icon-3d {
-  transform: translateY(-4px) scale(1.02);
-}
 
 /* Target Inputs in Controls */
 .target-inputs {
@@ -449,22 +389,22 @@
   width: 100%;
 }
 
-/* Iconic Big Red Button */
+/* Iconic Big Red Button (iLovePDF High-Impact Style) */
 .btn-select-file {
   background: #E5322D !important;
   color: #FFFFFF !important;
   font-family: inherit;
   font-size: 22px;
   font-weight: 700;
-  padding: 20px 54px;
+  padding: 22px 64px;
   border-radius: 8px;
   border: none;
   cursor: pointer;
-  box-shadow: 0 8px 24px -4px rgba(229, 50, 45, 0.4);
+  box-shadow: 0 8px 26px -4px rgba(229, 50, 45, 0.44);
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
+  gap: 14px;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   text-decoration: none;
   user-select: none;
@@ -473,7 +413,7 @@
 .btn-select-file:hover {
   background: #CB2824 !important;
   transform: translateY(-2px);
-  box-shadow: 0 12px 28px -4px rgba(229, 50, 45, 0.5);
+  box-shadow: 0 12px 30px -4px rgba(229, 50, 45, 0.54);
 }
 
 .btn-select-file:active {
@@ -488,9 +428,9 @@
 }
 
 .upload-drop-hint {
-  font-size: 15px;
+  font-size: 15.5px;
   color: var(--color-text-muted);
-  margin: 6px 0 0;
+  margin: 10px 0 0;
   font-weight: 500;
 }
 
@@ -498,21 +438,22 @@
   background: var(--color-surface-2);
   color: var(--color-text);
   border: 1px solid var(--color-border);
-  padding: 8px 16px;
+  padding: 9px 20px;
   border-radius: 6px;
-  font-size: 13px;
+  font-size: 13.5px;
   font-weight: 600;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   cursor: pointer;
   transition: all 0.15s ease;
+  margin-top: 12px;
 }
 
 .btn-select-folder:hover {
   background: var(--color-surface-hover);
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: #E5322D;
+  color: #E5322D;
 }
 
 .btn-massive {

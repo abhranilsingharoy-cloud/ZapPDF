@@ -17,36 +17,40 @@
 
   document.addEventListener('DOMContentLoaded', function () {
 
-    // ── 2. Dynamic Theme Toggler ───────────────────────────────────────────
-    function getTheme() {
-      return localStorage.getItem('zap_theme') ||
-        (document.body.classList.contains('light-theme') ? 'light' : 'dark');
-    }
-
-    function updateThemeUI(theme) {
-      if (theme === 'light') {
-        document.body.classList.add('light-theme');
-      } else {
-        document.body.classList.remove('light-theme');
+    // ── 2. Dynamic Theme Toggler (avoid duplicate listeners with theme.js) ─
+    if (!window.ZapTheme) {
+      function getTheme() {
+        return localStorage.getItem('zap_theme') ||
+          (document.body.classList.contains('light-theme') ? 'light' : 'dark');
       }
 
-      document.querySelectorAll('.theme-toggle-btn').forEach(function (btn) {
-        btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
-        btn.title = theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
-        btn.setAttribute('aria-label', theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+      function updateThemeUI(theme) {
+        if (theme === 'light') {
+          document.body.classList.add('light-theme');
+        } else {
+          document.body.classList.remove('light-theme');
+        }
+
+        document.querySelectorAll('.theme-toggle-btn').forEach(function (btn) {
+          btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
+          btn.title = theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
+          btn.setAttribute('aria-label', theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode');
+        });
+      }
+
+      updateThemeUI(getTheme());
+
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('.theme-toggle-btn')) {
+          var current = getTheme();
+          var next = current === 'dark' ? 'light' : 'dark';
+          localStorage.setItem('zap_theme', next);
+          updateThemeUI(next);
+        }
       });
+    } else {
+      window.ZapTheme.updateIcons(window.ZapTheme.getStoredTheme());
     }
-
-    updateThemeUI(getTheme());
-
-    document.addEventListener('click', function (e) {
-      if (e.target.closest('.theme-toggle-btn')) {
-        var current = getTheme();
-        var next = current === 'dark' ? 'light' : 'dark';
-        localStorage.setItem('zap_theme', next);
-        updateThemeUI(next);
-      }
-    });
 
     // ── 3. Mobile Navigation Drawer ────────────────────────────────────────
     var mobileBtn = document.querySelector('.mobile-menu-btn');
