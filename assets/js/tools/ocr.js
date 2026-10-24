@@ -37,7 +37,7 @@ window.ZapOCR = {
             if (e.target.tagName !== 'SPAN') els.fileInput.click();
         });
         
-        document.querySelector('.upload-link').addEventListener('click', () => els.fileInput.click());
+        const lnk = document.querySelector('.upload-link'); if (lnk) lnk.addEventListener('click', () => els.fileInput.click());
         
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             els.uploadZone.addEventListener(eventName, e => {
@@ -172,30 +172,57 @@ window.ZapOCR = {
         this.render();
         
         try {
-            let imageUrl = "";
-            if (this.state.file.type === 'application/pdf' || this.state.file.name.toLowerCase().endsWith('.pdf')) {
-                this.updateProgress(10, "Converting PDF to image...");
-                imageUrl = await this.pdfToImageUrl(this.state.file);
-            } else {
-                imageUrl = URL.createObjectURL(this.state.file);
-            }
-            
             const lang = this.els.ocrLanguage.value;
+            const isPdf = this.state.file.type === 'application/pdf' || this.state.file.name.toLowerCase().endsWith('.pdf');
             
-            this.updateProgress(20, "Loading Tesseract AI Model...");
+            this.updateProgress(10, "Loading Tesseract OCR Engine...");
             
             const worker = await Tesseract.createWorker(lang, 1, {
                 logger: m => {
-                    if (m.status === 'recognizing text') {
-                        this.updateProgress(20 + (m.progress * 80), `Recognizing text... ${Math.round(m.progress * 100)}%`);
-                    } else if (m.status.includes('loading')) {
-                        this.updateProgress(20, `Loading language model...`);
+                    if (m.status.includes('loading')) {
+                        this.updateProgress(15, `Loading OCR language models...`);
                     }
                 }
             });
-            
-            const ret = await worker.recognize(imageUrl);
-            this.state.extractedText = ret.data.text;
+
+            if (isPdf) {
+                const arrayBuffer = await this.state.file.arrayBuffer();
+                const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                const numPages = pdfDoc.numPages;
+                let fullExtracted = '';
+
+                for (let p = 1; p <= numPages; p++) {
+                    const basePct = 20 + Math.round(((p - 1) / numPages) * 75);
+                    this.updateProgress(basePct, `Rendering page ${p} of ${numPages}...`);
+
+                    const page = await pdfDoc.getPage(p);
+                    const viewport = page.getViewport({ scale: 2.0 });
+                    const canvas = document.createElement('canvas');
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+                    this.updateProgress(basePct + 5, `Recognizing text on page ${p} of ${numPages}...`);
+                    const ret = await worker.recognize(canvas);
+                    
+                    if (numPages > 1) {
+                        fullExtracted += `\n--- Page ${p} of ${numPages} ---\n\n`;
+                    }
+                    fullExtracted += ret.data.text.trim() + '\n\n';
+                }
+
+                this.state.extractedText = fullExtracted.trim();
+            } else {
+                this.updateProgress(30, "Recognizing image text...");
+                const imageUrl = URL.createObjectURL(this.state.file);
+                const ret = await worker.recognize(imageUrl);
+                this.state.extractedText = ret.data.text;
+                URL.revokeObjectURL(imageUrl);
+            }
+
             await worker.terminate();
             
             this.updateProgress(100, "Done!");

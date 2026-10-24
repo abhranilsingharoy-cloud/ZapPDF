@@ -67,30 +67,53 @@ document.addEventListener('DOMContentLoaded', () => {
             pagesData = [];
 
             for (let i = 1; i <= pdfDoc.numPages; i++) {
-                pagesData.push({ originalIndex: i - 1, id: `page-${i-1}` });
+                const pageObj = { originalIndex: i - 1, id: `page-${i-1}`, rotation: 0 };
+                pagesData.push(pageObj);
                 
                 const pageItem = document.createElement('div');
                 pageItem.className = 'page-item';
                 pageItem.draggable = true;
                 pageItem.dataset.id = `page-${i-1}`;
+                pageItem.style.position = 'relative';
                 
                 const canvas = document.createElement('canvas');
+                canvas.style.transition = 'transform 0.2s';
+                
                 const label = document.createElement('div');
                 label.className = 'page-label';
                 label.textContent = `Page ${i}`;
                 
+                const btnBar = document.createElement('div');
+                btnBar.style.cssText = 'position: absolute; top: 6px; right: 6px; display: flex; gap: 4px; z-index: 10;';
+
+                const rotateBtn = document.createElement('button');
+                rotateBtn.className = 'rotate-btn';
+                rotateBtn.innerHTML = '↻';
+                rotateBtn.title = 'Rotate page 90° clockwise';
+                rotateBtn.style.cssText = 'width: 24px; height: 24px; border-radius: 50%; background: rgba(0,0,0,0.6); color: white; border: none; cursor: pointer; font-size: 14px; display: flex; align-items: center; justify-content: center;';
+                rotateBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    pageObj.rotation = ((pageObj.rotation || 0) + 90) % 360;
+                    canvas.style.transform = `rotate(${pageObj.rotation}deg)`;
+                };
+
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.innerHTML = '✕';
+                deleteBtn.title = 'Remove page';
+                deleteBtn.style.cssText = 'width: 24px; height: 24px; border-radius: 50%; background: rgba(220,38,38,0.85); color: white; border: none; cursor: pointer; font-size: 12px; display: flex; align-items: center; justify-content: center;';
                 deleteBtn.onclick = (e) => {
                     e.stopPropagation();
                     pageItem.remove();
                     updatePagesData();
                 };
 
+                btnBar.appendChild(rotateBtn);
+                btnBar.appendChild(deleteBtn);
+
                 pageItem.appendChild(canvas);
                 pageItem.appendChild(label);
-                pageItem.appendChild(deleteBtn);
+                pageItem.appendChild(btnBar);
                 pageGrid.appendChild(pageItem);
                 
                 // Render thumbnail
@@ -103,8 +126,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     viewport: viewport
                 }).promise;
                 
-                // Setup drag and drop logic for reordering
                 setupDragAndDrop(pageItem);
+            }
+
+            if (window.Sortable) {
+                if (pageGrid._sortable) pageGrid._sortable.destroy();
+                pageGrid._sortable = Sortable.create(pageGrid, {
+                    animation: 150,
+                    onEnd: () => updatePagesData()
+                });
             }
         } catch (error) {
             console.error("Error rendering thumbnails:", error);
@@ -115,10 +145,12 @@ document.addEventListener('DOMContentLoaded', () => {
     function updatePagesData() {
         // Rebuild pagesData based on current DOM order
         const items = Array.from(pageGrid.querySelectorAll('.page-item'));
+        const oldMap = new Map(pagesData.map(p => [p.id, p]));
         pagesData = items.map(item => {
             const id = item.dataset.id;
             const originalIndex = parseInt(id.replace('page-', ''));
-            return { originalIndex, id };
+            const prev = oldMap.get(id);
+            return { originalIndex, id, rotation: prev ? prev.rotation : 0 };
         });
         
         // Update labels
@@ -189,7 +221,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const indicesToCopy = pagesData.map(p => p.originalIndex);
             const copiedPages = await newPdf.copyPages(originalPdf, indicesToCopy);
             
-            copiedPages.forEach((page) => {
+            copiedPages.forEach((page, idx) => {
+                const rot = pagesData[idx].rotation || 0;
+                if (rot) {
+                    const curAngle = page.getRotation().angle;
+                    page.setRotation(PDFLib.degrees((curAngle + rot) % 360));
+                }
                 newPdf.addPage(page);
             });
 

@@ -1,7 +1,7 @@
 <div align="center">
 
-<!-- Futuristic Decorative Header -->
-<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=FF4B2B,FF416C&height=200&section=header&text=ZapPDF&fontSize=70&fontColor=fff&fontAlignY=35&desc=The%20Ultimate%20100%25%20Private%20Client-Side%20PDF%20Suite&descAlignY=60&descColor=E0E0E0&animation=fadeIn" />
+<!-- Header Banner -->
+<img width="100%" src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=FF4B2B,FF416C&height=200&section=header&text=ZapPDF&fontSize=70&fontColor=fff&fontAlignY=35&desc=The%20Production-Grade%20100%25%20Private%20Client-Side%20PDF%20Suite&descAlignY=60&descColor=E0E0E0&animation=fadeIn" alt="ZapPDF Header" />
 
 <br/>
 
@@ -14,245 +14,150 @@
 </p>
 
 <p>
-  <img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" />
-  <img src="https://img.shields.io/badge/Processing-100%25%20Local-blue?style=flat-square" />
-  <img src="https://img.shields.io/badge/Privacy-First-orange?style=flat-square" />
+  <img src="https://img.shields.io/badge/License-MIT-brightgreen?style=flat-square" alt="License" />
+  <img src="https://img.shields.io/badge/Processing-100%25%20Local-blue?style=flat-square" alt="Local Processing" />
+  <img src="https://img.shields.io/badge/Privacy-First-orange?style=flat-square" alt="Privacy First" />
+  <img src="https://img.shields.io/badge/Tools-32%2B%20Functional-success?style=flat-square" alt="32+ Functional Tools" />
 </p>
 
 <br/>
 
-> *"All the power of a premium PDF suite, without ever uploading your files to a server."*
+> *"All the power and usability of iLovePDF, with zero document uploads and complete client-side data privacy."*
 
 <br/>
 
 <p>
-  <a href="#-about-the-project">About</a> &nbsp;·&nbsp;
-  <a href="#-key-features">Features</a> &nbsp;·&nbsp;
-  <a href="#-visual-architecture">Architecture</a> &nbsp;·&nbsp;
-  <a href="#-how-it-works">How It Works</a> &nbsp;·&nbsp;
-  <a href="#-installation">Installation</a>
+  <a href="#-about-zappdf">About</a> &nbsp;·&nbsp;
+  <a href="#-tool-directory--capabilities">Tool Directory</a> &nbsp;·&nbsp;
+  <a href="#-technology-stack">Tech Stack</a> &nbsp;·&nbsp;
+  <a href="#-honest-browser-limitations">Limitations</a> &nbsp;·&nbsp;
+  <a href="#-installation--local-dev">Getting Started</a> &nbsp;·&nbsp;
+  <a href="#-security--privacy-architecture">Security & Privacy</a>
 </p>
-
-<h3>🚀 <a href="http://localhost:3000">Try ZapPDF Locally</a></h3>
 
 </div>
 
 ---
 
-## ✦ About the Project
+## ✦ About ZapPDF
 
-**ZapPDF** is a revolutionary, privacy-first PDF utility suite that mimics the intuitive, expansive grid experience of major platforms (like iLovePDF) but operates **entirely within your browser**. By leveraging advanced WebAssembly (WASM) and modern JavaScript APIs, ZapPDF ensures that your sensitive documents never leave your local machine.
+**ZapPDF** is an open-source, production-ready, client-side PDF utility platform inspired by the usability, tool organization, and workflow quality of major commercial PDF suites (like iLovePDF).
 
-Whether you're merging confidential financial reports, compressing heavy image-based PDFs, or securely unlocking and redacting documents, ZapPDF provides lightning-fast execution and absolute data privacy.
-
-<br clear="right"/>
+**Core Philosophy:** Every advertised feature performs its actual intended operation in real time. There are no dummy buttons, simulated progress bars, placeholder downloads, or cosmetic-only mockups. Everything runs inside the browser tab using WebAssembly, modern web standards, and trusted client-side processing libraries.
 
 ---
 
-## ✦ Key Features
+## ✦ Tool Directory & Capabilities
 
-<table>
-  <tr>
-    <td width="50%">
-
-### 🛠️ Core PDF Utilities
-- **Compress PDF ⚡**: Drastically reduce the file size of your PDFs while maintaining extreme visual quality.
-- **Merge & Split 🔗**: Combine dozens of PDFs into one master file, or extract individual pages effortlessly.
-- **Organize & Rotate 🔀**: Reorder pages visually via drag-and-drop or fix upside-down pages with a single click.
-- **Convert to/from PDF 🔄**: Comprehensive conversion tools supporting JPG, Word, Excel, PowerPoint, and HTML.
-
-    </td>
-    <td width="50%">
-
-### 🔒 Security & Privacy
-- **Zero-Server Processing**: 100% of the computation happens locally in your browser. No uploads, no cloud, no data retention.
-- **Protect & Unlock PDF 🔑**: Encrypt files with robust passwords or strip protections from documents you own.
-- **Permanent Redaction ⬛**: Visually scrub and permanently flatten sensitive information, removing it completely from the underlying text layers.
-- **Digital Signatures ✍️**: Securely draw and stamp your signature onto any document without third-party tracking.
-
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-
-### 🧠 Advanced Tools & Intelligence
-- **AI Summarizer 🤖**: Generate concise, actionable summaries from long-form articles and PDF essays.
-- **Translate PDF 🌍**: Translate documents into any language while preserving the original layout and formatting.
-- **OCR Text Extraction 👁️**: Extract selectable text from flat, scanned images or image-based PDFs.
-- **PDF Forms 📋**: Detect fields and fill out interactive PDF forms locally.
-
-    </td>
-    <td width="50%">
-
-### 🎨 Premium UI & Experience
-- **Sleek iLovePDF-style Interface**: A familiar, gorgeous grid-based layout with a massive, organized Mega-Menu.
-- **Dark Mode / Light Mode ☀️🌙**: Toggleable cinematic themes using a dynamic CSS variable system.
-- **Transparent 3D Upload Zones**: Beautiful, highly-polished 3D cloud upload components on every tool page.
-- **Responsive Mobile Design**: Perfect functionality and scaling on desktops, tablets, and smartphones.
-
-    </td>
-  </tr>
-  <tr>
-    <td width="50%">
-
-### 🌐 SEO & Individualized Tools
-- **31+ Tailored Tool Pages**: Every single tool features unique, SEO-optimized meta descriptions, tool-specific feature highlights, and dedicated FAQs for maximum organic reach.
-- **Unified Navigation Architecture**: A global, sticky mega-menu ensures users can instantly jump between any of the 31+ tools securely and efficiently.
-
-    </td>
-    <td width="50%">
-
-### ⚡ Performance & Polish
-- **Cache-Busted Architecture**: Assets are dynamically versioned to prevent stale caches during major platform updates.
-- **Micro-Interactions**: Smooth hover effects, glassmorphism UI components, and fluid scroll-reveal animations create a truly premium app feel.
-
-    </td>
-  </tr>
-</table>
+| Tool | Category | Implementation Strategy | Status |
+| :--- | :--- | :--- | :--- |
+| **Compress PDF** | Optimize | ImageMagick WASM + Web Workers memory compression | ✅ 100% Client-side |
+| **Merge PDF** | Organize | `pdf-lib` document assembly + `SortableJS` drag-and-drop file reordering | ✅ 100% Client-side |
+| **Split PDF** | Organize | `pdf-lib` page extraction into individual or grouped PDFs | ✅ 100% Client-side |
+| **Organize PDF** | Organize | `pdf.js` thumbnail rendering, `SortableJS` grid reorder, individual page rotation (↻), page deletion | ✅ 100% Client-side |
+| **Remove Pages** | Organize | Visual thumbnail grid selector + `pdf-lib` exclusion copy | ✅ 100% Client-side |
+| **Extract Pages** | Organize | Range & custom comma-separated page extraction into clean PDF | ✅ 100% Client-side |
+| **Rotate PDF** | Organize | Interactive document or individual 90°/180°/270° angle adjustment | ✅ 100% Client-side |
+| **Repair PDF** | Optimize | 2-stage recovery: `pdf-lib` header/xref re-indexing with `pdf.js` fault-tolerant stream salvage | ✅ 100% Client-side |
+| **OCR PDF** | Optimize | Multi-page OCR extraction via `Tesseract.js` + `pdf.js` rendering | ✅ 100% Client-side |
+| **PDF to Word** | Convert | `pdf.js` text extraction & line heuristic + `docx.js` genuine `.docx` generation | ✅ 100% Client-side |
+| **Word to PDF** | Convert | `mammoth.js` DOCX-to-HTML parser + Browser print-to-PDF engine | ✅ 100% Client-side |
+| **JPG to PDF** | Convert | Multi-image embedder with custom page geometry (Fit, A4, Letter, Auto orientation, Margins) | ✅ 100% Client-side |
+| **PDF to JPG** | Convert | High-res 300 DPI rendering to canvas + multi-page `JSZip` packaging | ✅ 100% Client-side |
+| **HTML to PDF** | Convert | Dual input mode (Raw HTML / Web URL) with instant preview and print styling | ✅ 100% Client-side |
+| **Scan to PDF** | Organize | Live device camera integration (`getUserMedia`) with frame capture and PDF packaging | ✅ 100% Client-side |
+| **Compare PDF** | Intelligence | Dual text-stream extractor with longest common subsequence diff visualizer | ✅ 100% Client-side |
+| **PDF to Markdown** | Convert | Structure-aware text item analysis, heading classification, and list conversion | ✅ 100% Client-side |
+| **Redact PDF** | Security | **Pixel-level destruction**: Canvas redaction boxes permanently re-rasterized into fresh PDF | ✅ 100% Client-side |
+| **Protect PDF** | Security | Real AES-128 encryption with user & owner password locking | ✅ 100% Client-side |
+| **Unlock PDF** | Security | Decryption and security permission removal via `pdf-lib` | ✅ 100% Client-side |
+| **Watermark PDF** | Edit | Rotated text stamp overlay with custom opacity, position, and font size | ✅ 100% Client-side |
+| **Page Numbers** | Edit | Bottom-center, bottom-right, and top-right pagination numbering | ✅ 100% Client-side |
+| **Sign PDF** | Security | Smooth canvas signature drawing pad embedded directly into PDF | ✅ 100% Client-side |
+| **Crop PDF** | Edit | Interactive visual bounding-box crop adjustment with coordinate recalculation | ✅ 100% Client-side |
+| **Edit PDF** | Edit | Freehand drawing, text overlay stamps, and image placement | ✅ 100% Client-side |
+| **PDF Forms** | Edit | Interactive AcroForm inspector: reads, renders, fills, and flattens fields | ✅ 100% Client-side |
+| **Workflows** | Suite | Chained automated pipelines: Merge → Rotate → Page Numbers → Watermark → Password Protect | ✅ 100% Client-side |
+| **AI Summarizer** | Intelligence | Multi-page text extraction + Gemini API structured executive summary | ⚠️ API Connection (HTTPS) |
+| **Translate PDF** | Intelligence | Multi-language translation across 25+ languages via Gemini proxy | ⚠️ API Connection (HTTPS) |
 
 ---
 
-## ✦ Visual Architecture
+## ✦ Technology Stack
 
-Unlike traditional PDF editors that require heavy server-side processing, ZapPDF pushes the boundaries of modern browsers to keep your data local.
+- **Core Framework**: Vanilla HTML5, Modern CSS3 with Custom Properties (Dark/Light cinematic themes), Vanilla ES6+ JavaScript.
+- **PDF Manipulation & Generation**: [`pdf-lib`](https://pdf-lib.js.org/) (Page copying, document encryption, form filling, vector embedding).
+- **PDF Rendering & Text Extraction**: [`pdf.js`](https://mozilla.github.io/pdf.js/) (Worker-based multi-threaded page rendering).
+- **OCR Engine**: [`Tesseract.js`](https://tesseract.projectnaptha.com/) (WebAssembly OCR with multi-language models).
+- **Office Document Processing**: [`mammoth.js`](https://github.com/mwilliamson/mammoth.js) (DOCX HTML translation) & [`docx.js`](https://docx.js.org/) (DOCX builder).
+- **Image & WASM Processing**: `@magickwasm/magick-wasm`, `browser-image-compression`.
+- **Drag-and-Drop & Interactions**: [`SortableJS`](https://sortablejs.github.io/Sortable/) (Touch-friendly reordering).
+- **Packaging & Archives**: [`JSZip`](https://stuk.github.io/jszip/) (Client-side ZIP creation for batch outputs).
+- **AI Intelligence Backend**: Google Gemini API via Vercel Serverless Function (`api/chat.js`).
 
-```mermaid
-graph TD
-    UI["🌐 ZapPDF UI<br>HTML5 + CSS3 + Vanilla JS"]
-    
-    subgraph Client ["Client-Side Interface"]
-        direction LR
-        G["Grid Dashboard<br>(Mega Menu)"]
-        T["Tool Pages<br>(Transparent Uploads)"]
-    end
-    
-    ENV["⚡ Local Execution Environment<br>User's Browser"]
-    
-    subgraph Logic ["WASM & JS Logic"]
-        direction LR
-        PDF["PDF-lib.js<br>(Merge, Split, Edit)"]
-        Ghost["Ghostscript/WASM<br>(Compress, Convert)"]
-        Tess["Tesseract.js<br>(OCR Extraction)"]
-    end
-    
-    subgraph Storage ["Browser Storage"]
-        IDB["IndexedDB / Blob URL<br>(Temporary local storage)"]
-    end
-    
-    Res["Results..."]
+---
 
-    UI --> ENV
-    UI --> G
-    UI --> T
-    UI --> Res
-    
-    G --> ENV
-    T --> ENV
-    
-    ENV --> PDF
-    ENV --> Ghost
-    ENV --> Tess
-    
-    PDF --> IDB
-    Ghost --> IDB
-    Tess --> IDB
-    
-    IDB --> Res
+## ✦ Honest Browser Limitations
+
+In accordance with our core engineering principles, ZapPDF explicitly discloses operations that cannot be reliably performed purely within browser memory without a native server-side engine (such as LibreOffice or Ghostscript CLI):
+
+1. **PDF to PowerPoint (PPT) & PDF to Excel (XLS)**: Full reverse-engineering of arbitrary vector tables, shapes, and layouts into Microsoft Office presentation and spreadsheet binaries requires proprietary desktop libraries.
+2. **PowerPoint/Excel to PDF**: Accurately compiling complex `.pptx` or `.xlsx` files with charts and macros requires LibreOffice in headless server mode.
+3. **PDF/A Archival Validation**: Genuine PDF/A compliance requires embedded ICC color profile verification, font glyph embedding checks, and ISO 19005-1 XMP metadata stamping.
+
+*Pages corresponding to these tools display clear informational limitation notices.*
+
+---
+
+## ✦ Security & Privacy Architecture
+
+- **100% In-Memory Processing**: For all core utilities (Merge, Split, Compress, Redact, Sign, Protect, Unlock, Convert), documents are read directly from `File` objects into browser memory (ArrayBuffers and Blobs). No file is ever transmitted over the network or saved to a server disk.
+- **True Pixel-Level Redaction**: Unlike cosmetic PDF editors that merely place a black rectangle element over the text layer (which leaves the underlying text extractable via copy-paste), ZapPDF re-rasterizes the redacted page at 2x resolution, burning the black pixels permanently into the image and destroying all underlying text layers.
+- **AI Tool Privacy**: For AI Summarization and Translation, extracted document text is transmitted over encrypted HTTPS to Google's Gemini API via `api/chat.js`. Clear warning banners are prominently displayed advising users not to submit proprietary or confidential documents.
+
+---
+
+## ✦ Installation & Local Dev
+
+ZapPDF requires no complex build step and runs out-of-the-box in any modern browser:
+
+### Option 1: Live Server / Node
+```bash
+# Clone the repository
+git clone https://github.com/abhranilsingharoy-cloud/ZapPDF.git
+cd ZapPDF
+
+# Install dependencies (optional dev server)
+npm install
+
+# Start local dev server
+npm run dev
+# Or: npx live-server --port=3000
 ```
 
----
+### Option 2: Python Simple Server
+```bash
+python -m http.server 3000
+```
 
-## ✦ Architecture & Folder Structure
-
+Open your browser and navigate to:
 ```text
-📁 ZapPDF/
-│
-├── 📄 index.html                  ← Main Entry Point, Grid Dashboard & Compress Tool
-├── 📄 package.json                ← Dependencies & build scripts (if any)
-├── 📄 manifest.json               ← PWA Manifest for progressive web app support
-├── 📄 README.md                   ← Project documentation
-│
-├── 📁 assets/                     ← Core Frontend Assets & Logic
-│   │
-│   ├── 📁 css/                    ← Modular Stylesheets
-│   │   ├── 🎨 main.css            ← Global CSS Variables, Themes, Typography
-│   │   ├── 🎨 navbar.css          ← Mega-menu, complex dropdowns & navigation
-│   │   ├── 🎨 tool.css            ← 3D transparent upload zones & interactive UI
-│   │   ├── 🎨 hero.css            ← Hero section animations & particle effects
-│   │   ├── 🎨 sections.css        ← Grid layout for the 31+ tool cards
-│   │   ├── 🎨 results.css         ← Progress bars, success states, download UI
-│   │   ├── 🎨 chat.css            ← Prime AI Floating Chat Widget styles
-│   │   └── 🎨 responsive.css      ← Mobile breakpoints and scaling rules
-│   │
-│   ├── 📁 js/                     ← Client-Side Logic & WebAssembly Interfaces
-│   │   ├── ⚙️ main.js             ← Global UI state, event listeners, routing
-│   │   ├── ⚡ compress.js         ← Ghostscript/WASM integration for compression
-│   │   ├── 💾 db.js               ← IndexedDB / Blob URL local storage manager
-│   │   ├── 🧠 worker.js           ← Web Workers for non-blocking heavy processing
-│   │   ├── 📤 upload.js           ← Drag-and-drop mechanics & file validation
-│   │   ├── 🌙 theme.js            ← Dark/Light mode toggle & persistence
-│   │   ├── 💬 chat.js             ← Client-side AI Chatbot interactions
-│   │   └── 📁 tools/              ← Individual modular scripts for specific tools
-│   │
-│   ├── 📁 icons/                  ← Custom SVG Iconography (Flags, Tools, UI)
-│   └── 📁 img/                    ← Static image assets
-│
-└── 📁 tools/                      ← Individual Tool Pages (31+ Tools)
-    ├── 📁 Organize/
-    │   ├── merge.html             ← Combine multiple PDFs
-    │   ├── split.html             ← Extract or split pages
-    │   └── organize.html          ← Drag-and-drop page reordering
-    │
-    ├── 📁 Convert/
-    │   ├── pdf-to-jpg.html        ← Extract images from PDF
-    │   ├── word-to-pdf.html       ← DOCX to PDF conversion
-    │   ├── excel-to-pdf.html      ← Spreadsheet to PDF conversion
-    │   └── html-to-pdf.html       ← Web page to PDF conversion
-    │
-    ├── 📁 Security/
-    │   ├── protect.html           ← Add AES encryption & passwords
-    │   ├── unlock-pdf.html        ← Remove security restrictions
-    │   └── redact.html            ← Permanently scrub text layers
-    │
-    ├── 📁 AI & Intelligence/
-    │   ├── ai-summarizer.html     ← Generate summaries from long PDFs
-    │   └── translate-pdf.html     ← Preserve layout while translating text
-    │
-    └── [... 18 more specific tools]
+http://localhost:3000
 ```
 
----
-
-## ✦ How It Works
-
-1. **Select a Tool**: Choose from over 30 distinct PDF utilities from the homepage grid or the top Mega-Menu.
-2. **Drop Your Files**: Drag and drop your PDFs onto the beautifully crafted 3D transparent upload zone.
-3. **Local Processing**: As soon as you hit execute, ZapPDF runs advanced JavaScript and WebAssembly libraries directly inside your browser tab to process the file. No network requests are made with your data.
-4. **Instant Download**: The output file is generated locally as a Blob URL and downloaded instantly.
-
----
-
-## ✦ Installation
-
-Because ZapPDF is entirely client-side, it requires absolutely no complex backend setup or database configuration.
-
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/abhranilsingharoy-cloud/ZapPDF.git
-   cd ZapPDF
+### Configuring AI Capabilities (Optional)
+If you wish to use the AI Summarizer or Translate PDF features with Gemini:
+1. Copy `.env.example` to `.env`.
+2. Add your Google Gemini API key:
+   ```env
+   GEMINI_API_KEY=your_gemini_api_key_here
    ```
-
-2. **Serve locally:**
-   You can use any simple HTTP server to serve the static files. For example, using Python:
-   ```bash
-   python -m http.server 3000
-   ```
-
-3. **Open your browser:**
-   Navigate to `http://localhost:3000` to access the full suite!
+3. Deploy to Vercel or run with the Vercel CLI (`vercel dev`).
 
 ---
 
-## ✦ Credits
+## ✦ License
 
-ZapPDF is maintained and developed as a premium, privacy-first alternative to commercial online PDF editors. Designed with a focus on intuitive user experience and absolute data security.
+Distributed under the MIT License. See `LICENSE` for more information.
+
+Designed and developed by **Abhranil Singha Roy**.

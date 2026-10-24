@@ -1,298 +1,302 @@
+// redact.js - Real PDF Redaction via pixel-level page rasterization
+// Strategy: render the PDF page to canvas, let user draw redaction boxes on an overlay,
+// then flatten the entire page to a JPEG image (permanently destroying text layer),
+// and rebuild the PDF from rasterized pages.
+
+(function() {
+'use strict';
+
+window.ZapRedact = {
+  state: {
+    file: null,
+    pdfDoc: null,       // pdf.js document
+    pdfLibDoc: null,    // pdf-lib document
+    pdfBytes: null,
+    totalPages: 0,
+    currentPage: 1,
+    phase: 'idle', // idle | loaded | processing | done
+    redactRegions: [],  // [{page, x, y, w, h}] in canvas-local px
+    pageScale: 1.5,
+    resultBlob: null
+  },
+
+  init() {
+    this.els = {
+      uploadZone:     document.getElementById('upload-zone'),
+      fileInput:      document.getElementById('file-input'),
+      workspace:      document.getElementById('redact-workspace'),
+      canvasContainer:document.getElementById('canvas-container'),
+      pageCanvas:     document.getElementById('page-canvas'),
+      overlayCanvas:  document.getElementById('overlay-canvas'),
+      pageNav:        document.getElementById('page-nav'),
+      pageInfo:       document.getElementById('page-info'),
+      btnPrev:        document.getElementById('btn-prev-page'),
+      btnNext:        document.getElementById('btn-next-page'),
+      btnApply:       document.getElementById('btn-apply-redact'),
+      btnClear:       document.getElementById('btn-clear-regions'),
+      resultsPanel:   document.getElementById('results-panel'),
+      resultsList:    document.getElementById('results-list'),
+      progressBar:    document.getElementById('progress-container'),
+      progressFill:   document.getElementById('progress-fill'),
+      progressText:   document.getElementById('progress-text')
+    };
+    this.bindEvents();
+  },
+
+  bindEvents() {
+    const { els, state } = this;
+
+    // Upload
+    els.uploadZone.addEventListener('click', () => els.fileInput.click());
+    els.uploadZone.addEventListener('dragover', e => { e.preventDefault(); els.uploadZone.classList.add('dragover'); });
+    els.uploadZone.addEventListener('dragleave', () => els.uploadZone.classList.remove('dragover'));
+    els.uploadZone.addEventListener('drop', e => { e.preventDefault(); els.uploadZone.classList.remove('dragover'); this.loadFile(e.dataTransfer.files[0]); });
+    els.fileInput.addEventListener('change', e => { if(e.target.files[0]) this.loadFile(e.target.files[0]); });
+
+    // Page navigation
+    if (els.btnPrev) els.btnPrev.addEventListener('click', () => { if(state.currentPage > 1) { state.currentPage--; this.renderPage(); } });
+    if (els.btnNext) els.btnNext.addEventListener('click', () => { if(state.currentPage < state.totalPages) { state.currentPage++; this.renderPage(); } });
+
+    // Drawing on overlay
+    if (els.overlayCanvas) {
+      let drawing = false, startX, startY;
+      els.overlayCanvas.addEventListener('mousedown', e => {
+        drawing = true;
+        const r = els.overlayCanvas.getBoundingClientRect();
+        startX = (e.clientX - r.left) * (els.overlayCanvas.width / r.width);
+        startY = (e.clientY - r.top) * (els.overlayCanvas.height / r.height);
+      });
+      els.overlayCanvas.addEventListener('mousemove', e => {
+        if (!drawing) return;
+        const r = els.overlayCanvas.getBoundingClientRect();
+        const cx = (e.clientX - r.left) * (els.overlayCanvas.width / r.width);
+        const cy = (e.clientY - r.top) * (els.overlayCanvas.height / r.height);
+        this.redrawOverlay(startX, startY, cx, cy);
+      });
+      els.overlayCanvas.addEventListener('mouseup', e => {
+        if (!drawing) return;
+        drawing = false;
+        const r = els.overlayCanvas.getBoundingClientRect();
+        const endX = (e.clientX - r.left) * (els.overlayCanvas.width / r.width);
+        const endY = (e.clientY - r.top) * (els.overlayCanvas.height / r.height);
+        const w = Math.abs(endX - startX), h = Math.abs(endY - startY);
+        if (w > 5 && h > 5) {
+          state.redactRegions.push({
+            page: state.currentPage,
+            x: Math.min(startX, endX), y: Math.min(startY, endY),
+            w, h,
+            canvasW: els.overlayCanvas.width, canvasH: els.overlayCanvas.height
+          });
+          this.redrawOverlay();
+        }
+      });
+      // Touch support
+      els.overlayCanvas.addEventListener('touchstart', e => {
+        e.preventDefault();
+        const t = e.touches[0];
+        const r = els.overlayCanvas.getBoundingClientRect();
+        drawing = true;
+        startX = (t.clientX - r.left) * (els.overlayCanvas.width / r.width);
+        startY = (t.clientY - r.top) * (els.overlayCanvas.height / r.height);
+      }, { passive: false });
+      els.overlayCanvas.addEventListener('touchend', e => {
+        e.preventDefault();
+        if (!drawing) return;
+        drawing = false;
+        const t = e.changedTouches[0];
+        const r = els.overlayCanvas.getBoundingClientRect();
+        const endX = (t.clientX - r.left) * (els.overlayCanvas.width / r.width);
+        const endY = (t.clientY - r.top) * (els.overlayCanvas.height / r.height);
+        const w = Math.abs(endX - startX), h = Math.abs(endY - startY);
+        if (w > 5 && h > 5) {
+          state.redactRegions.push({ page: state.currentPage, x: Math.min(startX, endX), y: Math.min(startY, endY), w, h, canvasW: els.overlayCanvas.width, canvasH: els.overlayCanvas.height });
+          this.redrawOverlay();
+        }
+      }, { passive: false });
+    }
+
+    if (els.btnClear) els.btnClear.addEventListener('click', () => {
+      state.redactRegions = state.redactRegions.filter(r => r.page !== state.currentPage);
+      this.redrawOverlay();
+    });
+
+    if (els.btnApply) els.btnApply.addEventListener('click', () => this.applyRedaction());
+  },
+
+  async loadFile(file) {
+    if (!file || (!file.name.toLowerCase().endsWith('.pdf') && file.type !== 'application/pdf')) {
+      alert('Please select a valid PDF file.'); return;
+    }
+    this.state.file = file;
+    this.state.pdfBytes = new Uint8Array(await file.arrayBuffer());
+    this.state.redactRegions = [];
+    this.state.currentPage = 1;
+
+    const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+    if (!pdfjsLib.GlobalWorkerOptions.workerSrc) {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+    this.state.pdfDoc = await pdfjsLib.getDocument({ data: this.state.pdfBytes }).promise;
+    this.state.totalPages = this.state.pdfDoc.numPages;
+
+    this.els.uploadZone.classList.add('hidden');
+    this.els.workspace.classList.remove('hidden');
+    this.els.resultsPanel.classList.add('hidden');
+    await this.renderPage();
+  },
+
+  async renderPage() {
+    const { state, els } = this;
+    const page = await state.pdfDoc.getPage(state.currentPage);
+    const viewport = page.getViewport({ scale: state.pageScale });
+
+    els.pageCanvas.width = viewport.width;
+    els.pageCanvas.height = viewport.height;
+    els.overlayCanvas.width = viewport.width;
+    els.overlayCanvas.height = viewport.height;
+
+    await page.render({ canvasContext: els.pageCanvas.getContext('2d'), viewport }).promise;
+    this.redrawOverlay();
+
+    if (els.pageInfo) els.pageInfo.textContent = `Page ${state.currentPage} of ${state.totalPages}`;
+    if (els.btnPrev) els.btnPrev.disabled = state.currentPage <= 1;
+    if (els.btnNext) els.btnNext.disabled = state.currentPage >= state.totalPages;
+
+    const regionCount = state.redactRegions.filter(r => r.page === state.currentPage).length;
+    if (els.btnClear) els.btnClear.disabled = regionCount === 0;
+  },
+
+  redrawOverlay(dragX, dragY, dragW, dragH) {
+    const { state, els } = this;
+    const ctx = els.overlayCanvas.getContext('2d');
+    ctx.clearRect(0, 0, els.overlayCanvas.width, els.overlayCanvas.height);
+
+    // Draw committed regions for current page
+    state.redactRegions.filter(r => r.page === state.currentPage).forEach(r => {
+      // Scale region if canvas size changed
+      const scaleX = els.overlayCanvas.width / r.canvasW;
+      const scaleY = els.overlayCanvas.height / r.canvasH;
+      ctx.fillStyle = 'rgba(0,0,0,0.85)';
+      ctx.fillRect(r.x * scaleX, r.y * scaleY, r.w * scaleX, r.h * scaleY);
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(r.x * scaleX, r.y * scaleY, r.w * scaleX, r.h * scaleY);
+    });
+
+    // Draw live drag rect
+    if (dragX !== undefined && dragW !== undefined) {
+      ctx.fillStyle = 'rgba(239,68,68,0.35)';
+      ctx.fillRect(Math.min(dragX, dragW), Math.min(dragY, dragH), Math.abs(dragW - dragX), Math.abs(dragH - dragY));
+      ctx.strokeStyle = '#ef4444';
+      ctx.lineWidth = 2;
+      ctx.strokeRect(Math.min(dragX, dragW), Math.min(dragY, dragH), Math.abs(dragW - dragX), Math.abs(dragH - dragY));
+    }
+  },
+
+  setProgress(pct, txt) {
+    const { els } = this;
+    if (els.progressBar) els.progressBar.classList.remove('hidden');
+    if (els.progressFill) els.progressFill.style.width = pct + '%';
+    if (els.progressText) els.progressText.textContent = txt || '';
+  },
+
+  async applyRedaction() {
+    const { state, els } = this;
+    if (state.redactRegions.length === 0) {
+      alert('Draw at least one redaction region first.'); return;
+    }
+
+    els.btnApply.disabled = true;
+    els.btnApply.innerHTML = '<span>Applying redactions...</span>';
+
+    this.setProgress(5, 'Preparing redaction engine...');
+
+    const pdfjsLib = window['pdfjs-dist/build/pdf'] || window.pdfjsLib;
+    const newPdf = await PDFLib.PDFDocument.create();
+
+    for (let pageNum = 1; pageNum <= state.totalPages; pageNum++) {
+      this.setProgress(5 + Math.round((pageNum / state.totalPages) * 88), `Processing page ${pageNum} of ${state.totalPages}...`);
+
+      const page = await state.pdfDoc.getPage(pageNum);
+      const viewport = page.getViewport({ scale: 2.0 }); // 2x for quality
+
+      // Render page to canvas
+      const canvas = document.createElement('canvas');
+      canvas.width = viewport.width;
+      canvas.height = viewport.height;
+      const ctx = canvas.getContext('2d');
+      await page.render({ canvasContext: ctx, viewport }).promise;
+
+      // Paint redaction boxes onto the canvas (this is the key step — permanently overwrites pixels)
+      const regions = state.redactRegions.filter(r => r.page === pageNum);
+      if (regions.length > 0) {
+        ctx.fillStyle = '#000000';
+        regions.forEach(r => {
+          // Scale from preview canvas coords to render coords
+          const scaleX = viewport.width / r.canvasW;
+          const scaleY = viewport.height / r.canvasH;
+          ctx.fillRect(
+            Math.floor(r.x * scaleX),
+            Math.floor(r.y * scaleY),
+            Math.ceil(r.w * scaleX),
+            Math.ceil(r.h * scaleY)
+          );
+        });
+      }
+
+      // Convert canvas to JPEG (lossy but good enough, and permanently removes text layer)
+      const jpegDataUrl = canvas.toDataURL('image/jpeg', 0.92);
+      const jpegResponse = await fetch(jpegDataUrl);
+      const jpegArrayBuffer = await jpegResponse.arrayBuffer();
+
+      // Embed as image in new PDF page
+      const jpgImage = await newPdf.embedJpg(jpegArrayBuffer);
+      const origPage = page.getViewport({ scale: 1.0 });
+      const newPage = newPdf.addPage([origPage.width, origPage.height]);
+      newPage.drawImage(jpgImage, { x: 0, y: 0, width: origPage.width, height: origPage.height });
+    }
+
+    this.setProgress(95, 'Saving redacted document...');
+    const outBytes = await newPdf.save();
+    state.resultBlob = new Blob([outBytes], { type: 'application/pdf' });
+
+    this.setProgress(100, 'Done!');
+
+    // Show results
+    els.workspace.classList.add('hidden');
+    els.resultsPanel.classList.remove('hidden');
+    const outName = state.file.name.replace('.pdf', '_redacted.pdf');
+    els.resultsList.innerHTML = `
+      <div class="result-card">
+        <div class="result-info">
+          <div class="result-name">${outName}</div>
+          <div class="result-stats">
+            <span class="stat-pill success">${state.redactRegions.length} region(s) redacted</span>
+            <span style="color:var(--color-text-muted);font-size:13px;margin-left:8px;">Text permanently removed via pixel-level redaction</span>
+          </div>
+        </div>
+        <div class="result-actions">
+          <button class="btn btn-primary btn-sm" id="btn-dl-redact">Download Redacted PDF</button>
+          <button class="btn btn-outline btn-sm" onclick="location.reload()" style="margin-left:8px;">Redact Another</button>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--color-text-muted);margin-top:12px;padding:12px;background:var(--color-surface-2);border-radius:8px;">
+        ⚠️ <strong>Verification:</strong> The redacted pages have been fully rasterized — the original text layer is permanently destroyed.
+        Open the downloaded PDF and try to select text in the redacted areas to confirm.
+      </p>`;
+    document.getElementById('btn-dl-redact').onclick = () => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(state.resultBlob);
+      a.download = outName;
+      a.click();
+    };
+    if (window.confetti) confetti({ particleCount: 80, spread: 60, origin: { y: 0.7 } });
+  }
+};
+
 document.addEventListener('DOMContentLoaded', () => {
-    const uploadZone = document.getElementById('upload-zone');
-    const fileInput = document.getElementById('file-input');
-    const activeWorkspace = document.getElementById('active-workspace');
-    const processBtn = document.getElementById('process-btn');
-    
-    const renderCanvas = document.getElementById('pdf-render-canvas');
-    const renderCtx = renderCanvas.getContext('2d');
-    const drawLayer = document.getElementById('draw-layer');
-    const drawCtx = drawLayer.getContext('2d');
-    
-    const prevBtn = document.getElementById('prev-page');
-    const nextBtn = document.getElementById('next-page');
-    const pageIndicator = document.getElementById('page-indicator');
-    const undoBtn = document.getElementById('undo-btn');
-    
-    const progressContainer = document.getElementById('progress-container');
-    const progressBarFill = document.getElementById('progress-bar-fill');
-    const progressPercent = document.getElementById('progress-percent');
-    const progressText = document.getElementById('progress-text');
-
-    let originalPdfBytes = null;
-    let pdfDoc = null;
-    let pdfFile = null;
-    let currentPageNum = 1;
-    
-    // Structure: { pageIndex: [ {x, y, w, h}, ... ] }
-    // We store coordinates relative to the original viewport size
-    let redactions = {};
-    let currentViewport = null;
-
-    // Setup Drag & Drop for Upload
-    uploadZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        uploadZone.classList.add('dragover');
-    });
-    uploadZone.addEventListener('dragleave', () => {
-        uploadZone.classList.remove('dragover');
-    });
-    uploadZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        uploadZone.classList.remove('dragover');
-        if (e.dataTransfer.files.length > 0) {
-            handleFile(e.dataTransfer.files[0]);
-        }
-    });
-    uploadZone.addEventListener('click', () => fileInput.click());
-    fileInput.addEventListener('change', (e) => {
-        if (e.target.files.length > 0) {
-            handleFile(e.target.files[0]);
-        }
-    });
-
-    async function handleFile(file) {
-        if (file.type !== 'application/pdf') {
-            alert('Please select a valid PDF file.');
-            return;
-        }
-        
-        uploadZone.style.display = 'none';
-        activeWorkspace.style.display = 'block';
-        
-        pdfFile = file;
-        originalPdfBytes = new Uint8Array(await file.arrayBuffer());
-        
-        try {
-            const loadingTask = pdfjsLib.getDocument({ data: originalPdfBytes });
-            pdfDoc = await loadingTask.promise;
-            
-            currentPageNum = 1;
-            redactions = {};
-            await renderPage(currentPageNum);
-            updatePagination();
-        } catch (e) {
-            console.error("Error loading PDF", e);
-            alert("Failed to load PDF");
-        }
-    }
-
-    async function renderPage(pageNum) {
-        const page = await pdfDoc.getPage(pageNum);
-        
-        // Calculate scale to fit width (max 800px)
-        const unscaledViewport = page.getViewport({ scale: 1.0 });
-        const scale = Math.min(800 / unscaledViewport.width, 1.5);
-        currentViewport = page.getViewport({ scale });
-
-        renderCanvas.width = currentViewport.width;
-        renderCanvas.height = currentViewport.height;
-        drawLayer.width = currentViewport.width;
-        drawLayer.height = currentViewport.height;
-        
-        const renderContext = {
-            canvasContext: renderCtx,
-            viewport: currentViewport
-        };
-        await page.render(renderContext).promise;
-        redrawRedactions();
-    }
-
-    function updatePagination() {
-        pageIndicator.textContent = `Page ${currentPageNum} / ${pdfDoc.numPages}`;
-        prevBtn.disabled = currentPageNum <= 1;
-        nextBtn.disabled = currentPageNum >= pdfDoc.numPages;
-    }
-
-    prevBtn.addEventListener('click', async () => {
-        if (currentPageNum > 1) {
-            currentPageNum--;
-            await renderPage(currentPageNum);
-            updatePagination();
-        }
-    });
-
-    nextBtn.addEventListener('click', async () => {
-        if (currentPageNum < pdfDoc.numPages) {
-            currentPageNum++;
-            await renderPage(currentPageNum);
-            updatePagination();
-        }
-    });
-
-    // Drawing Logic
-    let isDrawing = false;
-    let startX = 0;
-    let startY = 0;
-
-    drawLayer.addEventListener('mousedown', (e) => {
-        isDrawing = true;
-        const rect = drawLayer.getBoundingClientRect();
-        startX = e.clientX - rect.left;
-        startY = e.clientY - rect.top;
-    });
-
-    drawLayer.addEventListener('mousemove', (e) => {
-        if (!isDrawing) return;
-        const rect = drawLayer.getBoundingClientRect();
-        const currentX = e.clientX - rect.left;
-        const currentY = e.clientY - rect.top;
-
-        redrawRedactions();
-        drawCtx.fillStyle = 'rgba(0, 0, 0, 0.5)';
-        drawCtx.fillRect(startX, startY, currentX - startX, currentY - startY);
-    });
-
-    drawLayer.addEventListener('mouseup', (e) => {
-        if (!isDrawing) return;
-        isDrawing = false;
-        const rect = drawLayer.getBoundingClientRect();
-        const endX = e.clientX - rect.left;
-        const endY = e.clientY - rect.top;
-
-        const width = endX - startX;
-        const height = endY - startY;
-
-        if (Math.abs(width) > 5 && Math.abs(height) > 5) {
-            // Save redaction for this page
-            const pageIndex = currentPageNum - 1;
-            if (!redactions[pageIndex]) redactions[pageIndex] = [];
-            
-            // Normalize coordinates (handle backwards dragging)
-            const normalizedRect = {
-                x: width > 0 ? startX : endX,
-                y: height > 0 ? startY : endY,
-                w: Math.abs(width),
-                h: Math.abs(height)
-            };
-            
-            redactions[pageIndex].push(normalizedRect);
-        }
-        redrawRedactions();
-    });
-
-    drawLayer.addEventListener('mouseleave', () => {
-        if (isDrawing) {
-            isDrawing = false;
-            redrawRedactions();
-        }
-    });
-
-    undoBtn.addEventListener('click', () => {
-        const pageIndex = currentPageNum - 1;
-        if (redactions[pageIndex] && redactions[pageIndex].length > 0) {
-            redactions[pageIndex].pop();
-            redrawRedactions();
-        }
-    });
-
-    function redrawRedactions() {
-        drawCtx.clearRect(0, 0, drawLayer.width, drawLayer.height);
-        const pageIndex = currentPageNum - 1;
-        if (redactions[pageIndex]) {
-            drawCtx.fillStyle = 'black';
-            redactions[pageIndex].forEach(r => {
-                drawCtx.fillRect(r.x, r.y, r.w, r.h);
-            });
-        }
-    }
-
-    processBtn.addEventListener('click', async () => {
-        const hasRedactions = Object.values(redactions).some(arr => arr.length > 0);
-        if (!hasRedactions) {
-            alert('No redactions drawn. Draw black boxes over text before processing.');
-            return;
-        }
-
-        processBtn.disabled = true;
-        progressContainer.style.display = 'block';
-        progressText.textContent = 'Applying Redactions...';
-        progressBarFill.style.width = '10%';
-        progressPercent.textContent = '10%';
-
-        try {
-            const originalPdfLib = await PDFLib.PDFDocument.load(originalPdfBytes);
-            const newPdf = await PDFLib.PDFDocument.create();
-            
-            const totalPages = originalPdfLib.getPageCount();
-            const step = 80 / totalPages;
-
-            for (let i = 0; i < totalPages; i++) {
-                if (redactions[i] && redactions[i].length > 0) {
-                    // Page has redactions. We must flatten it for security.
-                    // We'll render the page with redactions to an image canvas.
-                    const page = await pdfDoc.getPage(i + 1);
-                    // Render at high resolution for quality
-                    const viewport = page.getViewport({ scale: 2.5 }); 
-                    
-                    const tempCanvas = document.createElement('canvas');
-                    const tempCtx = tempCanvas.getContext('2d');
-                    tempCanvas.width = viewport.width;
-                    tempCanvas.height = viewport.height;
-                    
-                    await page.render({
-                        canvasContext: tempCtx,
-                        viewport: viewport
-                    }).promise;
-                    
-                    // Draw redactions on temp canvas
-                    // We need to scale the redaction coordinates from currentViewport to this new high-res viewport
-                    const scaleFactorX = viewport.width / currentViewport.width;
-                    const scaleFactorY = viewport.height / currentViewport.height;
-                    
-                    tempCtx.fillStyle = 'black';
-                    redactions[i].forEach(r => {
-                        tempCtx.fillRect(r.x * scaleFactorX, r.y * scaleFactorY, r.w * scaleFactorX, r.h * scaleFactorY);
-                    });
-                    
-                    // Convert to image
-                    const imgDataUrl = tempCanvas.toDataURL('image/jpeg', 0.95);
-                    const imgBytes = await fetch(imgDataUrl).then(res => res.arrayBuffer());
-                    const pdfImage = await newPdf.embedJpg(imgBytes);
-                    
-                    // Create new page with exactly the image dimensions
-                    const newPage = newPdf.addPage([viewport.width, viewport.height]);
-                    newPage.drawImage(pdfImage, {
-                        x: 0, y: 0, width: viewport.width, height: viewport.height
-                    });
-                } else {
-                    // No redactions, just copy the page over losslessly
-                    const [copiedPage] = await newPdf.copyPages(originalPdfLib, [i]);
-                    newPdf.addPage(copiedPage);
-                }
-                
-                let currentProgress = 10 + (i + 1) * step;
-                progressBarFill.style.width = `${currentProgress}%`;
-                progressPercent.textContent = `${Math.round(currentProgress)}%`;
-            }
-
-            progressText.textContent = 'Saving PDF...';
-            const pdfBytes = await newPdf.save();
-            
-            progressBarFill.style.width = '100%';
-            progressPercent.textContent = '100%';
-            progressText.textContent = 'Done!';
-            
-            const blob = new Blob([pdfBytes], { type: 'application/pdf' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `redacted_${pdfFile.name}`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            
-            setTimeout(() => {
-                processBtn.disabled = false;
-                progressContainer.style.display = 'none';
-            }, 2000);
-            
-        } catch (error) {
-            console.error("Error redacting PDF:", error);
-            alert("An error occurred while redacting the PDF.");
-            processBtn.disabled = false;
-            progressContainer.style.display = 'none';
-        }
-    });
+  if (document.getElementById('upload-zone') && document.getElementById('overlay-canvas')) {
+    ZapRedact.init();
+  }
 });
+})();

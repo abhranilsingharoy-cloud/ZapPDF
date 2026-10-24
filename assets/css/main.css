@@ -224,3 +224,27 @@ a {
 
 .toast.success { border-left: 4px solid var(--color-success); }
 .toast.error { border-left: 4px solid var(--color-error); }
+
+/* ─── Navbar Dropdown Open State ─────────────────────────────────────────── */
+.nav-dropdown .dropdown-menu {
+  display: none;
+}
+.nav-dropdown.dropdown-open .dropdown-menu {
+  display: block;
+}
+
+/* ─── Dark Mode ──────────────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-bg: #111827;
+  --color-surface: #1f2937;
+  --color-surface-2: #1a1a2e;
+  --color-text: #f9fafb;
+  --color-text-muted: #9ca3af;
+  --color-border: #374151;
+}
+[data-theme="dark"] body { background: var(--color-bg); color: var(--color-text); }
+[data-theme="dark"] .navbar { background: #1f2937 !important; border-bottom-color: #374151 !important; }
+[data-theme="dark"] .feature-card, [data-theme="dark"] .ilove-card { background: #1f2937 !important; border-color: #374151 !important; }
+[data-theme="dark"] .feature-card h3, [data-theme="dark"] .ilove-card h3 { color: #f9fafb !important; }
+[data-theme="dark"] .upload-zone { background: #1f2937 !important; border-color: #374151 !important; }
+[data-theme="dark"] .dropdown-menu, [data-theme="dark"] .mega-menu { background: #1f2937 !important; border-color: #374151 !important; }

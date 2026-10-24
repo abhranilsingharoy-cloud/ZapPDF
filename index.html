@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1a1a1a">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -135,7 +135,7 @@
                                 <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Organize PDF</h4>
                                 <a href="tools/merge.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Merge PDF</a>
                                 <a href="tools/split.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Split PDF</a>
-                                <a href="#" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Remove pages</a>
+                                <a href="tools/remove-pages.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Remove pages</a>
                                 <a href="tools/extract.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Extract pages</a>
                                 <a href="tools/organize.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Organize PDF</a>
                                 <a href="tools/scan-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff5722; margin-right:8px; flex-shrink:0;"></span> Scan to PDF</a>
@@ -221,6 +221,8 @@
                         <rect x="3" y="14" width="7" height="7"></rect>
                     </svg>
                 </a>
+            
+                <button class="theme-toggle-btn" aria-label="Toggle theme" style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;padding:4px;font-size:20px;" title="Toggle theme">☀️</button>
             </div>
             
             <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" style="display: none;">
@@ -438,20 +440,20 @@
             
             
             <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 48px; flex-wrap: wrap; margin-top: -10px;">
-                <button style="padding: 10px 24px; border-radius: 24px; background: #333; color: white; border: none; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">All</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Workflows</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Organize PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Optimize PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Convert PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Edit PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">PDF Security</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">PDF Intelligence</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: #333; color: white; border: none; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-filter-cat="all">All</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="workflows">Workflows</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="organize pdf">Organize PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="optimize pdf">Optimize PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="convert pdf">Convert PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="edit pdf">Edit PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="pdf security">PDF Security</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="pdf intelligence">PDF Intelligence</button>
             </div>
 
             <div class="features-grid scroll-reveal" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px;">
 
                 <!-- 1. Merge PDF -->
-                <a href="tools/merge.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/merge.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#ff7c5c"/>
@@ -465,7 +467,7 @@
                 </a>
 
                 <!-- 2. Split PDF -->
-                <a href="tools/split.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/split.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#ff7c5c"/>
@@ -479,7 +481,7 @@
                 </a>
 
                 <!-- 3. Compress PDF -->
-                <a href="index.html#tool" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="index.html#tool" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="18" height="18" rx="2" fill="#8bc34a"/>
@@ -497,7 +499,7 @@
                 </a>
 
                 <!-- 4. PDF to Word -->
-                <a href="tools/pdf-to-word.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-word.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#e0e7ff"/>
@@ -512,7 +514,7 @@
                 </a>
 
                 <!-- 5. PDF to PowerPoint -->
-                <a href="tools/pdf-to-ppt.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-ppt.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#ffedd5"/>
@@ -527,7 +529,7 @@
                 </a>
 
                 <!-- 6. PDF to Excel -->
-                <a href="tools/pdf-to-excel.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-excel.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#dcfce7"/>
@@ -542,7 +544,7 @@
                 </a>
 
                 <!-- 7. Word to PDF -->
-                <a href="tools/word-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/word-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#e0e7ff"/>
@@ -557,7 +559,7 @@
                 </a>
 
                 <!-- 8. PowerPoint to PDF -->
-                <a href="tools/ppt-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/ppt-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#ffedd5"/>
@@ -572,7 +574,7 @@
                 </a>
 
                 <!-- 9. Excel to PDF -->
-                <a href="tools/excel-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/excel-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#dcfce7"/>
@@ -587,7 +589,7 @@
                 </a>
 
                 <!-- 10. Edit PDF -->
-                <a href="tools/edit.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/edit.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#9c27b0"/>
@@ -602,7 +604,7 @@
                 </a>
 
                 <!-- 11. PDF to JPG -->
-                <a href="tools/pdf-to-jpg.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-jpg.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#fef08a"/>
@@ -618,7 +620,7 @@
                 </a>
 
                 <!-- 12. JPG to PDF -->
-                <a href="tools/jpg-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/jpg-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#fef08a"/>
@@ -634,7 +636,7 @@
                 </a>
 
                 <!-- 13. Sign PDF -->
-                <a href="tools/sign.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/sign.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#1976d2"/>
@@ -647,7 +649,7 @@
                 </a>
 
                 <!-- 14. Watermark -->
-                <a href="tools/watermark.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/watermark.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#d81b60"/>
@@ -661,7 +663,7 @@
                 </a>
 
                 <!-- 15. Rotate PDF -->
-                <a href="tools/rotate.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/rotate.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#9c27b0"/>
@@ -674,7 +676,7 @@
                 </a>
 
                 <!-- 16. HTML to PDF -->
-                <a href="tools/html-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/html-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#eab308"/>
@@ -689,7 +691,7 @@
                 </a>
 
                 <!-- 17. Unlock PDF -->
-                <a href="tools/unlock-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/unlock-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#4285f4"/>
@@ -702,7 +704,7 @@
                 </a>
 
                 <!-- 18. Protect PDF -->
-                <a href="tools/protect.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/protect.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#1976d2"/>
@@ -715,7 +717,7 @@
                 </a>
 
                 <!-- 19. Organize PDF -->
-                <a href="tools/organize.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/organize.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="18" y="10" width="12" height="12" rx="2" fill="#ff7c5c"/>
@@ -730,7 +732,7 @@
                 </a>
 
                 <!-- 20. PDF to PDF/A -->
-                <a href="tools/pdf-to-pdfa.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-pdfa.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#e0e7ff"/>
@@ -745,7 +747,7 @@
                 </a>
 
                 <!-- 21. Repair PDF -->
-                <a href="tools/repair-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/repair-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#4caf50"/>
@@ -758,7 +760,7 @@
                 </a>
 
                 <!-- 22. Page numbers -->
-                <a href="tools/number.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/number.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="12" y="12" width="10" height="10" rx="2" fill="#ad1457"/>
@@ -776,7 +778,7 @@
                 </a>
 
                 <!-- 23. Scan to PDF -->
-                <a href="tools/scan-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/scan-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#ff5722"/>
@@ -789,7 +791,7 @@
                 </a>
 
                 <!-- 24. OCR PDF -->
-                <a href="tools/ocr.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/ocr.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <span class="card-badge" style="position: absolute; top: 16px; right: 24px; background: #333; color: white; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; letter-spacing: 0.5px;">OCR PDF</span>
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -804,7 +806,7 @@
                 </a>
 
                 <!-- 25. Compare PDF -->
-                <a href="tools/compare-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/compare-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#4285f4"/>
@@ -987,20 +989,20 @@
             
             
             <div style="display: flex; justify-content: center; gap: 8px; margin-bottom: 48px; flex-wrap: wrap; margin-top: -10px;">
-                <button style="padding: 10px 24px; border-radius: 24px; background: #333; color: white; border: none; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">All</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Workflows</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Organize PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Optimize PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Convert PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">Edit PDF</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">PDF Security</button>
-                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;">PDF Intelligence</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: #333; color: white; border: none; font-weight: 600; font-size: 14px; cursor: pointer; box-shadow: 0 2px 4px rgba(0,0,0,0.1);" data-filter-cat="all">All</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="workflows">Workflows</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="organize pdf">Organize PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="optimize pdf">Optimize PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="convert pdf">Convert PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="edit pdf">Edit PDF</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="pdf security">PDF Security</button>
+                <button style="padding: 10px 24px; border-radius: 24px; background: white; color: #4b5563; border: 1px solid #e5e7eb; font-weight: 600; font-size: 14px; cursor: pointer;" data-filter-cat="pdf intelligence">PDF Intelligence</button>
             </div>
 
             <div class="features-grid scroll-reveal" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 24px;">
 
                 <!-- 1. Merge PDF -->
-                <a href="tools/merge.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/merge.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#ff7c5c"/>
@@ -1014,7 +1016,7 @@
                 </a>
 
                 <!-- 2. Split PDF -->
-                <a href="tools/split.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/split.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#ff7c5c"/>
@@ -1028,7 +1030,7 @@
                 </a>
 
                 <!-- 3. Compress PDF -->
-                <a href="index.html#tool" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="index.html#tool" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="18" height="18" rx="2" fill="#8bc34a"/>
@@ -1046,7 +1048,7 @@
                 </a>
 
                 <!-- 4. PDF to Word -->
-                <a href="tools/pdf-to-word.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-word.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#e0e7ff"/>
@@ -1061,7 +1063,7 @@
                 </a>
 
                 <!-- 5. PDF to PowerPoint -->
-                <a href="tools/pdf-to-ppt.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-ppt.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#ffedd5"/>
@@ -1076,7 +1078,7 @@
                 </a>
 
                 <!-- 6. PDF to Excel -->
-                <a href="tools/pdf-to-excel.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-excel.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#dcfce7"/>
@@ -1091,7 +1093,7 @@
                 </a>
 
                 <!-- 7. Word to PDF -->
-                <a href="tools/word-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/word-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#e0e7ff"/>
@@ -1106,7 +1108,7 @@
                 </a>
 
                 <!-- 8. PowerPoint to PDF -->
-                <a href="tools/ppt-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/ppt-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#ffedd5"/>
@@ -1121,7 +1123,7 @@
                 </a>
 
                 <!-- 9. Excel to PDF -->
-                <a href="tools/excel-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/excel-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#dcfce7"/>
@@ -1136,7 +1138,7 @@
                 </a>
 
                 <!-- 10. Edit PDF -->
-                <a href="tools/edit.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/edit.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#9c27b0"/>
@@ -1151,7 +1153,7 @@
                 </a>
 
                 <!-- 11. PDF to JPG -->
-                <a href="tools/pdf-to-jpg.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-jpg.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#fef08a"/>
@@ -1167,7 +1169,7 @@
                 </a>
 
                 <!-- 12. JPG to PDF -->
-                <a href="tools/jpg-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/jpg-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#fef08a"/>
@@ -1183,7 +1185,7 @@
                 </a>
 
                 <!-- 13. Sign PDF -->
-                <a href="tools/sign.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/sign.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#1976d2"/>
@@ -1196,7 +1198,7 @@
                 </a>
 
                 <!-- 14. Watermark -->
-                <a href="tools/watermark.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/watermark.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#d81b60"/>
@@ -1210,7 +1212,7 @@
                 </a>
 
                 <!-- 15. Rotate PDF -->
-                <a href="tools/rotate.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/rotate.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#9c27b0"/>
@@ -1223,7 +1225,7 @@
                 </a>
 
                 <!-- 16. HTML to PDF -->
-                <a href="tools/html-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/html-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="4" width="24" height="24" rx="4" fill="#eab308"/>
@@ -1238,7 +1240,7 @@
                 </a>
 
                 <!-- 17. Unlock PDF -->
-                <a href="tools/unlock-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/unlock-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#4285f4"/>
@@ -1251,7 +1253,7 @@
                 </a>
 
                 <!-- 18. Protect PDF -->
-                <a href="tools/protect.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/protect.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#1976d2"/>
@@ -1264,7 +1266,7 @@
                 </a>
 
                 <!-- 19. Organize PDF -->
-                <a href="tools/organize.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/organize.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="18" y="10" width="12" height="12" rx="2" fill="#ff7c5c"/>
@@ -1279,7 +1281,7 @@
                 </a>
 
                 <!-- 20. PDF to PDF/A -->
-                <a href="tools/pdf-to-pdfa.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/pdf-to-pdfa.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="4" y="8" width="20" height="24" rx="2" fill="#e0e7ff"/>
@@ -1294,7 +1296,7 @@
                 </a>
 
                 <!-- 21. Repair PDF -->
-                <a href="tools/repair-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/repair-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#4caf50"/>
@@ -1307,7 +1309,7 @@
                 </a>
 
                 <!-- 22. Page numbers -->
-                <a href="tools/number.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/number.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="12" y="12" width="10" height="10" rx="2" fill="#ad1457"/>
@@ -1325,7 +1327,7 @@
                 </a>
 
                 <!-- 23. Scan to PDF -->
-                <a href="tools/scan-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/scan-to-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#ff5722"/>
@@ -1338,7 +1340,7 @@
                 </a>
 
                 <!-- 24. OCR PDF -->
-                <a href="tools/ocr.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/ocr.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; position: relative; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <span class="card-badge" style="position: absolute; top: 16px; right: 24px; background: #333; color: white; padding: 4px 8px; border-radius: 4px; font-size: 10px; font-weight: bold; letter-spacing: 0.5px;">OCR PDF</span>
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1353,7 +1355,7 @@
                 </a>
 
                 <!-- 25. Compare PDF -->
-                <a href="tools/compare-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+                <a href="tools/compare-pdf.html" class="feature-card ilove-card" style="text-decoration: none; color: inherit; padding: 32px 24px; display: flex; flex-direction: column; background: white; border: 1px solid #e5e7eb; border-radius: 16px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);" data-categories="organize pdf">
                     <div style="margin-bottom: 24px;">
                         <svg width="44" height="44" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <rect x="10" y="10" width="28" height="28" rx="4" fill="#4285f4"/>
@@ -1538,5 +1540,6 @@
     <script src="assets/js/db.js"></script>
     <script src="assets/js/main.js"></script>
 <script src="assets/js/theme.js"></script>
+    <script src="assets/js/navbar.js"></script>
 </body>
 </html>

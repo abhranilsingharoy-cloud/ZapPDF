@@ -38,7 +38,7 @@ window.ZapSplit = {
             if (e.target.tagName !== 'SPAN') els.fileInput.click();
         });
         
-        document.querySelector('.upload-link').addEventListener('click', () => els.fileInput.click());
+        const lnk = document.querySelector('.upload-link'); if (lnk) lnk.addEventListener('click', () => els.fileInput.click());
         
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             els.uploadZone.addEventListener(eventName, e => {

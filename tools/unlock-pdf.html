@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="description" content="Remove password protection from PDFs you are authorised to access. 100% client-side — files never leave your browser.">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#1a1a1a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="../manifest.json">
+    <title>Unlock PDF — Remove Password Protection | ZapPDF</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../assets/css/main.css?v=5">
+    <link rel="stylesheet" href="../assets/css/navbar.css?v=5">
+    <link rel="stylesheet" href="../assets/css/hero.css?v=4">
+    <link rel="stylesheet" href="../assets/css/tool.css?v=4">
+    <link rel="stylesheet" href="../assets/css/results.css?v=4">
+    <link rel="stylesheet" href="../assets/css/sections.css?v=4">
+    <link rel="stylesheet" href="../assets/css/responsive.css?v=4">
+    <link rel="stylesheet" href="../assets/css/chat.css?v=4">
+    <style>
+        .page-grid {display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:16px;margin:24px 0;}
+        .page-item {position:relative;cursor:pointer;border-radius:8px;overflow:hidden;border:2px solid transparent;transition:border-color .2s;}
+        .page-item:hover {border-color:#f59e0b;}
+        .page-item.selected {border-color:#ef4444;}
+        .page-item.selected::after {content:"✕";position:absolute;top:4px;right:6px;background:#ef4444;color:white;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;}
+        .page-item canvas {display:block;width:100%;height:auto;}
+        .page-label {text-align:center;font-size:11px;padding:4px 0;background:var(--color-surface-2);}
+        .tool-header {padding:32px 0 0;text-align:center;}
+        .tool-header h1 {font-size:28px;font-weight:800;margin-bottom:8px;}
+        .tool-header p {color:var(--color-text-muted);font-size:15px;margin-bottom:0;}
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+        <nav class="navbar" id="navbar" style="background: white; border-bottom: 1px solid #e5e7eb; position: relative; z-index: 50; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;">
+        <div class="nav-container ilove-nav" style="max-width: 1400px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 72px; padding: 0 24px;">
+            
+            <!-- LOGO -->
+            <a href="../index.html" class="logo" style="font-weight: 900; font-size: 26px; letter-spacing: -1px; display: flex; align-items: center; gap: 4px; text-decoration: none; color: #111;">
+                ZAP <svg style="color: #F5C518; width: 24px; height: 24px; margin: 0 2px;" viewBox="0 0 24 24" fill="currentColor"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg> PDF
+            </a>
+            
+            <!-- TOP LINKS -->
+            <div class="nav-links" style="display: flex; align-items: center; gap: 32px; font-size: 14px; font-weight: 700; text-transform: uppercase;">
+                <a href="../tools/merge.html" class="nav-link-top ilove-hover" style="text-decoration: none; color: #111; transition: color 0.2s;">MERGE PDF</a>
+                <a href="../tools/split.html" class="nav-link-top ilove-hover" style="text-decoration: none; color: #111; transition: color 0.2s;">SPLIT PDF</a>
+                <a href="../index.html#tool" class="nav-link-top ilove-hover" style="text-decoration: none; color: #111; transition: color 0.2s;">COMPRESS PDF</a>
+                
+                <!-- CONVERT PDF DROPDOWN -->
+                <div class="nav-dropdown" style="position: relative;">
+                    <a href="#" class="dropdown-toggle nav-link-top ilove-hover" style="text-decoration: none; color: #111; cursor: default; display: flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                        CONVERT PDF 
+                        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </a>
+                    
+                    <div class="dropdown-menu convert-dropdown" style="position: absolute; top: 100%; left: 50%; transform: translateX(-50%); background: white; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); border: 1px solid #e5e7eb; padding: 24px; min-width: 450px; z-index: 100;">
+                        <div style="position: absolute; top: -6px; left: 50%; transform: translateX(-50%) rotate(45deg); width: 12px; height: 12px; background: white; border-left: 1px solid #e5e7eb; border-top: 1px solid #e5e7eb;"></div>
+                        <div style="display: flex; gap: 48px; position: relative; z-index: 2;">
+                            
+                            <div style="flex: 1;">
+                                <div style="color: #6b7280; font-size: 12px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.5px;">CONVERT TO PDF</div>
+                                
+                                <a href="../tools/jpg-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#facc15"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="white"/><polyline points="21 15 16 10 5 21" fill="white"/></svg>
+                                    JPG to PDF
+                                </a>
+                                <a href="../tools/word-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#3b82f6"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M7 8l2 8 2.5-6 2.5 6 2-8" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    WORD to PDF
+                                </a>
+                                <a href="../tools/ppt-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#f97316"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7h5a3 3 0 0 1 0 6H8V7z" stroke="white" stroke-width="2" fill="none"/><path d="M8 17v-4" stroke="white" stroke-width="2" fill="none"/></svg>
+                                    POWERPOINT to PDF
+                                </a>
+                                <a href="../tools/excel-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#22c55e"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7l8 10M16 7l-8 10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                                    EXCEL to PDF
+                                </a>
+                                <a href="../tools/html-to-pdf.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#eab308"><circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8" stroke="white" stroke-width="1.5"/><path d="M11.5 3a17 17 0 0 0 0 18M12.5 3a17 17 0 0 1 0 18" stroke="white" stroke-width="1.5" fill="none"/></svg>
+                                    HTML to PDF
+                                </a>
+                            </div>
+                            
+                            <div style="flex: 1;">
+                                <div style="color: #6b7280; font-size: 12px; font-weight: 700; margin-bottom: 16px; letter-spacing: 0.5px;">CONVERT FROM PDF</div>
+                                
+                                <a href="../tools/pdf-to-jpg.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#facc15"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5" fill="white"/><polyline points="21 15 16 10 5 21" fill="white"/></svg>
+                                    PDF to JPG
+                                </a>
+                                <a href="../tools/pdf-to-word.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#3b82f6"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M7 8l2 8 2.5-6 2.5 6 2-8" stroke="white" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    PDF to WORD
+                                </a>
+                                <a href="../tools/pdf-to-ppt.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#f97316"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7h5a3 3 0 0 1 0 6H8V7z" stroke="white" stroke-width="2" fill="none"/><path d="M8 17v-4" stroke="white" stroke-width="2" fill="none"/></svg>
+                                    PDF to POWERPOINT
+                                </a>
+                                <a href="../tools/pdf-to-excel.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#22c55e"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 7l8 10M16 7l-8 10" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>
+                                    PDF to EXCEL
+                                </a>
+                                <a href="../tools/pdf-to-pdfa.html" class="ilove-dropdown-item" style="display: flex; align-items: center; gap: 12px; color: #374151; text-decoration: none; text-transform: none; font-weight: 600; font-size: 15px;">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="#60a5fa"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><path d="M8 16l3.5-9 3.5 9M9.5 12h5" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg>
+                                    PDF to PDF/A
+                                </a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- ALL PDF TOOLS MEGA MENU -->
+                <div class="nav-dropdown mega-dropdown">
+                    <a href="#" class="dropdown-toggle nav-link-top ilove-hover" style="text-decoration: none; color: #111; cursor: default; display: flex; align-items: center; gap: 4px; transition: color 0.2s;">
+                        ALL PDF TOOLS 
+                        <svg class="chevron" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </a>
+                    
+                    <div class="dropdown-menu mega-menu" style="position: absolute; top: 100%; left: 0; right: 0; width: 100vw; background: white; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1); border-top: 1px solid #e5e7eb; padding: 32px 0; z-index: 99;">
+                        <div style="max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: repeat(7, 1fr); gap: 24px; padding: 0 24px; text-transform: none;">
+                            
+                            <!-- COL 1: ORGANIZE PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Organize PDF</h4>
+                                <a href="../tools/merge.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Merge PDF</a>
+                                <a href="../tools/split.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Split PDF</a>
+                                <a href="remove-pages.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Remove pages</a>
+                                <a href="../tools/extract.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Extract pages</a>
+                                <a href="../tools/organize.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> Organize PDF</a>
+                                <a href="../tools/scan-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff5722; margin-right:8px; flex-shrink:0;"></span> Scan to PDF</a>
+                            </div>
+
+                            <!-- COL 2: OPTIMIZE PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Optimize PDF</h4>
+                                <a href="../index.html#tool" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#8bc34a; margin-right:8px; flex-shrink:0;"></span> Compress PDF</a>
+                                <a href="../tools/repair-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4caf50; margin-right:8px; flex-shrink:0;"></span> Repair PDF</a>
+                                <a href="../tools/ocr.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4caf50; margin-right:8px; flex-shrink:0;"></span> OCR PDF</a>
+                            </div>
+
+                            <!-- COL 3: CONVERT TO PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Convert to PDF</h4>
+                                <a href="../tools/jpg-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#fbc02d; margin-right:8px; flex-shrink:0;"></span> JPG to PDF</a>
+                                <a href="../tools/word-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4285f4; margin-right:8px; flex-shrink:0;"></span> WORD to PDF</a>
+                                <a href="../tools/ppt-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> POWERPOINT to PDF</a>
+                                <a href="../tools/excel-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4caf50; margin-right:8px; flex-shrink:0;"></span> EXCEL to PDF</a>
+                                <a href="../tools/html-to-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#fbc02d; margin-right:8px; flex-shrink:0;"></span> HTML to PDF</a>
+                            </div>
+
+                            <!-- COL 4: CONVERT FROM PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Convert from PDF</h4>
+                                <a href="../tools/pdf-to-jpg.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#fbc02d; margin-right:8px; flex-shrink:0;"></span> PDF to JPG</a>
+                                <a href="../tools/pdf-to-word.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4285f4; margin-right:8px; flex-shrink:0;"></span> PDF to WORD</a>
+                                <a href="../tools/pdf-to-ppt.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ff7c5c; margin-right:8px; flex-shrink:0;"></span> PDF to POWERPOINT</a>
+                                <a href="../tools/pdf-to-excel.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4caf50; margin-right:8px; flex-shrink:0;"></span> PDF to EXCEL</a>
+                                <a href="../tools/pdf-to-pdfa.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#1976d2; margin-right:8px; flex-shrink:0;"></span> PDF to PDF/A</a>
+                            </div>
+
+                            <!-- COL 5: EDIT PDF -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">Edit PDF</h4>
+                                <a href="../tools/rotate.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#9c27b0; margin-right:8px; flex-shrink:0;"></span> Rotate PDF</a>
+                                <a href="../tools/number.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#ad1457; margin-right:8px; flex-shrink:0;"></span> Add page numbers</a>
+                                <a href="../tools/watermark.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#d81b60; margin-right:8px; flex-shrink:0;"></span> Add watermark</a>
+                                <a href="../tools/crop.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#9c27b0; margin-right:8px; flex-shrink:0;"></span> Crop PDF</a>
+                                <a href="../tools/edit.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#9c27b0; margin-right:8px; flex-shrink:0;"></span> Edit PDF</a>
+                                <a href="../tools/pdf-forms.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#9c27b0; margin-right:8px; flex-shrink:0;"></span> PDF Forms</a>
+                            </div>
+
+                            <!-- COL 6: PDF SECURITY -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">PDF Security</h4>
+                                <a href="../tools/unlock-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4285f4; margin-right:8px; flex-shrink:0;"></span> Unlock PDF</a>
+                                <a href="../tools/protect.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#1976d2; margin-right:8px; flex-shrink:0;"></span> Protect PDF</a>
+                                <a href="../tools/sign.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#4285f4; margin-right:8px; flex-shrink:0;"></span> Sign PDF</a>
+                                <a href="../tools/redact.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#1976d2; margin-right:8px; flex-shrink:0;"></span> Redact PDF</a>
+                                <a href="../tools/compare-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#1976d2; margin-right:8px; flex-shrink:0;"></span> Compare PDF</a>
+                            </div>
+
+                            <!-- COL 7: PDF INTELLIGENCE -->
+                            <div>
+                                <h4 style="color: #6b7280; font-size: 12px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700;">PDF Intelligence</h4>
+                                <a href="../tools/ai-summarizer.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#7e57c2; margin-right:8px; flex-shrink:0;"></span> AI Summarizer</a>
+                                <a href="../tools/translate-pdf.html" class="mega-link"><span style="display:inline-block; width:8px; height:8px; background-color:#7e57c2; margin-right:8px; flex-shrink:0;"></span> Translate PDF</a>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- RIGHT SIDE ICONS -->
+            <div class="nav-cta" style="display: flex; align-items: center; gap: 16px;">
+                <!-- Profile Icon -->
+                <a href="#" style="color: #6b7280; display: flex; align-items: center;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
+                
+                <!-- Grid Menu Icon -->
+                <a href="#" style="color: #6b7280; display: flex; align-items: center;">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="14" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                    </svg>
+                </a>
+                <button id="theme-toggle" aria-label="Toggle theme" style="background: none; border: none; cursor: pointer; color: #6b7280; display: flex; align-items: center; padding: 4px;">
+                  <svg id="theme-icon-sun" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+                  <svg id="theme-icon-moon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                </button>
+            
+                <button class="theme-toggle-btn" aria-label="Toggle theme" style="background:none;border:none;cursor:pointer;color:#6b7280;display:flex;align-items:center;padding:4px;font-size:20px;" title="Toggle theme">☀️</button>
+            </div>
+            
+            <button class="mobile-menu-btn" aria-label="Open menu" aria-expanded="false" style="display: none;">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+        
+    </nav>
+
+    <div class="tool-header container">
+        <h1>Unlock PDF</h1>
+        <p>Remove password protection from PDFs you are authorised to access. Processing happens entirely in your browser.</p>
+    </div>
+
+    <section id="tool" class="tool-section">
+        <div class="tool-container">
+            <div id="upload-zone" class="upload-zone transparent-upload">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="1.5" style="margin-bottom:12px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <p class="upload-text-main">Drop your locked PDF here or</p>
+                <div class="upload-buttons">
+                    <button class="btn btn-upload-split" onclick="document.getElementById('file-input').click()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><polyline points="13 2 13 9 20 9"/><path d="M12 18v-6"/><path d="M9 15l3-3 3 3"/></svg>
+                        Select PDF file
+                    </button>
+                </div>
+                <input type="file" id="file-input" accept=".pdf" class="visually-hidden">
+            </div>
+
+            <div id="upload-compact" class="upload-compact hidden">
+                <span id="file-count-text">1 file selected</span>
+                <button id="btn-change-files" class="btn-text">Change / Clear</button>
+            </div>
+
+            <div id="file-list" class="file-list hidden"></div>
+
+            <div id="controls" class="controls-container hidden">
+                <div class="control-panel">
+                    <h3>Enter Password</h3>
+                    <p class="hint-text" style="margin-top:8px;margin-bottom:16px;">If the PDF requires a password, enter it below. Leave blank to try unlocking without a password.</p>
+                    <input type="password" id="pdf-password" placeholder="Enter PDF password (if required)" style="width:100%;padding:12px 16px;border:1px solid var(--color-border);border-radius:8px;background:var(--color-surface);color:var(--color-text);font-size:15px;">
+                    <p style="font-size:12px;color:var(--color-text-muted);margin-top:8px;">⚠️ This tool can only remove protection from PDFs you are authorised to access.</p>
+                </div>
+
+                <button id="btn-unlock" class="btn btn-primary btn-massive">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="flex-shrink:0"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                    <span>Unlock PDF</span>
+                </button>
+
+                <div id="progress-container" class="progress-container hidden">
+                    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+                    <p class="progress-text" id="progress-text">Unlocking...</p>
+                </div>
+            </div>
+
+            <div id="results-panel" class="results-panel hidden">
+                <div id="results-list" class="results-list"></div>
+            </div>
+        </div>
+    </section>
+<footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col brand-col">
+                <a href="../index.html" class="logo">
+                    <img src="../assets/icons/logo.svg" alt="ZapPDF" width="24" height="24">
+                    <span>ZapPDF</span>
+                </a>
+                <p>Fast. Private. Free.</p>
+                <div class="social-icons">
+                    <a href="#" aria-label="GitHub">GH</a>
+                    <a href="#" aria-label="Twitter">X</a>
+                </div>
+            </div>
+                        <div class="footer-col">
+                <h4>Tools</h4>
+                <a href="../index.html">Compress PDF</a>
+                <a href="convert.html">Format Converter</a>
+                <a href="merge.html">Merge PDF</a>
+                <a href="split.html">Split PDF</a>
+                <a href="organize.html">Organize PDF</a>
+                <a href="redact.html">Redact PDF</a>
+                <a href="number.html">Page Numbers</a>
+                <a href="rotate.html">Rotate PDF</a>
+                <a href="ocr.html">OCR</a>
+                <a href="protect.html">Protect & Unlock</a>
+                <a href="watermark.html">Watermark</a>
+                <a href="extract.html">Extract Images</a>
+                <a href="crop.html">Crop PDF</a>
+                <a href="sign.html">eSign PDF</a>
+                <a href="edit.html">Add Text</a>
+            </div>
+            <div class="footer-col">
+                <h4>Company</h4>
+                <a href="../pages/about.html">About</a>
+                <a href="#">Blog</a>
+                <a href="#">Contact</a>
+                <a href="#">Changelog</a>
+            </div>
+            <div class="footer-col">
+                <h4>Legal</h4>
+                <a href="../pages/privacy.html">Privacy Policy</a>
+                <a href="../pages/terms.html">Terms of Use</a>
+                <a href="../pages/cookies.html">Cookie Policy</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <p>© 2026 ZapPDF — No files stored. Ever.</p>
+                <p>Designed and Developed by Abhranil Singha Roy.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Logic -->
+    <script src="../assets/js/theme.js"></script>
+    <script src="../assets/js/navbar.js"></script>
+    <script>
+(function() {
+    var state = { file: null, resultBlob: null, phase: 'idle' };
+    var els = {};
+
+    function fmt(bytes) {
+        if (!bytes) return '0 B';
+        var k = 1024, sz = ['B','KB','MB','GB'];
+        var i = Math.floor(Math.log(bytes)/Math.log(k));
+        return (bytes/Math.pow(k,i)).toFixed(2)+' '+sz[i];
+    }
+
+    function render() {
+        var up = document.getElementById('upload-zone');
+        var uc = document.getElementById('upload-compact');
+        var fl = document.getElementById('file-list');
+        var co = document.getElementById('controls');
+        var rp = document.getElementById('results-panel');
+        var rl = document.getElementById('results-list');
+        var pc = document.getElementById('progress-container');
+
+        up.classList.toggle('hidden', state.phase !== 'idle');
+        uc.classList.toggle('hidden', state.phase === 'idle');
+        fl.classList.toggle('hidden', state.phase === 'idle');
+        co.classList.toggle('hidden', state.phase === 'idle' || state.phase === 'done');
+        rp.classList.toggle('hidden', state.phase !== 'done');
+        if (pc) pc.classList.add('hidden');
+
+        if (state.phase === 'selected' && state.file) {
+            document.getElementById('file-count-text').textContent = '1 file selected';
+            fl.innerHTML = '<div class="file-card"><div class="file-info"><div class="file-name">'+state.file.name+'</div><div class="file-meta">'+fmt(state.file.size)+'</div></div></div>';
+        }
+        if (state.phase === 'done' && state.resultBlob) {
+            rl.innerHTML = '<div class="result-card"><div class="result-info"><div class="result-name">'+state.file.name.replace('.pdf','_unlocked.pdf')+'</div><div class="result-stats"><span class="stat-pill success">Unlocked</span><span style="color:var(--color-text-muted);font-size:13px;margin-left:8px;">Password removed successfully.</span></div></div><div class="result-actions"><button class="btn btn-primary btn-sm" id="btn-dl">Download Unlocked PDF</button></div></div>';
+            document.getElementById('btn-dl').onclick = function() {
+                var a = document.createElement('a');
+                a.href = URL.createObjectURL(state.resultBlob);
+                a.download = state.file.name.replace('.pdf','_unlocked.pdf');
+                a.click();
+            };
+        }
+    }
+
+    function setProgress(pct, txt) {
+        var pc = document.getElementById('progress-container');
+        var pf = document.getElementById('progress-fill');
+        var pt = document.getElementById('progress-text');
+        if (pc) pc.classList.remove('hidden');
+        if (pf) pf.style.width = pct+'%';
+        if (pt) pt.textContent = txt || '';
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var fi = document.getElementById('file-input');
+        var uz = document.getElementById('upload-zone');
+        var bu = document.getElementById('btn-unlock');
+        var bc = document.getElementById('btn-change-files');
+
+        fi.addEventListener('change', function(e) {
+            var f = e.target.files[0];
+            if (!f) return;
+            if (!f.name.toLowerCase().endsWith('.pdf') && f.type !== 'application/pdf') {
+                alert('Please select a PDF file.'); return;
+            }
+            state.file = f; state.phase = 'selected'; render();
+        });
+
+        uz.addEventListener('dragover', function(e){ e.preventDefault(); uz.classList.add('dragover'); });
+        uz.addEventListener('dragleave', function(){ uz.classList.remove('dragover'); });
+        uz.addEventListener('drop', function(e){
+            e.preventDefault(); uz.classList.remove('dragover');
+            var f = e.dataTransfer.files[0];
+            if (f) { state.file = f; state.phase = 'selected'; render(); }
+        });
+        uz.addEventListener('click', function(){ fi.click(); });
+
+        if (bc) bc.addEventListener('click', function(){ state.file=null; state.resultBlob=null; state.phase='idle'; fi.value=''; render(); });
+
+        if (bu) bu.addEventListener('click', async function() {
+            if (!state.file) return;
+            var pw = document.getElementById('pdf-password').value;
+            bu.disabled = true;
+            bu.innerHTML = '<span>Unlocking...</span>';
+            setProgress(20, 'Loading PDF...');
+            try {
+                var ab = await state.file.arrayBuffer();
+                setProgress(50, 'Decrypting...');
+                var pdfDoc;
+                try {
+                    pdfDoc = await PDFLib.PDFDocument.load(ab, { password: pw || undefined, ignoreEncryption: false });
+                } catch(e1) {
+                    // Try ignoreEncryption as last resort
+                    pdfDoc = await PDFLib.PDFDocument.load(ab, { ignoreEncryption: true });
+                }
+                setProgress(80, 'Saving unlocked document...');
+                var bytes = await pdfDoc.save();
+                state.resultBlob = new Blob([bytes], { type: 'application/pdf' });
+                setProgress(100, 'Done!');
+                setTimeout(function() { state.phase = 'done'; render(); }, 500);
+            } catch(err) {
+                console.error(err);
+                var msg = 'Failed to unlock PDF.';
+                if (err.message && (err.message.toLowerCase().includes('password') || err.message.toLowerCase().includes('encrypt'))) {
+                    msg = 'Incorrect password, or this PDF uses encryption not supported by this tool.';
+                }
+                alert(msg);
+                bu.disabled = false;
+                bu.innerHTML = '<span>Unlock PDF</span>';
+                document.getElementById('progress-container').classList.add('hidden');
+            }
+        });
+    });
+})();
+</script>
+</body>
+</html>

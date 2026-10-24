@@ -34,7 +34,7 @@ window.ZapMerge = {
             if (e.target.tagName !== 'SPAN') els.fileInput.click();
         });
         
-        document.querySelector('.upload-link').addEventListener('click', () => els.fileInput.click());
+        const lnk = document.querySelector('.upload-link'); if (lnk) lnk.addEventListener('click', () => els.fileInput.click());
         
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             els.uploadZone.addEventListener(eventName, e => {
@@ -99,25 +99,42 @@ window.ZapMerge = {
                 els.controls.classList.remove('hidden');
                 els.resultsPanel.classList.add('hidden');
                 els.progressContainer.classList.add('hidden');
-                els.fileCountText.textContent = `${state.files.length} file(s) selected`;
+                els.fileCountText.textContent = `${state.files.length} file(s) selected (drag to reorder)`;
                 
                 els.fileList.innerHTML = state.files.map((f, i) => `
-                    <div class="file-card">
-                        <div class="file-info">
-                            <div class="file-name">${i + 1}. ${f.name}</div>
-                            <div class="file-meta">${this.formatBytes(f.size)}</div>
+                    <div class="file-card" style="cursor: grab; display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; margin-bottom: 8px;">
+                        <div style="display: flex; align-items: center; gap: 12px; overflow: hidden;">
+                            <span style="color: var(--color-text-muted); font-size: 16px; cursor: grab;">☰</span>
+                            <div class="file-info" style="overflow: hidden;">
+                                <div class="file-name" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-weight: 600;">${i + 1}. ${f.name}</div>
+                                <div class="file-meta" style="font-size: 12px; color: var(--color-text-muted);">${this.formatBytes(f.size)}</div>
+                            </div>
                         </div>
+                        <button onclick="event.stopPropagation(); ZapMerge.removeFile(${i})" style="background: none; border: none; color: #ef4444; font-size: 18px; cursor: pointer; padding: 4px 8px;" title="Remove file">✕</button>
                     </div>
                 `).join('');
+
+                if (window.Sortable && els.fileList) {
+                    if (this._sortable) this._sortable.destroy();
+                    this._sortable = Sortable.create(els.fileList, {
+                        animation: 150,
+                        handle: '.file-card',
+                        onEnd: (evt) => {
+                            const moved = this.state.files.splice(evt.oldIndex, 1)[0];
+                            this.state.files.splice(evt.newIndex, 0, moved);
+                            this.render();
+                        }
+                    });
+                }
                 
                 els.btnMerge.disabled = state.files.length < 2;
                 els.btnMerge.innerHTML = state.files.length < 2 ? 
-                    `<img src="assets/icons/lightning.svg" width="24" height="24"> <span>Need at least 2 files</span>` :
-                    `<img src="assets/icons/lightning.svg" width="24" height="24"> <span>Merge ${state.files.length} Files</span>`;
+                    `<img src="../assets/icons/lightning.svg" width="24" height="24"> <span>Need at least 2 files</span>` :
+                    `<img src="../assets/icons/lightning.svg" width="24" height="24"> <span>Merge ${state.files.length} Files</span>`;
                 break;
             case 'merging':
                 els.btnMerge.disabled = true;
-                els.btnMerge.innerHTML = `<img src="assets/icons/lightning.svg" class="spinner" width="24" height="24"> <span>Merging...</span>`;
+                els.btnMerge.innerHTML = `<img src="../assets/icons/lightning.svg" class="spinner" width="24" height="24"> <span>Merging...</span>`;
                 els.progressContainer.classList.remove('hidden');
                 break;
             case 'done':

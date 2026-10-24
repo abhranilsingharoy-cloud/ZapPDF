@@ -40,7 +40,7 @@ window.ZapConvert = {
             if (e.target.tagName !== 'SPAN') els.fileInput.click();
         });
         
-        document.querySelector('.upload-link').addEventListener('click', () => els.fileInput.click());
+        const uploadLnk = document.querySelector('.upload-link'); if (uploadLnk) uploadLnk.addEventListener('click', () => els.fileInput.click());
         
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
             els.uploadZone.addEventListener(eventName, e => {

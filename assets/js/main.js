@@ -292,8 +292,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Attach DL handlers
     els.resultsList.addEventListener('click', (e) => {
-        if (e.target.closest('.btn-download')) {
-          const id = parseInt(e.target.closest('.btn-download').dataset.id);
+        if (e.target.closest('.btn-dl-single')) {
+          const id = parseInt(e.target.closest('.btn-dl-single').dataset.id);
           const fileObj = state.files.find(f => f.id === id);
           if (fileObj && fileObj.compressedBytes) {
             ZapDownload.downloadSingle(fileObj.compressedBytes, fileObj.file.name, fileObj.ext);
