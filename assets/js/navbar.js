@@ -1,30 +1,35 @@
-// navbar.js - Shared navigation logic for all ZapPDF pages
-// Handles: mobile menu, dropdowns, theme toggle, category filter
+// navbar.js - Global navigation, theme system, real-time search, and category filtering
+
 (function () {
   'use strict';
 
-  // ── 1. Theme (runs immediately to prevent flash) ──────────────────────────
-  (function applyTheme() {
+  // ── 1. Immediate Theme Setup (prevents white/dark flash) ──────────────────
+  (function applyStoredTheme() {
     var stored = localStorage.getItem('zap_theme');
     var preferLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
     var theme = stored || (preferLight ? 'light' : 'dark');
-    if (theme === 'light') document.body.classList.add('light-theme');
+    if (theme === 'light') {
+      document.body.classList.add('light-theme');
+    } else {
+      document.body.classList.remove('light-theme');
+    }
   })();
 
   document.addEventListener('DOMContentLoaded', function () {
 
-    // ── 2. Theme Toggle ───────────────────────────────────────────────────────
+    // ── 2. Dynamic Theme Toggler ───────────────────────────────────────────
     function getTheme() {
       return localStorage.getItem('zap_theme') ||
-        (window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        (document.body.classList.contains('light-theme') ? 'light' : 'dark');
     }
 
-    function applyTheme(theme) {
+    function updateThemeUI(theme) {
       if (theme === 'light') {
         document.body.classList.add('light-theme');
       } else {
         document.body.classList.remove('light-theme');
       }
+
       document.querySelectorAll('.theme-toggle-btn').forEach(function (btn) {
         btn.innerHTML = theme === 'light' ? '🌙' : '☀️';
         btn.title = theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
@@ -32,56 +37,57 @@
       });
     }
 
-    applyTheme(getTheme());
+    updateThemeUI(getTheme());
 
     document.addEventListener('click', function (e) {
       if (e.target.closest('.theme-toggle-btn')) {
-        var next = getTheme() === 'dark' ? 'light' : 'dark';
+        var current = getTheme();
+        var next = current === 'dark' ? 'light' : 'dark';
         localStorage.setItem('zap_theme', next);
-        applyTheme(next);
+        updateThemeUI(next);
       }
     });
 
-    // ── 3. Mobile Menu ────────────────────────────────────────────────────────
+    // ── 3. Mobile Navigation Drawer ────────────────────────────────────────
     var mobileBtn = document.querySelector('.mobile-menu-btn');
     var navLinks = document.querySelector('.nav-links');
 
     if (mobileBtn && navLinks) {
-      mobileBtn.style.display = ''; // Ensure visible on mobile via CSS
       mobileBtn.addEventListener('click', function () {
-        var isOpen = mobileBtn.getAttribute('aria-expanded') === 'true';
-        mobileBtn.setAttribute('aria-expanded', String(!isOpen));
-        if (!isOpen) {
-          navLinks.style.cssText = 'display:flex !important; flex-direction:column; position:fixed; top:72px; left:0; right:0; background:white; z-index:200; padding:16px 24px; border-bottom:1px solid #e5e7eb; box-shadow:0 4px 12px rgba(0,0,0,0.1); gap:16px;';
+        var isOpen = navLinks.classList.contains('mobile-open');
+        if (isOpen) {
+          navLinks.classList.remove('mobile-open');
+          mobileBtn.setAttribute('aria-expanded', 'false');
         } else {
-          navLinks.style.cssText = '';
+          navLinks.classList.add('mobile-open');
+          mobileBtn.setAttribute('aria-expanded', 'true');
         }
       });
 
       document.addEventListener('keydown', function (e) {
-        if (e.key === 'Escape' && mobileBtn.getAttribute('aria-expanded') === 'true') {
+        if (e.key === 'Escape' && navLinks.classList.contains('mobile-open')) {
+          navLinks.classList.remove('mobile-open');
           mobileBtn.setAttribute('aria-expanded', 'false');
-          navLinks.style.cssText = '';
         }
       });
     }
 
-    // ── 4. Dropdown Menus (hover + keyboard) ─────────────────────────────────
+    // ── 4. Dropdown Hover & Keyboard Access ─────────────────────────────────
     var dropdowns = document.querySelectorAll('.nav-dropdown');
     dropdowns.forEach(function (dd) {
       var toggle = dd.querySelector('.dropdown-toggle');
       var menu = dd.querySelector('.dropdown-menu');
       if (!toggle || !menu) return;
 
-      toggle.addEventListener('click', function (e) { e.preventDefault(); });
-
-      dd.addEventListener('mouseenter', function () { menu.style.display = 'block'; });
-      dd.addEventListener('mouseleave', function () { menu.style.display = ''; });
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+      });
 
       toggle.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' || e.key === ' ') {
           e.preventDefault();
-          menu.style.display = menu.style.display === 'block' ? '' : 'block';
+          var isOpen = menu.style.display === 'block';
+          menu.style.display = isOpen ? '' : 'block';
         }
         if (e.key === 'Escape') menu.style.display = '';
       });
@@ -96,40 +102,100 @@
       }
     });
 
-    // ── 5. Category Filter ────────────────────────────────────────────────────
-    var filterBtns = document.querySelectorAll('[data-filter-cat]');
+    // ── 5. Category Filter System (uses clean CSS classes) ─────────────────
+    var filterBtns = document.querySelectorAll('[data-filter-cat], .filter-tab-btn');
     var toolCards  = document.querySelectorAll('[data-categories]');
 
     if (filterBtns.length && toolCards.length) {
       filterBtns.forEach(function (btn) {
         btn.addEventListener('click', function () {
-          var cat = btn.dataset.filterCat;
+          var cat = btn.dataset.filterCat || btn.getAttribute('data-filter-cat') || 'all';
+
           filterBtns.forEach(function (b) {
-            b.style.background = '#ffffff';
-            b.style.color = '#4b5563';
-            b.style.border = '1px solid #e5e7eb';
+            b.classList.remove('active');
+            b.style.removeProperty('background');
+            b.style.removeProperty('color');
+            b.style.removeProperty('border');
           });
-          btn.style.background = '#333333';
-          btn.style.color = '#ffffff';
-          btn.style.border = 'none';
+
+          btn.classList.add('active');
+
+          var visibleCount = 0;
           toolCards.forEach(function (card) {
             var cats = (card.dataset.categories || '').toLowerCase();
-            card.style.display = (cat === 'all' || cats.indexOf(cat.toLowerCase()) !== -1) ? '' : 'none';
+            var matches = (cat === 'all' || cats.indexOf(cat.toLowerCase()) !== -1);
+            card.style.display = matches ? '' : 'none';
+            if (matches) visibleCount++;
           });
+
+          updateEmptyState(visibleCount, cat);
         });
       });
     }
 
-    // ── 6. Tool Search ────────────────────────────────────────────────────────
-    var searchInput = document.getElementById('tool-search');
+    // ── 6. Live Interactive Tool Search ────────────────────────────────────
+    var searchInput = document.getElementById('tool-search-input') || document.querySelector('.hero-search-input');
     if (searchInput && toolCards.length) {
-      searchInput.addEventListener('input', function () {
-        var q = searchInput.value.toLowerCase().trim();
+      searchInput.addEventListener('input', function (e) {
+        var query = e.target.value.toLowerCase().trim();
+        var visibleCount = 0;
+
         toolCards.forEach(function (card) {
-          card.style.display = (!q || card.textContent.toLowerCase().indexOf(q) !== -1) ? '' : 'none';
+          var title = (card.querySelector('h3')?.textContent || '').toLowerCase();
+          var desc = (card.querySelector('p')?.textContent || '').toLowerCase();
+          var cats = (card.dataset.categories || '').toLowerCase();
+
+          var matches = !query || title.includes(query) || desc.includes(query) || cats.includes(query);
+          card.style.display = matches ? '' : 'none';
+          if (matches) visibleCount++;
         });
+
+        // Also update filter tab state to All when searching
+        if (query) {
+          filterBtns.forEach(function (b) { b.classList.remove('active'); });
+          var allBtn = document.querySelector('[data-filter-cat="all"]');
+          if (allBtn) allBtn.classList.add('active');
+        }
+
+        updateEmptyState(visibleCount, query);
       });
     }
 
-  }); // DOMContentLoaded
+    function updateEmptyState(count, term) {
+      var grid = document.querySelector('.features-grid');
+      if (!grid) return;
+
+      var existingEmpty = document.getElementById('search-empty-state');
+      if (count === 0) {
+        if (!existingEmpty) {
+          var empty = document.createElement('div');
+          empty.id = 'search-empty-state';
+          empty.className = 'tools-empty-state';
+          empty.innerHTML = `
+            <div style="font-size:32px; margin-bottom:8px;">🔍</div>
+            <h3 style="font-size:18px; font-weight:700; color:var(--color-text);">No tools found matching "${term}"</h3>
+            <p style="color:var(--color-text-muted); font-size:14px; margin-bottom:16px;">Try searching for "merge", "split", "compress", or "word".</p>
+            <button class="btn btn-outline btn-sm" onclick="document.querySelector('[data-filter-cat=\\'all\\']')?.click(); if(document.querySelector('.hero-search-input')) document.querySelector('.hero-search-input').value='';">View All Tools</button>
+          `;
+          grid.appendChild(empty);
+        }
+      } else {
+        if (existingEmpty) existingEmpty.remove();
+      }
+    }
+
+    // ── 7. FAQ Accordion Click Handler ──────────────────────────────────────
+    var faqQuestions = document.querySelectorAll('.faq-question');
+    faqQuestions.forEach(function (q) {
+      q.addEventListener('click', function () {
+        var item = q.closest('.faq-item');
+        if (item) {
+          var isActive = item.classList.contains('active');
+          document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('active'); });
+          if (!isActive) item.classList.add('active');
+        }
+      });
+    });
+
+  });
 })();

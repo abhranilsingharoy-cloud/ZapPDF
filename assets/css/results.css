@@ -1,127 +1,109 @@
-/* Results Panel */
+/* ==========================================================================
+   ZapPDF — Results Panel & Download States
+   ========================================================================== */
+
 .results-panel {
-  margin-top: 40px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 32px 28px;
+  margin-top: 24px;
+  box-shadow: var(--shadow-md);
+  animation: resultFade 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes resultFade {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.results-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.results-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .results-list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .result-card {
-  background: var(--color-glass);
+  background: var(--color-surface-2);
   border: 1px solid var(--color-border);
-  backdrop-filter: blur(12px);
   border-radius: var(--radius-md);
-  padding: 24px;
-  animation: slide-up-fade 0.4s forwards;
-}
-
-.result-header {
+  padding: 18px 20px;
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: 16px;
+  gap: 16px;
+  flex-wrap: wrap;
+  transition: all var(--transition-fast);
 }
 
-.result-filename {
-  font-weight: 600;
-  font-size: 18px;
-  word-break: break-all;
+.result-card:hover {
+  border-color: var(--color-border-hover);
 }
 
-.badge-success {
-  background: rgba(34, 197, 94, 0.15);
-  color: var(--color-success);
-  padding: 4px 12px;
-  border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-weight: 600;
+.result-info {
   display: flex;
-  align-items: center;
-  gap: 4px;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+  flex: 1;
+  min-width: 200px;
+}
+
+.result-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .result-stats {
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  font-size: 15px;
-}
-
-.stat-before {
-  color: var(--color-text-muted);
-}
-
-.stat-arrow {
-  color: var(--color-text-muted);
-}
-
-.stat-after {
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.stat-badge {
-  background: var(--color-success);
-  color: #0F0F0F;
-  padding: 2px 8px;
-  border-radius: var(--radius-pill);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.result-progress-bg {
-  height: 6px;
-  background: var(--color-surface-2);
-  border-radius: 3px;
-  margin-bottom: 24px;
-  overflow: hidden;
-}
-
-.result-progress-fill {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
-  border-radius: 3px;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .result-actions {
   display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.btn-ghost {
-  background: none;
-  border: 1px solid transparent;
-  color: var(--color-text-muted);
-  cursor: pointer;
-}
-
-.btn-ghost:hover {
-  background: var(--color-surface-2);
-  color: var(--color-text);
-}
-
-/* Batch Download Bar */
-.batch-download-bar {
-  position: sticky;
-  bottom: 24px;
-  background: rgba(34, 34, 34, 0.85);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--color-border);
-  padding: 16px 24px;
-  border-radius: var(--radius-md);
-  display: flex;
-  justify-content: space-between;
   align-items: center;
-  margin-top: 32px;
-  z-index: 90;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+  gap: 10px;
 }
 
-.batch-stats {
-  font-weight: 500;
+.batch-download-bar {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .result-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .result-actions {
+    width: 100%;
+    justify-content: flex-start;
+  }
 }

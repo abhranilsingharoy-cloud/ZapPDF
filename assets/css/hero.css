@@ -1,138 +1,153 @@
+/* ==========================================================================
+   ZapPDF — Modern SaaS Hero Section & Interactive Tool Finder
+   ========================================================================== */
+
 .hero {
-  min-height: 92vh;
+  padding: 64px 24px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   position: relative;
-  background: radial-gradient(circle at top center, rgba(245,197,24,0.08) 0%, var(--color-bg) 60%);
-  padding: 0 24px;
-}
-
-.particle-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: -2;
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--color-primary);
-  border-radius: 50%;
-  opacity: 0.3;
-  animation: float-particles 15s infinite linear;
-}
-
-@keyframes float-particles {
-  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
-  10% { opacity: 0.5; }
-  90% { opacity: 0.5; }
-  100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+  background: transparent;
 }
 
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  max-width: 840px;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.hero-content > * {
-  animation: fade-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-.badge-chip { animation-delay: 0.1s; }
-.hero h1 { animation-delay: 0.2s; }
-.hero p { animation-delay: 0.3s; }
-.trust-badges { animation-delay: 0.4s; }
-.hero-actions { animation-delay: 0.5s; }
-.social-proof { animation-delay: 0.6s; }
-
-@keyframes fade-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
+/* Trust Pill */
 .badge-chip {
-  background: rgba(245, 197, 24, 0.1);
-  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-surface-2);
+  color: var(--color-text);
   border: 1px solid var(--color-border);
   padding: 6px 16px;
   border-radius: var(--radius-pill);
   font-size: 13px;
   font-weight: 600;
   margin-bottom: 24px;
-  backdrop-filter: blur(4px);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-fast);
+}
+
+.badge-chip .badge-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-success);
+  display: inline-block;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.6);
 }
 
 .hero h1 {
-  font-size: clamp(36px, 6vw, 64px);
+  font-size: clamp(34px, 5.2vw, 56px);
   font-weight: 800;
-  margin-bottom: 24px;
-  letter-spacing: -1px;
+  margin-bottom: 20px;
+  letter-spacing: -0.03em;
+  color: var(--color-text);
+  line-height: 1.15;
 }
 
-.gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-amber));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  color: transparent;
+.hero h1 .highlight-accent {
+  color: var(--color-primary);
+  display: inline-block;
+  position: relative;
 }
 
 .hero p {
-  font-size: clamp(16px, 2vw, 20px);
+  font-size: clamp(16px, 1.8vw, 19px);
   color: var(--color-text-muted);
-  max-width: 600px;
+  max-width: 640px;
+  margin-bottom: 32px;
+  line-height: 1.6;
+}
+
+/* Tool Search Bar in Hero */
+.hero-search-wrapper {
+  width: 100%;
+  max-width: 620px;
+  position: relative;
   margin-bottom: 32px;
 }
 
-.trust-badges {
-  display: flex;
-  gap: 16px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 40px;
-}
-
-.trust-chip {
+.hero-search-input {
+  width: 100%;
+  padding: 16px 52px 16px 48px;
+  font-size: 15px;
   background: var(--color-surface);
+  color: var(--color-text);
   border: 1px solid var(--color-border);
-  padding: 6px 14px;
   border-radius: var(--radius-pill);
-  font-size: 13px;
-  color: var(--color-text-muted);
+  box-shadow: var(--shadow-md);
+  outline: none;
+  transition: all var(--transition);
 }
 
+.hero-search-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-subtle), var(--shadow-md);
+}
+
+.hero-search-icon {
+  position: absolute;
+  left: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-text-dim);
+  pointer-events: none;
+}
+
+.hero-search-clear {
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--color-text-dim);
+  cursor: pointer;
+  font-size: 16px;
+  display: none;
+}
+
+/* Hero Action Shortcuts */
 .hero-actions {
   display: flex;
-  gap: 16px;
+  gap: 12px;
+  flex-wrap: wrap;
   justify-content: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 
 .social-proof {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 8px;
-  font-size: 14px;
-  color: var(--color-text-muted);
+  font-size: 13px;
+  color: var(--color-text-dim);
 }
 
-.stars {
-  color: var(--color-primary);
-  font-size: 18px;
+.social-proof .stars {
+  color: #F59E0B;
   letter-spacing: 2px;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 40px 16px 24px;
+  }
+  .hero-search-input {
+    padding: 14px 40px 14px 42px;
+    font-size: 14px;
+  }
 }
